@@ -1,0 +1,112 @@
+{
+  "uart_tx": {
+    "ownership": 1,
+    "open_drain": 0,
+    "divider": 26,
+    "timeout": 0,
+    "pins": {
+      "tx": 0
+    },
+    "description": "8N1, LSB first; 16 core ticks/bit; TX FIFO stream",
+    "words": 9,
+    "labels": {
+      "next_byte": 2,
+      "bit": 5
+    }
+  },
+  "uart_rx": {
+    "ownership": 0,
+    "open_drain": 0,
+    "divider": 26,
+    "timeout": 0,
+    "pins": {
+      "rx": 0
+    },
+    "description": "8N1 receiver, 16 ticks/bit; samples 1.5 bits after synchronized start; bad stop sets event1 and halts",
+    "words": 13,
+    "labels": {
+      "next_byte": 0,
+      "bit": 2,
+      "framing_error": 11
+    }
+  },
+  "spi_mode0": {
+    "ownership": 11,
+    "open_drain": 0,
+    "divider": 1,
+    "timeout": 0,
+    "pins": {
+      "mosi": 0,
+      "sck": 1,
+      "miso": 2,
+      "cs_n": 3
+    },
+    "description": "Mode0 MSB-first full duplex, one CS pulse per byte, 18 ticks/bit; TX in / RX out",
+    "words": 13,
+    "labels": {
+      "next_byte": 2,
+      "bit": 5
+    }
+  },
+  "i2c_write": {
+    "ownership": 3,
+    "open_drain": 3,
+    "divider": 31,
+    "timeout": 4096,
+    "pins": {
+      "sda": 0,
+      "scl": 1
+    },
+    "description": "Single-controller write: TX count-minus-one then address/data bytes; RX one ACK bit/byte (0 ACK, 1 NACK); aborts on NACK; START/STOP and stretch-aware SCL",
+    "words": 29,
+    "labels": {
+      "next_byte": 8,
+      "bit": 10,
+      "stop": 24
+    }
+  },
+  "i2c_read": {
+    "ownership": 3,
+    "open_drain": 3,
+    "divider": 31,
+    "timeout": 4096,
+    "pins": {
+      "sda": 0,
+      "scl": 1
+    },
+    "description": "Single-controller read: TX read-count-minus-one then address byte with R/W=1; RX address ACK followed by data; controller ACKs all except final byte (NACK), aborts address NACK",
+    "words": 46,
+    "labels": {
+      "address_bit": 10,
+      "next_byte": 23,
+      "read_bit": 25,
+      "last_byte": 34,
+      "acknowledge": 35,
+      "stop": 41
+    }
+  },
+  "edge_capture": {
+    "ownership": 0,
+    "open_drain": 0,
+    "divider": 0,
+    "timeout": 4096,
+    "pins": {
+      "edge_input": 0
+    },
+    "description": "Wait for low then rising input; capture synchronized pads/cycle count, broadcast event0",
+    "words": 5,
+    "labels": {}
+  },
+  "event_pulse": {
+    "ownership": 128,
+    "open_drain": 0,
+    "divider": 0,
+    "timeout": 4096,
+    "pins": {
+      "pulse_output": 7
+    },
+    "description": "Wait/consume event0, emit nine-tick pulse on pin7, halt and release",
+    "words": 5,
+    "labels": {}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "name": "tempo",
+  "top_module": "tt_um_protocol_emulator",
+  "rtl_files": ["src/tt_um_protocol_emulator.v", "src/tempo_core.v", "src/tempo_fifo.v"],
+  "adapter": "adapter.py",
+  "license": "Apache-2.0",
+  "license_file": "LICENSE",
+  "attribution_file": "NOTICE",
+  "upstream": {
+    "repository": "https://github.com/satyaammu93/jane-street-asic-2026",
+    "commit": "65e0a742c1f91ac730c137afea5e154287267d67",
+    "path": "protocol_emulator"
+  }
+}

@@ -1,0 +1,19 @@
+test_adapter_cannot_supply_expected_results_hdl_or_expressions (test_verifier.AdapterAndMetricBoundaryTests.test_adapter_cannot_supply_expected_results_hdl_or_expressions) ... ok
+test_capture_must_observe_all_result_bits_once (test_verifier.AdapterAndMetricBoundaryTests.test_capture_must_observe_all_result_bits_once) ... ok
+test_nonfinite_and_boolean_scores_rejected (test_verifier.AdapterAndMetricBoundaryTests.test_nonfinite_and_boolean_scores_rejected) ... ok
+test_apache_label_requires_complete_license_text (test_verifier.CandidateBoundaryTests.test_apache_label_requires_complete_license_text) ... ok
+test_baseline_validate_and_snapshot_preserve_source_identity (test_verifier.CandidateBoundaryTests.test_baseline_validate_and_snapshot_preserve_source_identity) ... ok
+test_changed_manifest_and_source_are_rejected_during_snapshot (test_verifier.CandidateBoundaryTests.test_changed_manifest_and_source_are_rejected_during_snapshot) ... ok
+test_duplicate_json_keys_cannot_override_manifest_fields (test_verifier.CandidateBoundaryTests.test_duplicate_json_keys_cannot_override_manifest_fields) ... ok
+test_manifest_cannot_address_outside_candidate (test_verifier.CandidateBoundaryTests.test_manifest_cannot_address_outside_candidate) ... ok
+test_missing_wrong_width_or_extra_tt_ports_rejected (test_verifier.CandidateBoundaryTests.test_missing_wrong_width_or_extra_tt_ports_rejected) ... ok
+test_simulation_tasks_cannot_forge_verifier_completion (test_verifier.CandidateBoundaryTests.test_simulation_tasks_cannot_forge_verifier_completion) ... ok
+test_symlinked_file_and_directory_cannot_escape_snapshot (test_verifier.CandidateBoundaryTests.test_symlinked_file_and_directory_cannot_escape_snapshot) ... ok
+test_adapter_cannot_read_host_write_candidate_or_use_network (test_verifier.RealBoundaryIntegrationTests.test_adapter_cannot_read_host_write_candidate_or_use_network) ... ok
+test_nonterminating_adapter_leaves_no_container (test_verifier.RealBoundaryIntegrationTests.test_nonterminating_adapter_leaves_no_container) ... ok
+test_synthesizable_design_missing_enable_port_rejected (test_verifier.RealBoundaryIntegrationTests.test_synthesizable_design_missing_enable_port_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 20.597s
+
+OK

@@ -1,0 +1,14 @@
+{
+  "initial_state": "Docker Desktop GUI/backend responsive enough for CLI start, but daemon API timed out; VM log recorded earlier graceful stop following disk-full error.",
+  "current_host_free_space_gib": 321,
+  "recovery": [
+    "docker desktop restart --timeout 45 (graceful frontend shutdown timed out)",
+    "docker desktop stop --force --timeout 30",
+    "docker desktop start --timeout 45"
+  ],
+  "daemon_version_after_recovery": "29.8.0",
+  "data_deleted": false,
+  "container_image": "ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a",
+  "image_platform": "linux/amd64",
+  "image_status": "downloaded and digest verified"
+}

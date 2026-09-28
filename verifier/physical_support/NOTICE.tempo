@@ -1,0 +1,17 @@
+Tempo programmable protocol emulator
+
+The Tiny Tapeout project scaffolding in .github/workflows/, src/config.json,
+and the initial .gitignore and info.yaml structure comes from:
+https://github.com/TinyTapeout/ttihp-verilog-template
+branch cmos5l, commit b86a2a781484bcab7ba522dc5de540086695a430.
+
+That template is distributed under the Apache License, Version 2.0, reproduced
+in LICENSE. Project-specific additions and modifications were made in 2026.
+
+External tools, the IHP process design kit, and standard-cell models retain
+their upstream licenses and are fetched separately rather than redistributed
+as project source. Their exact selected versions appear in flow-lock.json.
+
+Generated physical layouts contain IHP standard-cell geometry from the pinned
+IHP Open PDK, copyright IHP PDK Authors, licensed under Apache 2.0. The unmodified
+PDK source and its notices are available at the repository revision in flow-lock.json.

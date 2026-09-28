@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "method": "Yosys SAT temporal induction",
+  "induction_depth": 2,
+  "assertions": 31,
+  "assumptions": [
+    "rst_n low on first sampled edge"
+  ],
+  "scope": "Tempo-specific architectural core invariants; arbitrary subsequent inputs",
+  "tool": "Yosys 0.69+154, git 30d62572e",
+  "source_sha256": {
+    "src/tempo_core.v": "bebf84addbd0ed6131f4051b37f2668e27a4d363a180b98699dd395591578447",
+    "formal/core_properties.v": "28dddc81ade19affc6df326f12e1fcb42f42b0005aec2676655ef248d5c681eb",
+    "formal/core.ys": "58e3db4246a6fba9883753d59c8075547e890b273f007c23f9b27d530217fd4a"
+  },
+  "log": "reports/toolchain-tempo-formal.log"
+}

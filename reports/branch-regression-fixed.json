@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "regression": "previously accepted branch-independent program is rejected",
+  "controlled_peer_seed": 1,
+  "functional_result": {
+    "status": "fail",
+    "checks": [
+      {
+        "name": "adapter_contract",
+        "status": "pass",
+        "detail": "43 bounded JSON workloads"
+      },
+      {
+        "name": "compile",
+        "status": "pass",
+        "detail": "exit 0"
+      },
+      {
+        "name": "external_pin_protocols",
+        "status": "fail",
+        "detail": "23/75 stages completed; exit 1"
+      },
+      {
+        "name": "same_hardware",
+        "status": "pass",
+        "detail": "one elaboration for all protocols and repeated live firmware replacement"
+      }
+    ],
+    "metrics": {},
+    "artifacts": {
+      "private_replay": "/Users/fork/Documents/ChatGPT/janeS/.runs/branch-regression-seed1/functional/private_replay.json",
+      "testbench": "/Users/fork/Documents/ChatGPT/janeS/.runs/branch-regression-seed1/functional/trusted_tb.sv",
+      "compile_log": "/Users/fork/Documents/ChatGPT/janeS/.runs/branch-regression-seed1/functional/compile.log",
+      "simulation_log": "/Users/fork/Documents/ChatGPT/janeS/.runs/branch-regression-seed1/functional/simulation.log",
+      "rtl_sha256": {
+        "src/tt_um_protocol_emulator.v": "9fe37c88a66fe2d29199c7369414f09d7de2386c08071b1d5f0356340ff7ffbc",
+        "src/tempo_core.v": "bebf84addbd0ed6131f4051b37f2668e27a4d363a180b98699dd395591578447",
+        "src/tempo_fifo.v": "bdc3ef57493d891d0cef0525be956996d7d98d51688739dfdba6d85bf77cc183"
+      }
+    }
+  }
+}

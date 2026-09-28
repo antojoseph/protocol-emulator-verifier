@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "accepted": true,
+  "score": 1.9403761225075868,
+  "full_result": ".runs/tempo-full-004/result.json",
+  "full_result_sha256": "1696823024b691bed7c649e52c6d170357dbdb55f408b3714ebd444981a8f3ee",
+  "score_copy": "reports/baseline-full.json",
+  "source_files": 29,
+  "verifier_files": 18,
+  "current_source_matches_accepted_snapshot": true,
+  "current_verifier_matches_accepted_hashes": true,
+  "started_utc": "2026-09-28T06:45:05.423499+00:00",
+  "completed_utc": "2026-09-28T08:43:50.569125+00:00",
+  "elapsed_seconds": 7125.145626,
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "container_platform": "linux/amd64"
+  },
+  "stages": {
+    "synthesis": "pass",
+    "functional": "pass",
+    "physical": "pass",
+    "gates": "pass"
+  },
+  "rtl": {
+    "clock_hz": 50000000,
+    "case_count": 43,
+    "stage_count": 75,
+    "assertions": 48803,
+    "simulation_cycles": 285427
+  },
+  "gates": {
+    "clock_hz": 50000000,
+    "case_count": 43,
+    "stage_count": 75,
+    "assertions": 48754,
+    "simulation_cycles": 283353
+  },
+  "physical": {
+    "stdcell_area_um2": 515364,
+    "clock_hz": 50000000,
+    "die_area_um2": 916213.9391999999,
+    "timing": {
+      "nom_fast_1p32V_m40C": {
+        "setup_slack_ns": 8.986392329069226,
+        "hold_slack_ns": 0.04879702335876003
+      },
+      "nom_typ_1p20V_25C": {
+        "setup_slack_ns": 7.444561622320102,
+        "hold_slack_ns": 0.20476032560177698
+      },
+      "nom_slow_1p08V_125C": {
+        "setup_slack_ns": 2.075781383313503,
+        "hold_slack_ns": 0.4868013907542178
+      }
+    },
+    "fanout_advisories": 270
+  },
+  "official_prechecks": [
+    "KLayout pin label overlapping drawing",
+    "KLayout SG13CMOS5L DRC",
+    "KLayout zero area",
+    "KLayout Checks",
+    "Pin check",
+    "Boundary check",
+    "Layer check",
+    "Cell name check",
+    "Analog pin check"
+  ],
+  "unit_and_integration_tests": 52,
+  "negative_control_rejections": 16,
+  "additional_fast_baseline_passes": 2,
+  "evidence": {
+    "tests": "reports/toolchain-strengthened-tests.log",
+    "negative_controls": "reports/toolchain-strengthened-mutation-results.json",
+    "yukon_schema": "reports/yukon-manifest-audit.json"
+  },
+  "scope": "Technical benchmark validation; publication and official submission are separate.",
+  "official_submission_ready": false
+}

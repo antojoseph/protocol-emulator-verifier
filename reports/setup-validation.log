@@ -1,0 +1,12 @@
+29.8.0
+ghcr.io/librelane/librelane@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a: Pulling from librelane/librelane
+Digest: sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a
+Status: Image is up to date for ghcr.io/librelane/librelane@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a
+ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a
++ git -C /Users/fork/Documents/ChatGPT/janeS/.tools/physical/tt diff HEAD --exit-code
++ git -C /Users/fork/Documents/ChatGPT/janeS/.tools/physical/pdk diff HEAD --exit-code
++ docker info --format {{.ServerVersion}}
+29.8.0
++ docker run --rm --platform=linux/amd64 --network=none --read-only --cap-drop=ALL --security-opt=no-new-privileges --memory=16g --cpus=4 --pids-limit=2048 --tmpfs /tmp:rw,size=1g --user 502:20 --volume /Users/fork/Documents/ChatGPT/janeS/.tools/physical/precheck-python:/Users/fork/Documents/ChatGPT/janeS/.tools/physical/precheck-python:ro --env PYTHONPATH=/Users/fork/Documents/ChatGPT/janeS/.tools/physical/precheck-python --env PYTHONDONTWRITEBYTECODE=1 --env LD_LIBRARY_PATH=/nix/store/chqq8mpmpyfi9kgsngya71akv5xicn03-gcc-15.2.0-lib/lib:/nix/store/d8927sznk6qnqln6hl9p4d42h8pq49vg-expat-2.8.0/lib:/nix/store/61a1nwx3w6rqyaisj5rn1sal1981apm7-zlib-1.3.2/lib ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a python3 -c import sys,json,importlib.metadata,gdstk,klayout.db,klayout.rdb,yaml; assert sys.version_info[:2]==(3,13); versions={name:importlib.metadata.version(name) for name in ['numpy', 'gdstk', 'klayout', 'PyYAML']}; assert versions=={'numpy': '2.2.6', 'gdstk': '0.9.60', 'klayout': '0.29.12', 'PyYAML': '6.0.2'}; print(json.dumps(versions))
+{"numpy": "2.2.6", "gdstk": "0.9.60", "klayout": "0.29.12", "PyYAML": "6.0.2"}
+Physical dependencies prepared in /Users/fork/Documents/ChatGPT/janeS/.tools/physical; no host EDA/Python packages installed

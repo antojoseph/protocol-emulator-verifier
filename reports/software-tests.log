@@ -1,0 +1,11 @@
+test_committed_firmware_matches_assembler_and_manifest (test_software.SoftwareTests) ... ok
+test_forward_backward_labels_and_exact_fields (test_software.SoftwareTests) ... ok
+test_host_byte_nibble_order_and_snapshot_reads (test_software.SoftwareTests) ... ok
+test_precise_divider_delay_loop_and_timeout_boundary (test_software.SoftwareTests) ... ok
+test_reject_bad_source_without_silent_truncation (test_software.SoftwareTests) ... ok
+test_restart_flush_and_load_bounds (test_software.SoftwareTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.003s
+
+OK

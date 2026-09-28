@@ -1,0 +1,37 @@
+test_committed_firmware_matches_assembler_and_manifest (test_software.SoftwareTests) ... ok
+test_forward_backward_labels_and_exact_fields (test_software.SoftwareTests) ... ok
+test_host_byte_nibble_order_and_snapshot_reads (test_software.SoftwareTests) ... ok
+test_precise_divider_delay_loop_and_timeout_boundary (test_software.SoftwareTests) ... ok
+test_reject_bad_source_without_silent_truncation (test_software.SoftwareTests) ... ok
+test_restart_flush_and_load_bounds (test_software.SoftwareTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK
+PASS: 65 core assertions
+/private/tmp/janes-tempo-investigation/protocol_emulator/test/core_tb.v:227: $finish called at 656530000 (1ps)
+PASS: FIFO 10010 queue-model comparisons
+/private/tmp/janes-tempo-investigation/protocol_emulator/test/fifo_tb.v:44: $finish called at 100136000 (1ps)
+PASS: wrapper 29 host/safety/ownership/event assertions
+/private/tmp/janes-tempo-investigation/protocol_emulator/test/wrapper_tb.v:105: $finish called at 17672000 (1ps)
+Generated 24000 cycle vectors, seed 20260919
+PASS model_tb: 24000 randomized cycle comparisons with independent Python interpreter
+/private/tmp/janes-tempo-investigation/protocol_emulator/test/model_tb.sv:47: $finish called at 240010000 (1ps)
+PASS UART TX: two bytes decoded from pin at exact configured bit period
+PASS UART TX default divider26 at50MHz: 432 clocks/bit = 115740.74 baud
+PASS UART RX: four back-to-back frames recovered through synchronized input
+PASS UART RX default divider26: non-clock-aligned 115200baud source, two back-to-back frames
+PASS UART framing error: break/bad stop reports event1 and rejects frame
+PASS UART isolated malformed stop: data transitions followed by low stop rejected
+PASS UART RX backpressure timeout: full FIFO faults after configured blocking limit
+PASS SPI mode0 default divider1: two full-duplex bytes, 36clock period = 1.388889MHz
+PASS I2C write default divider31: address/data, ACK, stretching and exact START/STOP counts
+PASS I2C write NACK: reports NACK and terminates transaction
+PASS I2C read: responder address ACK, two bytes, controller ACK then NACK
+PASS I2C read address NACK: reports result and emits STOP without reading data
+PASS I2C stretch timeout: stuck bus faults and releases pads
+PASS capture/event: synchronized edge starts another engine's timed pulse
+PASS protocols_tb: 4574 checks
+/private/tmp/janes-tempo-investigation/protocol_emulator/test/protocols_tb.sv:447: $finish called at 1044131000 (1ps)
+Tempo RTL suite: 6 cases, 0 failures; results.xml written

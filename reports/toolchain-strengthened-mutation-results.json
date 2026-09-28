@@ -1,0 +1,183 @@
+{
+  "status": "pass",
+  "started_utc": "2026-09-28T06:43:58.572386+00:00",
+  "seeds": [
+    2361512867,
+    4137575304
+  ],
+  "controls": [
+    {
+      "name": "baseline",
+      "seed": 2361512867,
+      "status": "pass"
+    },
+    {
+      "name": "uart_inverted_data",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '0/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-uart_inverted_data-2361512867/functional/trusted_tb.sv:85: FAIL case=0 UART complete 8N1 bit-window stability cycle=927"
+      ]
+    },
+    {
+      "name": "spi_inverted_mosi",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '2/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-spi_inverted_mosi-2361512867/functional/trusted_tb.sv:85: FAIL case=2 SPI mode0 MSB-first MOSI data cycle=30116"
+      ]
+    },
+    {
+      "name": "i2c_drives_high",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '6/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-i2c_drives_high-2361512867/functional/trusted_tb.sv:56: FAIL I2C controller high drive between clock samples",
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-i2c_drives_high-2361512867/functional/trusted_tb.sv:61: FAIL I2C tLOW below 4.7us"
+      ]
+    },
+    {
+      "name": "programmable_inverted_output",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-programmable_inverted_output-2361512867/functional/trusted_tb.sv:85: FAIL case=11 programmable output cannot pulse during initialization cycle=167659"
+      ]
+    },
+    {
+      "name": "ignore_programmable_wait",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-ignore_programmable_wait-2361512867/functional/trusted_tb.sv:80: FAIL unsolicited programmable output outside the triggered pulse train"
+      ]
+    },
+    {
+      "name": "wrong_host_capture",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '1/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-wrong_host_capture-2361512867/functional/trusted_tb.sv:85: FAIL case=1 host read equals independent peer data/result cycle=29033"
+      ]
+    },
+    {
+      "name": "premature_programmable_pulse",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-premature_programmable_pulse-2361512867/functional/trusted_tb.sv:80: FAIL unsolicited programmable output outside the triggered pulse train"
+      ]
+    },
+    {
+      "name": "hardcoded_branch_guess",
+      "seed": 2361512867,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '25/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-hardcoded_branch_guess-2361512867/functional/trusted_tb.sv:85: FAIL case=18 runtime branch selected programmed pulse width cycle=191921"
+      ]
+    },
+    {
+      "name": "baseline",
+      "seed": 4137575304,
+      "status": "pass"
+    },
+    {
+      "name": "uart_inverted_data",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '0/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-uart_inverted_data-4137575304/functional/trusted_tb.sv:85: FAIL case=0 UART complete 8N1 bit-window stability cycle=927"
+      ]
+    },
+    {
+      "name": "spi_inverted_mosi",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '2/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-spi_inverted_mosi-4137575304/functional/trusted_tb.sv:85: FAIL case=2 SPI mode0 MSB-first MOSI data cycle=30197"
+      ]
+    },
+    {
+      "name": "i2c_drives_high",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '6/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-i2c_drives_high-4137575304/functional/trusted_tb.sv:56: FAIL I2C controller high drive between clock samples",
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-i2c_drives_high-4137575304/functional/trusted_tb.sv:61: FAIL I2C tLOW below 4.7us"
+      ]
+    },
+    {
+      "name": "programmable_inverted_output",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-programmable_inverted_output-4137575304/functional/trusted_tb.sv:85: FAIL case=11 programmable output cannot pulse during initialization cycle=168066"
+      ]
+    },
+    {
+      "name": "ignore_programmable_wait",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-ignore_programmable_wait-4137575304/functional/trusted_tb.sv:80: FAIL unsolicited programmable output outside the triggered pulse train"
+      ]
+    },
+    {
+      "name": "wrong_host_capture",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '1/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-wrong_host_capture-4137575304/functional/trusted_tb.sv:85: FAIL case=1 host read equals independent peer data/result cycle=29033"
+      ]
+    },
+    {
+      "name": "premature_programmable_pulse",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-premature_programmable_pulse-4137575304/functional/trusted_tb.sv:80: FAIL unsolicited programmable output outside the triggered pulse train"
+      ]
+    },
+    {
+      "name": "hardcoded_branch_guess",
+      "seed": 4137575304,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '43 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/75 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]",
+      "assertion_failures": [
+        "FATAL: /Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/result-hardcoded_branch_guess-4137575304/functional/trusted_tb.sv:85: FAIL case=11 runtime branch selected programmed pulse width cycle=168150"
+      ]
+    }
+  ],
+  "completed_utc": "2026-09-28T06:52:10.481617+00:00"
+}

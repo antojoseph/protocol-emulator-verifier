@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "name": "programmable-protocol-emulator",
+  "category": "hardware",
+  "description": "Minimize routed CMOS5L standard-cell area while passing independent protocol, programmability, timing, and 6x4 physical checks.",
+  "direction": "+",
+  "editablePaths": ["candidates/tempo"],
+  "setupCommand": ["bash", "-lc", "./setup.sh --physical"],
+  "benchmarkCommand": ["bash", "-lc", "./benchmark.sh"],
+  "scorePath": "score.json",
+  "maxSubmissionBytes": 8388608,
+  "minScoreImprovementBips": 1
+}

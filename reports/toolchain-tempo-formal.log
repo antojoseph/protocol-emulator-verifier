@@ -1,0 +1,906 @@
+
+-- Executing script file `formal/core.ys' --
+
+1. Executing Verilog-2005 frontend: src/tempo_core.v
+Parsing formal SystemVerilog input from `src/tempo_core.v' to AST representation.
+Generating RTLIL representation for module `\tempo_core'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: formal/core_properties.v
+Parsing formal SystemVerilog input from `formal/core_properties.v' to AST representation.
+Generating RTLIL representation for module `\core_properties'.
+Successfully finished Verilog frontend.
+
+3. Executing PREP pass.
+
+3.1. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1.1. Analyzing design hierarchy..
+Top module:  \core_properties
+Used module:     \tempo_core
+
+3.1.2. Analyzing design hierarchy..
+Top module:  \core_properties
+Used module:     \tempo_core
+Removed 0 unused modules.
+Module core_properties directly or indirectly contains formal properties -> setting "keep" attribute.
+
+3.2. Executing PROC pass (convert processes to netlists).
+
+3.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$formal/core_properties.v:35$176 in module core_properties.
+Marked 12 switch rules as full_case in process $proc$src/tempo_core.v:103$79 in module tempo_core.
+Marked 4 switch rules as full_case in process $proc$src/tempo_core.v:87$75 in module tempo_core.
+Removed a total of 0 dead cases.
+
+3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 32 assignments to connections.
+
+3.2.4. Executing PROC_INIT pass (extract init attributes).
+Found init rule in `\core_properties.$proc$formal/core_properties.v:34$317'.
+  Set init value: \past_valid = 1'0
+
+3.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~40 debug messages>
+
+3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\core_properties.$proc$formal/core_properties.v:34$317'.
+Creating decoders for process `\core_properties.$proc$formal/core_properties.v:35$176'.
+     1/32: $assert$formal/core_properties.v:110$312_EN
+     2/32: $assert$formal/core_properties.v:109$310_EN
+     3/32: $assert$formal/core_properties.v:108$307_EN
+     4/32: $assert$formal/core_properties.v:103$305_EN
+     5/32: $assert$formal/core_properties.v:102$302_EN
+     6/32: $assert$formal/core_properties.v:99$299_EN
+     7/32: $assert$formal/core_properties.v:98$296_EN
+     8/32: $assert$formal/core_properties.v:97$294_EN
+     9/32: $assert$formal/core_properties.v:94$292_EN
+    10/32: $assert$formal/core_properties.v:93$289_EN
+    11/32: $assert$formal/core_properties.v:92$287_EN
+    12/32: $assert$formal/core_properties.v:83$285_EN
+    13/32: $assert$formal/core_properties.v:76$280_EN
+    14/32: $assert$formal/core_properties.v:75$279_EN
+    15/32: $assert$formal/core_properties.v:69$277_EN
+    16/32: $assert$formal/core_properties.v:67$275_EN
+    17/32: $assert$formal/core_properties.v:66$274_EN
+    18/32: $assert$formal/core_properties.v:62$272_EN
+    19/32: $assert$formal/core_properties.v:61$269_EN
+    20/32: $assert$formal/core_properties.v:58$263_EN
+    21/32: $assert$formal/core_properties.v:57$259_EN
+    22/32: $assert$formal/core_properties.v:56$253_EN
+    23/32: $assert$formal/core_properties.v:55$247_EN
+    24/32: $assert$formal/core_properties.v:54$241_EN
+    25/32: $assert$formal/core_properties.v:51$236_EN
+    26/32: $assert$formal/core_properties.v:49$232_EN
+    27/32: $assert$formal/core_properties.v:48$228_EN
+    28/32: $assert$formal/core_properties.v:45$217_EN
+    29/32: $assert$formal/core_properties.v:44$211_EN
+    30/32: $assert$formal/core_properties.v:43$209_EN
+    31/32: $assert$formal/core_properties.v:41$205_EN
+    32/32: $assume$formal/core_properties.v:37$203_EN
+Creating decoders for process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+     1/37: $0\shift_reg[7:0] [7]
+     2/37: $0\shift_reg[7:0] [0]
+     3/37: $0\shift_reg[7:0] [6:1]
+     4/37: $9$lookahead\pin_out$78[7:0]$116
+     5/37: $9$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$115
+     6/37: $8$lookahead\pin_out$78[7:0]$111
+     7/37: $8$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$110
+     8/37: $7$lookahead\pin_out$78[7:0]$106
+     9/37: $7$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$105
+    10/37: $6$lookahead\pin_out$78[7:0]$99
+    11/37: $6$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$98
+    12/37: $5$lookahead\pin_out$78[7:0]$95
+    13/37: $5$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$94
+    14/37: $4$lookahead\pin_out$78[7:0]$92
+    15/37: $4$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$91
+    16/37: $3$lookahead\pin_out$78[7:0]$90
+    17/37: $3$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$89
+    18/37: $2$lookahead\pin_out$78[7:0]$87
+    19/37: $2$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$86
+    20/37: $1$lookahead\pin_out$78[7:0]$85
+    21/37: $1$bitselwrite$pos$src/tempo_core.v:171$1[2:0]$84
+    22/37: $0\failed_observations[15:0]
+    23/37: $0\delay_remaining[7:0]
+    24/37: $0\divider_phase[15:0]
+    25/37: $10$lookahead\pin_out$78[7:0]$117
+    26/37: $0\x[7:0]
+    27/37: $0\cycle_count[15:0]
+    28/37: $0\capture_valid[0:0]
+    29/37: $0\capture[23:0]
+    30/37: $0\fault_time[15:0]
+    31/37: $0\fault_pc[5:0]
+    32/37: $0\fault_code[3:0]
+    33/37: $0\fault[0:0]
+    34/37: $0\halted[0:0]
+    35/37: $0\pin_dir[7:0]
+    36/37: $0\pc[5:0]
+    37/37: $0\y[7:0]
+Creating decoders for process `\tempo_core.$proc$src/tempo_core.v:87$75'.
+     1/6: $4\event_clear[1:0]
+     2/6: $3\event_clear[1:0]
+     3/6: $2\event_set[1:0]
+     4/6: $2\event_clear[1:0]
+     5/6: $1\event_clear[1:0]
+     6/6: $1\event_set[1:0]
+
+3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\tempo_core.\event_set' from process `\tempo_core.$proc$src/tempo_core.v:87$75'.
+No latch inferred for signal `\tempo_core.\event_clear' from process `\tempo_core.$proc$src/tempo_core.v:87$75'.
+
+3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\core_properties.\past_valid' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1492' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:53$151$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1493' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:53$152$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1494' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:61$153$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1495' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:61$154$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1496' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:62$155$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1497' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:65$156$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1498' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:68$157$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1499' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:70$158$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1500' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:74$159$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1501' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:77$160$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1502' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:82$161$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1503' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:82$162$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1504' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:85$163$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1505' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:91$164$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1506' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:92$165$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1507' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:93$166$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1508' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:96$167$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1509' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:97$168$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1510' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:98$169$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1511' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:101$170$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1512' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:101$171$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1513' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:102$172$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1514' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:107$173$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1515' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:109$174$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1516' with positive edge clock.
+Creating register for signal `\core_properties.$past$formal/core_properties.v:110$175$0' using process `\core_properties.$proc$formal/core_properties.v:35$176'.
+  created $dff cell `$procdff$1517' with positive edge clock.
+Creating register for signal `\tempo_core.\y' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1518' with positive edge clock.
+Creating register for signal `\tempo_core.\pc' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1519' with positive edge clock.
+Creating register for signal `\tempo_core.\pin_out' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1520' with positive edge clock.
+Creating register for signal `\tempo_core.\pin_dir' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1521' with positive edge clock.
+Creating register for signal `\tempo_core.\halted' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1522' with positive edge clock.
+Creating register for signal `\tempo_core.\fault' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1523' with positive edge clock.
+Creating register for signal `\tempo_core.\fault_code' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1524' with positive edge clock.
+Creating register for signal `\tempo_core.\fault_pc' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1525' with positive edge clock.
+Creating register for signal `\tempo_core.\fault_time' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1526' with positive edge clock.
+Creating register for signal `\tempo_core.\capture' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1527' with positive edge clock.
+Creating register for signal `\tempo_core.\capture_valid' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1528' with positive edge clock.
+Creating register for signal `\tempo_core.\cycle_count' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1529' with positive edge clock.
+Creating register for signal `\tempo_core.\x' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1530' with positive edge clock.
+Creating register for signal `\tempo_core.\shift_reg' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1531' with positive edge clock.
+Creating register for signal `\tempo_core.\divider_phase' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1532' with positive edge clock.
+Creating register for signal `\tempo_core.\delay_remaining' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1533' with positive edge clock.
+Creating register for signal `\tempo_core.\failed_observations' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1534' with positive edge clock.
+Creating register for signal `\tempo_core.$bitselwrite$pos$src/tempo_core.v:171$1' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1535' with positive edge clock.
+Creating register for signal `\tempo_core.$lookahead\pin_out$78' using process `\tempo_core.$proc$src/tempo_core.v:103$79'.
+  created $dff cell `$procdff$1536' with positive edge clock.
+
+3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `core_properties.$proc$formal/core_properties.v:34$317'.
+Found and cleaned up 13 empty switches in `\core_properties.$proc$formal/core_properties.v:35$176'.
+Removing empty process `core_properties.$proc$formal/core_properties.v:35$176'.
+Found and cleaned up 23 empty switches in `\tempo_core.$proc$src/tempo_core.v:103$79'.
+Removing empty process `tempo_core.$proc$src/tempo_core.v:103$79'.
+Found and cleaned up 4 empty switches in `\tempo_core.$proc$src/tempo_core.v:87$75'.
+Removing empty process `tempo_core.$proc$src/tempo_core.v:87$75'.
+Cleaned up 40 empty switches.
+
+3.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+<suppressed ~17 debug messages>
+Optimizing module tempo_core.
+<suppressed ~18 debug messages>
+
+3.3. Executing CHECK pass (checking for obvious problems).
+Checking module core_properties...
+Checking module tempo_core...
+Found and reported 0 problems.
+
+3.4. Executing FLATTEN pass (flatten design).
+Deleting now unused module tempo_core.
+<suppressed ~1 debug messages>
+
+3.5. Executing FUTURE pass.
+
+3.6. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+
+3.7. Executing CHECK pass (checking for obvious problems).
+Checking module core_properties...
+Found and reported 0 problems.
+
+3.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+Removed 50 unused cells and 498 unused wires.
+<suppressed ~51 debug messages>
+
+3.9. Executing OPT pass (performing simple optimizations).
+
+3.9.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+
+3.9.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\core_properties'.
+Computing hashes of 683 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Computing hashes of 582 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Computing hashes of 581 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+<suppressed ~306 debug messages>
+Removed a total of 102 cells.
+
+3.9.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \core_properties..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $flatten\dut.$procmux$682.
+    dead port 1/2 on $mux $flatten\dut.$procmux$685.
+    dead port 1/2 on $mux $flatten\dut.$procmux$688.
+    dead port 1/2 on $mux $flatten\dut.$procmux$691.
+    dead port 1/2 on $mux $flatten\dut.$procmux$694.
+    dead port 2/2 on $mux $flatten\dut.$procmux$696.
+    dead port 2/2 on $mux $flatten\dut.$procmux$698.
+    dead port 1/2 on $mux $flatten\dut.$procmux$701.
+    dead port 1/2 on $mux $flatten\dut.$procmux$745.
+    dead port 1/2 on $mux $flatten\dut.$procmux$748.
+    dead port 1/2 on $mux $flatten\dut.$procmux$751.
+    dead port 1/2 on $mux $flatten\dut.$procmux$754.
+    dead port 2/2 on $mux $flatten\dut.$procmux$756.
+    dead port 2/2 on $mux $flatten\dut.$procmux$758.
+    dead port 1/2 on $mux $flatten\dut.$procmux$761.
+    dead port 1/2 on $mux $flatten\dut.$procmux$793.
+    dead port 1/2 on $mux $flatten\dut.$procmux$796.
+    dead port 1/2 on $mux $flatten\dut.$procmux$799.
+    dead port 2/2 on $mux $flatten\dut.$procmux$801.
+    dead port 2/2 on $mux $flatten\dut.$procmux$803.
+    dead port 1/2 on $mux $flatten\dut.$procmux$806.
+    dead port 1/2 on $mux $flatten\dut.$procmux$835.
+    dead port 1/2 on $mux $flatten\dut.$procmux$838.
+    dead port 2/2 on $mux $flatten\dut.$procmux$840.
+    dead port 2/2 on $mux $flatten\dut.$procmux$842.
+    dead port 1/2 on $mux $flatten\dut.$procmux$845.
+    dead port 1/2 on $mux $flatten\dut.$procmux$871.
+    dead port 2/2 on $mux $flatten\dut.$procmux$873.
+    dead port 2/2 on $mux $flatten\dut.$procmux$875.
+    dead port 1/2 on $mux $flatten\dut.$procmux$878.
+    dead port 2/2 on $mux $flatten\dut.$procmux$900.
+    dead port 2/2 on $mux $flatten\dut.$procmux$902.
+    dead port 1/2 on $mux $flatten\dut.$procmux$905.
+    dead port 2/2 on $mux $flatten\dut.$procmux$923.
+    dead port 1/2 on $mux $flatten\dut.$procmux$926.
+    dead port 1/2 on $mux $flatten\dut.$procmux$941.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1040.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1043.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1046.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1049.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1052.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1055.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1057.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1059.
+    dead port 1/2 on $mux $flatten\dut.$procmux$1062.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1452.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1454.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1462.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1464.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1475.
+    dead port 2/2 on $mux $flatten\dut.$procmux$1484.
+Removed 51 multiplexer ports.
+<suppressed ~385 debug messages>
+
+3.9.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \core_properties.
+Performed a total of 0 changes.
+
+3.9.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\core_properties'.
+Computing hashes of 530 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Computing hashes of 512 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Computing hashes of 495 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Computing hashes of 485 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+<suppressed ~135 debug messages>
+Removed a total of 45 cells.
+
+3.9.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+Removed 0 unused cells and 198 unused wires.
+<suppressed ~1 debug messages>
+
+3.9.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+
+3.9.8. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.9.9. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \core_properties..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~271 debug messages>
+
+3.9.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \core_properties.
+Performed a total of 0 changes.
+
+3.9.11. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\core_properties'.
+Computing hashes of 485 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Removed a total of 0 cells.
+
+3.9.12. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+
+3.9.13. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+
+3.9.14. Finished fast OPT passes. (There is nothing left to do.)
+
+3.10. Executing WREDUCE pass (reducing word size of cells).
+Removed top 15 bits (of 16) from port B of cell core_properties.$add$formal/core_properties.v:61$270 ($add).
+Removed top 5 bits (of 6) from port B of cell core_properties.$add$formal/core_properties.v:93$290 ($add).
+Removed top 5 bits (of 6) from port B of cell core_properties.$add$formal/core_properties.v:98$297 ($add).
+Removed top 5 bits (of 6) from port B of cell core_properties.$add$formal/core_properties.v:102$303 ($add).
+Removed top 1 bits (of 4) from port B of cell core_properties.$eq$formal/core_properties.v:108$308 ($eq).
+Removed top 1 bits (of 2) from mux cell core_properties.$flatten\dut.$procmux$1460 ($mux).
+Removed top 2 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$1358_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$1077_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$536_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$528_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$527_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$516_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$515_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$514_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$513_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$procmux$512_CMP0 ($eq).
+Removed top 7 bits (of 8) from port B of cell core_properties.$flatten\dut.$sub$src/tempo_core.v:199$141 ($sub).
+Removed top 7 bits (of 8) from port B of cell core_properties.$flatten\dut.$sub$src/tempo_core.v:195$139 ($sub).
+Converting cell core_properties.$flatten\dut.$neg$src/tempo_core.v:171$124 ($neg) from signed to unsigned.
+Removed top 1 bits (of 4) from port A of cell core_properties.$flatten\dut.$neg$src/tempo_core.v:171$124 ($neg).
+Removed top 5 bits (of 6) from port B of cell core_properties.$flatten\dut.$add$src/tempo_core.v:153$114 ($add).
+Removed top 15 bits (of 16) from port B of cell core_properties.$flatten\dut.$add$src/tempo_core.v:149$113 ($add).
+Removed top 3 bits (of 4) from mux cell core_properties.$flatten\dut.$ternary$src/tempo_core.v:142$108 ($mux).
+Removed top 7 bits (of 8) from port B of cell core_properties.$flatten\dut.$sub$src/tempo_core.v:137$100 ($sub).
+Removed top 15 bits (of 16) from port B of cell core_properties.$flatten\dut.$sub$src/tempo_core.v:133$96 ($sub).
+Removed top 15 bits (of 16) from port B of cell core_properties.$flatten\dut.$add$src/tempo_core.v:124$88 ($add).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$eq$src/tempo_core.v:79$72 ($eq).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$eq$src/tempo_core.v:78$69 ($eq).
+Removed top 15 bits (of 16) from port B of cell core_properties.$flatten\dut.$sub$src/tempo_core.v:76$66 ($sub).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$eq$src/tempo_core.v:69$41 ($eq).
+Removed top 2 bits (of 4) from port B of cell core_properties.$flatten\dut.$le$src/tempo_core.v:65$33 ($le).
+Removed top 1 bits (of 4) from port B of cell core_properties.$flatten\dut.$eq$src/tempo_core.v:63$24 ($eq).
+Removed top 3 bits (of 4) from wire core_properties.$flatten\dut.$ternary$src/tempo_core.v:142$108_Y.
+Removed top 1 bits (of 2) from wire core_properties.$flatten\dut.$3\event_clear[1:0].
+
+3.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~1 debug messages>
+
+3.12. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+3.13. Executing OPT pass (performing simple optimizations).
+
+3.13.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module core_properties.
+
+3.13.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\core_properties'.
+Computing hashes of 485 cells of `\core_properties'.
+Finding duplicate cells in `\core_properties'.
+Removed a total of 0 cells.
+
+3.13.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+
+3.13.4. Finished fast OPT passes.
+
+3.14. Executing SORT pass.
+
+3.15. Printing statistics.
+
+=== core_properties ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      508 wires
+     2654 wire bits
+       86 public wires
+      520 public wire bits
+       15 ports
+       83 port bits
+      485 cells
+        8   $add
+        4   $and
+       32   $check
+       43   $dff
+       34   $eq
+        2   $ge
+        1   $gt
+        2   $le
+       45   $logic_and
+       38   $logic_not
+       21   $logic_or
+      212   $mux
+        2   $ne
+        1   $neg
+        3   $not
+        4   $or
+       15   $pmux
+        6   $reduce_bool
+        2   $reduce_or
+        1   $scopeinfo
+        2   $shift
+        1   $shiftx
+        5   $sub
+        1   $xor
+
+3.16. Executing CHECK pass (checking for obvious problems).
+Checking module core_properties...
+Found and reported 0 problems.
+
+4. Executing ASYNC2SYNC pass.
+
+5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \core_properties..
+Removed 96 unused cells and 96 unused wires.
+<suppressed ~97 debug messages>
+
+6. Executing SAT pass (solving SAT problems in the circuit).
+Using SAT solver `minisat`.
+
+Setting up time step 1:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1666 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1664 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1708 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1660 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1658 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1706 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1654 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1652 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1730 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1648 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1646 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1702 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1642 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1640 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1700 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1636 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1634 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1720 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1630 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1628 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1696 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1624 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1622 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1694 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1618 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1616 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1718 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1612 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1610 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1690 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1606 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1604 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1688 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1600 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1598 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1726 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1594 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1592 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1684 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1588 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1586 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1682 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1582 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1580 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1714 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1576 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1574 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1678 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1570 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1568 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1676 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1564 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1562 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1712 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1558 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1556 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1672 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1552 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1550 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1670 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1546 = 1'0
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1544 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:116:execute$1724 = 1'1
+Import set-constraint from init attribute: $auto$async2sync.cc:107:execute$1540 = 1'0
+Import set-constraint from init attribute: \past_valid = 1'0
+Final init constraint equation: { \past_valid $auto$async2sync.cc:107:execute$1540 $auto$async2sync.cc:116:execute$1724 $auto$async2sync.cc:116:execute$1544 $auto$async2sync.cc:107:execute$1546 $auto$async2sync.cc:116:execute$1670 $auto$async2sync.cc:116:execute$1550 $auto$async2sync.cc:107:execute$1552 $auto$async2sync.cc:107:execute$1672 $auto$async2sync.cc:116:execute$1556 $auto$async2sync.cc:107:execute$1558 $auto$async2sync.cc:116:execute$1712 $auto$async2sync.cc:116:execute$1562 $auto$async2sync.cc:107:execute$1564 $auto$async2sync.cc:116:execute$1676 $auto$async2sync.cc:116:execute$1568 $auto$async2sync.cc:107:execute$1570 $auto$async2sync.cc:107:execute$1678 $auto$async2sync.cc:116:execute$1574 $auto$async2sync.cc:107:execute$1576 $auto$async2sync.cc:107:execute$1714 $auto$async2sync.cc:116:execute$1580 $auto$async2sync.cc:107:execute$1582 $auto$async2sync.cc:116:execute$1682 $auto$async2sync.cc:116:execute$1586 $auto$async2sync.cc:107:execute$1588 $auto$async2sync.cc:107:execute$1684 $auto$async2sync.cc:116:execute$1592 $auto$async2sync.cc:107:execute$1594 $auto$async2sync.cc:107:execute$1726 $auto$async2sync.cc:116:execute$1598 $auto$async2sync.cc:107:execute$1600 $auto$async2sync.cc:116:execute$1688 $auto$async2sync.cc:116:execute$1604 $auto$async2sync.cc:107:execute$1606 $auto$async2sync.cc:107:execute$1690 $auto$async2sync.cc:116:execute$1610 $auto$async2sync.cc:107:execute$1612 $auto$async2sync.cc:116:execute$1718 $auto$async2sync.cc:116:execute$1616 $auto$async2sync.cc:107:execute$1618 $auto$async2sync.cc:116:execute$1694 $auto$async2sync.cc:116:execute$1622 $auto$async2sync.cc:107:execute$1624 $auto$async2sync.cc:107:execute$1696 $auto$async2sync.cc:116:execute$1628 $auto$async2sync.cc:107:execute$1630 $auto$async2sync.cc:107:execute$1720 $auto$async2sync.cc:116:execute$1634 $auto$async2sync.cc:107:execute$1636 $auto$async2sync.cc:116:execute$1700 $auto$async2sync.cc:116:execute$1640 $auto$async2sync.cc:107:execute$1642 $auto$async2sync.cc:107:execute$1702 $auto$async2sync.cc:116:execute$1646 $auto$async2sync.cc:107:execute$1648 $auto$async2sync.cc:116:execute$1730 $auto$async2sync.cc:116:execute$1652 $auto$async2sync.cc:107:execute$1654 $auto$async2sync.cc:116:execute$1706 $auto$async2sync.cc:116:execute$1658 $auto$async2sync.cc:107:execute$1660 $auto$async2sync.cc:107:execute$1708 $auto$async2sync.cc:116:execute$1664 $auto$async2sync.cc:107:execute$1666 } = 65'00110110010110110010010110010010110010110110010010110010110110010
+
+Setting up time step 2:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+
+Setting up time step 1:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import proof for assert: $auto$async2sync.cc:116:execute$1544 when $auto$async2sync.cc:107:execute$1540.
+Import proof for assert: $auto$async2sync.cc:116:execute$1550 when $auto$async2sync.cc:107:execute$1546.
+Import proof for assert: $auto$async2sync.cc:116:execute$1556 when $auto$async2sync.cc:107:execute$1552.
+Import proof for assert: $auto$async2sync.cc:116:execute$1562 when $auto$async2sync.cc:107:execute$1558.
+Import proof for assert: $auto$async2sync.cc:116:execute$1568 when $auto$async2sync.cc:107:execute$1564.
+Import proof for assert: $auto$async2sync.cc:116:execute$1574 when $auto$async2sync.cc:107:execute$1570.
+Import proof for assert: $auto$async2sync.cc:116:execute$1580 when $auto$async2sync.cc:107:execute$1576.
+Import proof for assert: $auto$async2sync.cc:116:execute$1586 when $auto$async2sync.cc:107:execute$1582.
+Import proof for assert: $auto$async2sync.cc:116:execute$1592 when $auto$async2sync.cc:107:execute$1588.
+Import proof for assert: $auto$async2sync.cc:116:execute$1598 when $auto$async2sync.cc:107:execute$1594.
+Import proof for assert: $auto$async2sync.cc:116:execute$1604 when $auto$async2sync.cc:107:execute$1600.
+Import proof for assert: $auto$async2sync.cc:116:execute$1610 when $auto$async2sync.cc:107:execute$1606.
+Import proof for assert: $auto$async2sync.cc:116:execute$1616 when $auto$async2sync.cc:107:execute$1612.
+Import proof for assert: $auto$async2sync.cc:116:execute$1622 when $auto$async2sync.cc:107:execute$1618.
+Import proof for assert: $auto$async2sync.cc:116:execute$1628 when $auto$async2sync.cc:107:execute$1624.
+Import proof for assert: $auto$async2sync.cc:116:execute$1634 when $auto$async2sync.cc:107:execute$1630.
+Import proof for assert: $auto$async2sync.cc:116:execute$1640 when $auto$async2sync.cc:107:execute$1636.
+Import proof for assert: $auto$async2sync.cc:116:execute$1646 when $auto$async2sync.cc:107:execute$1642.
+Import proof for assert: $auto$async2sync.cc:116:execute$1652 when $auto$async2sync.cc:107:execute$1648.
+Import proof for assert: $auto$async2sync.cc:116:execute$1658 when $auto$async2sync.cc:107:execute$1654.
+Import proof for assert: $auto$async2sync.cc:116:execute$1664 when $auto$async2sync.cc:107:execute$1660.
+Import proof for assert: $auto$async2sync.cc:116:execute$1670 when $auto$async2sync.cc:107:execute$1666.
+Import proof for assert: $auto$async2sync.cc:116:execute$1676 when $auto$async2sync.cc:107:execute$1672.
+Import proof for assert: $auto$async2sync.cc:116:execute$1682 when $auto$async2sync.cc:107:execute$1678.
+Import proof for assert: $auto$async2sync.cc:116:execute$1688 when $auto$async2sync.cc:107:execute$1684.
+Import proof for assert: $auto$async2sync.cc:116:execute$1694 when $auto$async2sync.cc:107:execute$1690.
+Import proof for assert: $auto$async2sync.cc:116:execute$1700 when $auto$async2sync.cc:107:execute$1696.
+Import proof for assert: $auto$async2sync.cc:116:execute$1706 when $auto$async2sync.cc:107:execute$1702.
+Import proof for assert: $auto$async2sync.cc:116:execute$1712 when $auto$async2sync.cc:107:execute$1708.
+Import proof for assert: $auto$async2sync.cc:116:execute$1718 when $auto$async2sync.cc:107:execute$1714.
+Import proof for assert: $auto$async2sync.cc:116:execute$1724 when $auto$async2sync.cc:107:execute$1720.
+
+** Trying induction with length 1 **
+
+Setting up time step 3:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import proof for assert: $auto$async2sync.cc:116:execute$1544 when $auto$async2sync.cc:107:execute$1540.
+Import proof for assert: $auto$async2sync.cc:116:execute$1550 when $auto$async2sync.cc:107:execute$1546.
+Import proof for assert: $auto$async2sync.cc:116:execute$1556 when $auto$async2sync.cc:107:execute$1552.
+Import proof for assert: $auto$async2sync.cc:116:execute$1562 when $auto$async2sync.cc:107:execute$1558.
+Import proof for assert: $auto$async2sync.cc:116:execute$1568 when $auto$async2sync.cc:107:execute$1564.
+Import proof for assert: $auto$async2sync.cc:116:execute$1574 when $auto$async2sync.cc:107:execute$1570.
+Import proof for assert: $auto$async2sync.cc:116:execute$1580 when $auto$async2sync.cc:107:execute$1576.
+Import proof for assert: $auto$async2sync.cc:116:execute$1586 when $auto$async2sync.cc:107:execute$1582.
+Import proof for assert: $auto$async2sync.cc:116:execute$1592 when $auto$async2sync.cc:107:execute$1588.
+Import proof for assert: $auto$async2sync.cc:116:execute$1598 when $auto$async2sync.cc:107:execute$1594.
+Import proof for assert: $auto$async2sync.cc:116:execute$1604 when $auto$async2sync.cc:107:execute$1600.
+Import proof for assert: $auto$async2sync.cc:116:execute$1610 when $auto$async2sync.cc:107:execute$1606.
+Import proof for assert: $auto$async2sync.cc:116:execute$1616 when $auto$async2sync.cc:107:execute$1612.
+Import proof for assert: $auto$async2sync.cc:116:execute$1622 when $auto$async2sync.cc:107:execute$1618.
+Import proof for assert: $auto$async2sync.cc:116:execute$1628 when $auto$async2sync.cc:107:execute$1624.
+Import proof for assert: $auto$async2sync.cc:116:execute$1634 when $auto$async2sync.cc:107:execute$1630.
+Import proof for assert: $auto$async2sync.cc:116:execute$1640 when $auto$async2sync.cc:107:execute$1636.
+Import proof for assert: $auto$async2sync.cc:116:execute$1646 when $auto$async2sync.cc:107:execute$1642.
+Import proof for assert: $auto$async2sync.cc:116:execute$1652 when $auto$async2sync.cc:107:execute$1648.
+Import proof for assert: $auto$async2sync.cc:116:execute$1658 when $auto$async2sync.cc:107:execute$1654.
+Import proof for assert: $auto$async2sync.cc:116:execute$1664 when $auto$async2sync.cc:107:execute$1660.
+Import proof for assert: $auto$async2sync.cc:116:execute$1670 when $auto$async2sync.cc:107:execute$1666.
+Import proof for assert: $auto$async2sync.cc:116:execute$1676 when $auto$async2sync.cc:107:execute$1672.
+Import proof for assert: $auto$async2sync.cc:116:execute$1682 when $auto$async2sync.cc:107:execute$1678.
+Import proof for assert: $auto$async2sync.cc:116:execute$1688 when $auto$async2sync.cc:107:execute$1684.
+Import proof for assert: $auto$async2sync.cc:116:execute$1694 when $auto$async2sync.cc:107:execute$1690.
+Import proof for assert: $auto$async2sync.cc:116:execute$1700 when $auto$async2sync.cc:107:execute$1696.
+Import proof for assert: $auto$async2sync.cc:116:execute$1706 when $auto$async2sync.cc:107:execute$1702.
+Import proof for assert: $auto$async2sync.cc:116:execute$1712 when $auto$async2sync.cc:107:execute$1708.
+Import proof for assert: $auto$async2sync.cc:116:execute$1718 when $auto$async2sync.cc:107:execute$1714.
+Import proof for assert: $auto$async2sync.cc:116:execute$1724 when $auto$async2sync.cc:107:execute$1720.
+
+[base case 1] Solving problem with 47524 variables and 128601 clauses..
+Base case for induction length 1 proven.
+
+Setting up time step 2:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import proof for assert: $auto$async2sync.cc:116:execute$1544 when $auto$async2sync.cc:107:execute$1540.
+Import proof for assert: $auto$async2sync.cc:116:execute$1550 when $auto$async2sync.cc:107:execute$1546.
+Import proof for assert: $auto$async2sync.cc:116:execute$1556 when $auto$async2sync.cc:107:execute$1552.
+Import proof for assert: $auto$async2sync.cc:116:execute$1562 when $auto$async2sync.cc:107:execute$1558.
+Import proof for assert: $auto$async2sync.cc:116:execute$1568 when $auto$async2sync.cc:107:execute$1564.
+Import proof for assert: $auto$async2sync.cc:116:execute$1574 when $auto$async2sync.cc:107:execute$1570.
+Import proof for assert: $auto$async2sync.cc:116:execute$1580 when $auto$async2sync.cc:107:execute$1576.
+Import proof for assert: $auto$async2sync.cc:116:execute$1586 when $auto$async2sync.cc:107:execute$1582.
+Import proof for assert: $auto$async2sync.cc:116:execute$1592 when $auto$async2sync.cc:107:execute$1588.
+Import proof for assert: $auto$async2sync.cc:116:execute$1598 when $auto$async2sync.cc:107:execute$1594.
+Import proof for assert: $auto$async2sync.cc:116:execute$1604 when $auto$async2sync.cc:107:execute$1600.
+Import proof for assert: $auto$async2sync.cc:116:execute$1610 when $auto$async2sync.cc:107:execute$1606.
+Import proof for assert: $auto$async2sync.cc:116:execute$1616 when $auto$async2sync.cc:107:execute$1612.
+Import proof for assert: $auto$async2sync.cc:116:execute$1622 when $auto$async2sync.cc:107:execute$1618.
+Import proof for assert: $auto$async2sync.cc:116:execute$1628 when $auto$async2sync.cc:107:execute$1624.
+Import proof for assert: $auto$async2sync.cc:116:execute$1634 when $auto$async2sync.cc:107:execute$1630.
+Import proof for assert: $auto$async2sync.cc:116:execute$1640 when $auto$async2sync.cc:107:execute$1636.
+Import proof for assert: $auto$async2sync.cc:116:execute$1646 when $auto$async2sync.cc:107:execute$1642.
+Import proof for assert: $auto$async2sync.cc:116:execute$1652 when $auto$async2sync.cc:107:execute$1648.
+Import proof for assert: $auto$async2sync.cc:116:execute$1658 when $auto$async2sync.cc:107:execute$1654.
+Import proof for assert: $auto$async2sync.cc:116:execute$1664 when $auto$async2sync.cc:107:execute$1660.
+Import proof for assert: $auto$async2sync.cc:116:execute$1670 when $auto$async2sync.cc:107:execute$1666.
+Import proof for assert: $auto$async2sync.cc:116:execute$1676 when $auto$async2sync.cc:107:execute$1672.
+Import proof for assert: $auto$async2sync.cc:116:execute$1682 when $auto$async2sync.cc:107:execute$1678.
+Import proof for assert: $auto$async2sync.cc:116:execute$1688 when $auto$async2sync.cc:107:execute$1684.
+Import proof for assert: $auto$async2sync.cc:116:execute$1694 when $auto$async2sync.cc:107:execute$1690.
+Import proof for assert: $auto$async2sync.cc:116:execute$1700 when $auto$async2sync.cc:107:execute$1696.
+Import proof for assert: $auto$async2sync.cc:116:execute$1706 when $auto$async2sync.cc:107:execute$1702.
+Import proof for assert: $auto$async2sync.cc:116:execute$1712 when $auto$async2sync.cc:107:execute$1708.
+Import proof for assert: $auto$async2sync.cc:116:execute$1718 when $auto$async2sync.cc:107:execute$1714.
+Import proof for assert: $auto$async2sync.cc:116:execute$1724 when $auto$async2sync.cc:107:execute$1720.
+
+[induction step 1] Solving problem with 31059 variables and 83659 clauses..
+Induction step failed. Incrementing induction length.
+
+  Time Signal Name                                           Dec       Hex                                                                                                    Bin
+  ---- --------------------------------------------- ----------- --------- ------------------------------------------------------------------------------------------------------
+  init $auto$async2sync.cc:107:execute$1540                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1546                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1552                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1558                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1564                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1570                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1576                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1582                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1588                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1594                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1600                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1606                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1612                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1618                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1624                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1630                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1636                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1642                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1648                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1654                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1660                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1666                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1672                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1678                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1684                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1690                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1696                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1702                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1708                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1714                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1720                    0         0                                                                                                      0
+  init $auto$async2sync.cc:107:execute$1726                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1544                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1550                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1556                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1562                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1568                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1574                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1580                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1586                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1592                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1598                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1604                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1610                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1616                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1622                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1628                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1634                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1640                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1646                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1652                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1658                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1664                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1670                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1676                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1682                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1688                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1694                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1700                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1706                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1712                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1718                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1724                    0         0                                                                                                      0
+  init $auto$async2sync.cc:116:execute$1730                    0         0                                                                                                      0
+  init $past$formal/core_properties.v:101$170$0                1         1                                                                                                      1
+  init $past$formal/core_properties.v:101$171$0                0         0                                                                                                      0
+  init $past$formal/core_properties.v:102$172$0                0         0                                                                                                 000000
+  init $past$formal/core_properties.v:107$173$0                1         1                                                                                                      1
+  init $past$formal/core_properties.v:109$174$0                0         0                                                                                                 000000
+  init $past$formal/core_properties.v:110$175$0                0         0                                                                                       0000000000000000
+  init $past$formal/core_properties.v:53$151$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:53$152$0                 0         0                                                                                                      0
+  init $past$formal/core_properties.v:61$153$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:61$154$0               256       100                                                                                       0000000100000000
+  init $past$formal/core_properties.v:62$155$0               288       120                                                                                       0000000100100000
+  init $past$formal/core_properties.v:65$156$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:68$157$0                 0         0                                                                             00000000000000000000000000
+  init $past$formal/core_properties.v:70$158$0                --        --                                        000001000000000000000000000000000101000000000000000000000000000
+  init $past$formal/core_properties.v:74$159$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:77$160$0                --        --                                        000001000000000000000000000000000101000000000000000000000000000
+  init $past$formal/core_properties.v:82$161$0                 0         0                                                                                                      0
+  init $past$formal/core_properties.v:82$162$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:85$163$0                --        --    000001000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000
+  init $past$formal/core_properties.v:91$164$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:92$165$0                 4         4                                                                                               00000100
+  init $past$formal/core_properties.v:93$166$0                 0         0                                                                                                 000000
+  init $past$formal/core_properties.v:96$167$0                 1         1                                                                                                      1
+  init $past$formal/core_properties.v:97$168$0                20        14                                                                                               00010100
+  init $past$formal/core_properties.v:98$169$0                 0         0                                                                                                 000000
+  init \dut.capture                                     16777215    ffffff                                                                               111111111111111111111111
+  init \dut.capture_valid                                      1         1                                                                                                      1
+  init \dut.cycle_count                                    65247      fedf                                                                                       1111111011011111
+  init \dut.delay_remaining                                    0         0                                                                                               00000000
+  init \dut.divider_phase                                      0         0                                                                                       0000000000000000
+  init \dut.failed_observations                                0         0                                                                                       0000000000000000
+  init \dut.fault                                              1         1                                                                                                      1
+  init \dut.fault_code                                        15         f                                                                                                   1111
+  init \dut.fault_pc                                          63        3f                                                                                                 111111
+  init \dut.fault_time                                     65535      ffff                                                                                       1111111111111111
+  init \dut.halted                                             1         1                                                                                                      1
+  init \dut.pc                                                62        3e                                                                                                 111110
+  init \dut.pin_dir                                          255        ff                                                                                               11111111
+  init \dut.pin_out                                          255        ff                                                                                               11111111
+  init \dut.shift_reg                                        235        eb                                                                                               11101011
+  init \dut.x                                                255        ff                                                                                               11111111
+  init \dut.y                                                255        ff                                                                                               11111111
+  init \past_valid                                             1         1                                                                                                      1
+
+** Trying induction with length 2 **
+
+Setting up time step 4:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import proof for assert: $auto$async2sync.cc:116:execute$1544 when $auto$async2sync.cc:107:execute$1540.
+Import proof for assert: $auto$async2sync.cc:116:execute$1550 when $auto$async2sync.cc:107:execute$1546.
+Import proof for assert: $auto$async2sync.cc:116:execute$1556 when $auto$async2sync.cc:107:execute$1552.
+Import proof for assert: $auto$async2sync.cc:116:execute$1562 when $auto$async2sync.cc:107:execute$1558.
+Import proof for assert: $auto$async2sync.cc:116:execute$1568 when $auto$async2sync.cc:107:execute$1564.
+Import proof for assert: $auto$async2sync.cc:116:execute$1574 when $auto$async2sync.cc:107:execute$1570.
+Import proof for assert: $auto$async2sync.cc:116:execute$1580 when $auto$async2sync.cc:107:execute$1576.
+Import proof for assert: $auto$async2sync.cc:116:execute$1586 when $auto$async2sync.cc:107:execute$1582.
+Import proof for assert: $auto$async2sync.cc:116:execute$1592 when $auto$async2sync.cc:107:execute$1588.
+Import proof for assert: $auto$async2sync.cc:116:execute$1598 when $auto$async2sync.cc:107:execute$1594.
+Import proof for assert: $auto$async2sync.cc:116:execute$1604 when $auto$async2sync.cc:107:execute$1600.
+Import proof for assert: $auto$async2sync.cc:116:execute$1610 when $auto$async2sync.cc:107:execute$1606.
+Import proof for assert: $auto$async2sync.cc:116:execute$1616 when $auto$async2sync.cc:107:execute$1612.
+Import proof for assert: $auto$async2sync.cc:116:execute$1622 when $auto$async2sync.cc:107:execute$1618.
+Import proof for assert: $auto$async2sync.cc:116:execute$1628 when $auto$async2sync.cc:107:execute$1624.
+Import proof for assert: $auto$async2sync.cc:116:execute$1634 when $auto$async2sync.cc:107:execute$1630.
+Import proof for assert: $auto$async2sync.cc:116:execute$1640 when $auto$async2sync.cc:107:execute$1636.
+Import proof for assert: $auto$async2sync.cc:116:execute$1646 when $auto$async2sync.cc:107:execute$1642.
+Import proof for assert: $auto$async2sync.cc:116:execute$1652 when $auto$async2sync.cc:107:execute$1648.
+Import proof for assert: $auto$async2sync.cc:116:execute$1658 when $auto$async2sync.cc:107:execute$1654.
+Import proof for assert: $auto$async2sync.cc:116:execute$1664 when $auto$async2sync.cc:107:execute$1660.
+Import proof for assert: $auto$async2sync.cc:116:execute$1670 when $auto$async2sync.cc:107:execute$1666.
+Import proof for assert: $auto$async2sync.cc:116:execute$1676 when $auto$async2sync.cc:107:execute$1672.
+Import proof for assert: $auto$async2sync.cc:116:execute$1682 when $auto$async2sync.cc:107:execute$1678.
+Import proof for assert: $auto$async2sync.cc:116:execute$1688 when $auto$async2sync.cc:107:execute$1684.
+Import proof for assert: $auto$async2sync.cc:116:execute$1694 when $auto$async2sync.cc:107:execute$1690.
+Import proof for assert: $auto$async2sync.cc:116:execute$1700 when $auto$async2sync.cc:107:execute$1696.
+Import proof for assert: $auto$async2sync.cc:116:execute$1706 when $auto$async2sync.cc:107:execute$1702.
+Import proof for assert: $auto$async2sync.cc:116:execute$1712 when $auto$async2sync.cc:107:execute$1708.
+Import proof for assert: $auto$async2sync.cc:116:execute$1718 when $auto$async2sync.cc:107:execute$1714.
+Import proof for assert: $auto$async2sync.cc:116:execute$1724 when $auto$async2sync.cc:107:execute$1720.
+
+[base case 2] Solving problem with 65638 variables and 179056 clauses..
+Base case for induction length 2 proven.
+
+Setting up time step 3:
+Final constraint equation: { } = { }
+Imported 549 cells to SAT database.
+Import constraint from assume cell: $auto$async2sync.cc:116:execute$1730 when $auto$async2sync.cc:107:execute$1726.
+Import proof for assert: $auto$async2sync.cc:116:execute$1544 when $auto$async2sync.cc:107:execute$1540.
+Import proof for assert: $auto$async2sync.cc:116:execute$1550 when $auto$async2sync.cc:107:execute$1546.
+Import proof for assert: $auto$async2sync.cc:116:execute$1556 when $auto$async2sync.cc:107:execute$1552.
+Import proof for assert: $auto$async2sync.cc:116:execute$1562 when $auto$async2sync.cc:107:execute$1558.
+Import proof for assert: $auto$async2sync.cc:116:execute$1568 when $auto$async2sync.cc:107:execute$1564.
+Import proof for assert: $auto$async2sync.cc:116:execute$1574 when $auto$async2sync.cc:107:execute$1570.
+Import proof for assert: $auto$async2sync.cc:116:execute$1580 when $auto$async2sync.cc:107:execute$1576.
+Import proof for assert: $auto$async2sync.cc:116:execute$1586 when $auto$async2sync.cc:107:execute$1582.
+Import proof for assert: $auto$async2sync.cc:116:execute$1592 when $auto$async2sync.cc:107:execute$1588.
+Import proof for assert: $auto$async2sync.cc:116:execute$1598 when $auto$async2sync.cc:107:execute$1594.
+Import proof for assert: $auto$async2sync.cc:116:execute$1604 when $auto$async2sync.cc:107:execute$1600.
+Import proof for assert: $auto$async2sync.cc:116:execute$1610 when $auto$async2sync.cc:107:execute$1606.
+Import proof for assert: $auto$async2sync.cc:116:execute$1616 when $auto$async2sync.cc:107:execute$1612.
+Import proof for assert: $auto$async2sync.cc:116:execute$1622 when $auto$async2sync.cc:107:execute$1618.
+Import proof for assert: $auto$async2sync.cc:116:execute$1628 when $auto$async2sync.cc:107:execute$1624.
+Import proof for assert: $auto$async2sync.cc:116:execute$1634 when $auto$async2sync.cc:107:execute$1630.
+Import proof for assert: $auto$async2sync.cc:116:execute$1640 when $auto$async2sync.cc:107:execute$1636.
+Import proof for assert: $auto$async2sync.cc:116:execute$1646 when $auto$async2sync.cc:107:execute$1642.
+Import proof for assert: $auto$async2sync.cc:116:execute$1652 when $auto$async2sync.cc:107:execute$1648.
+Import proof for assert: $auto$async2sync.cc:116:execute$1658 when $auto$async2sync.cc:107:execute$1654.
+Import proof for assert: $auto$async2sync.cc:116:execute$1664 when $auto$async2sync.cc:107:execute$1660.
+Import proof for assert: $auto$async2sync.cc:116:execute$1670 when $auto$async2sync.cc:107:execute$1666.
+Import proof for assert: $auto$async2sync.cc:116:execute$1676 when $auto$async2sync.cc:107:execute$1672.
+Import proof for assert: $auto$async2sync.cc:116:execute$1682 when $auto$async2sync.cc:107:execute$1678.
+Import proof for assert: $auto$async2sync.cc:116:execute$1688 when $auto$async2sync.cc:107:execute$1684.
+Import proof for assert: $auto$async2sync.cc:116:execute$1694 when $auto$async2sync.cc:107:execute$1690.
+Import proof for assert: $auto$async2sync.cc:116:execute$1700 when $auto$async2sync.cc:107:execute$1696.
+Import proof for assert: $auto$async2sync.cc:116:execute$1706 when $auto$async2sync.cc:107:execute$1702.
+Import proof for assert: $auto$async2sync.cc:116:execute$1712 when $auto$async2sync.cc:107:execute$1708.
+Import proof for assert: $auto$async2sync.cc:116:execute$1718 when $auto$async2sync.cc:107:execute$1714.
+Import proof for assert: $auto$async2sync.cc:116:execute$1724 when $auto$async2sync.cc:107:execute$1720.
+
+[induction step 2] Solving problem with 50887 variables and 139826 clauses..
+Induction step proven: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$    
+                 /$$__  $$    | $$_____/    | $$__  $$   
+                | $$  \ $$    | $$          | $$  \ $$   
+                | $$  | $$    | $$$$$       | $$  | $$   
+                | $$  | $$    | $$__/       | $$  | $$   
+                | $$/$$ $$    | $$          | $$  | $$   
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/                              
+
+End of script. Logfile hash: bd21f87610, time: 0.37s, user: 0.38s, system: 0.03s, MEM: 96.53 MB peak
+Yosys 0.69+154 (git sha1 30d62572e-dirty, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)
+Time spent: 84% 1x sat (0 sec), 2% 6x opt_clean (0 sec), ...

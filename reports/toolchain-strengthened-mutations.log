@@ -1,0 +1,77 @@
+Fresh public workload seeds: 2361512867,4137575304
+BASELINE seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+[functional] pass
+NEGATIVE CONTROL uart_inverted_data seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL spi_inverted_mosi seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL i2c_drives_high seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL programmable_inverted_output seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL ignore_programmable_wait seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL wrong_host_capture seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL premature_programmable_pulse seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL hardcoded_branch_guess seed=2361512867
+[synthesis] running
+[synthesis] pass
+[functional] running
+BASELINE seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+[functional] pass
+NEGATIVE CONTROL uart_inverted_data seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL spi_inverted_mosi seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL i2c_drives_high seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL programmable_inverted_output seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL ignore_programmable_wait seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL wrong_host_capture seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL premature_programmable_pulse seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL hardcoded_branch_guess seed=4137575304
+[synthesis] running
+[synthesis] pass
+[functional] running
+PASS: 2 baseline runs and 16 functional mutation rejections
+/Users/fork/Documents/ChatGPT/janeS/.runs/strengthened-mutation-controls/mutation-results.json

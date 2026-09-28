@@ -1,0 +1,28 @@
+{
+  "template": {
+    "repository": "https://github.com/TinyTapeout/ttihp-verilog-template.git",
+    "branch": "cmos5l",
+    "commit": "b86a2a781484bcab7ba522dc5de540086695a430"
+  },
+  "gds_action": {
+    "repository": "https://github.com/TinyTapeout/tt-gds-action.git",
+    "branch": "ihp-cmos5l",
+    "commit": "3412659307918422f3f0727917cf9b499aaca588"
+  },
+  "support_tools": {
+    "repository": "https://github.com/TinyTapeout/tt-support-tools.git",
+    "branch": "ihp-sg13cmos5l",
+    "commit": "f6bf5c587fba4a4a8abd4c0a03234fccfbf6e61e"
+  },
+  "pdk": {
+    "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK.git",
+    "commit": "2bbec755dc67ca3db0261c3d6163e15735d66710",
+    "name": "ihp-sg13cmos5l",
+    "standard_cell_library": "sg13cmos5l_stdcell"
+  },
+  "librelane": "3.1.0.dev3",
+  "container": "ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a",
+  "tiles": "6x4",
+  "die_um": [0, 0, 1289.28, 710.64],
+  "clock_period_ns": 20
+}

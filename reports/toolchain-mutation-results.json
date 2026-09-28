@@ -1,0 +1,77 @@
+{
+  "status": "pass",
+  "started_utc": "2026-09-28T05:57:43.394545+00:00",
+  "seeds": [
+    20260928,
+    8675309
+  ],
+  "controls": [
+    {
+      "name": "baseline",
+      "seed": 20260928,
+      "status": "pass"
+    },
+    {
+      "name": "uart_inverted_data",
+      "seed": 20260928,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '0/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "spi_inverted_mosi",
+      "seed": 20260928,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '2/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "i2c_drives_high",
+      "seed": 20260928,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '6/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "programmable_inverted_output",
+      "seed": 20260928,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "baseline",
+      "seed": 8675309,
+      "status": "pass"
+    },
+    {
+      "name": "uart_inverted_data",
+      "seed": 8675309,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '0/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "spi_inverted_mosi",
+      "seed": 8675309,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '2/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "i2c_drives_high",
+      "seed": 8675309,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '6/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    },
+    {
+      "name": "programmable_inverted_output",
+      "seed": 8675309,
+      "status": "rejected-as-expected",
+      "failed_stage": "functional",
+      "error": "functional failed: [{'name': 'adapter_contract', 'status': 'pass', 'detail': '13 bounded JSON workloads'}, {'name': 'compile', 'status': 'pass', 'detail': 'exit 0'}, {'name': 'external_pin_protocols', 'status': 'fail', 'detail': '11/15 stages completed; exit 1'}, {'name': 'same_hardware', 'status': 'pass', 'detail': 'one elaboration for all protocols and repeated live firmware replacement'}]"
+    }
+  ],
+  "completed_utc": "2026-09-28T05:59:20.968581+00:00"
+}

@@ -1,0 +1,47 @@
+{
+  "repository": "https://github.com/satyaammu93/jane-street-asic-2026",
+  "commit": "65e0a742c1f91ac730c137afea5e154287267d67",
+  "investigated_at_utc": "2026-09-28T05:45:07.449207+00:00",
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "checks": [
+    {
+      "name": "software-tests",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "-m",
+        "unittest",
+        "-v",
+        "test_software"
+      ],
+      "exit_code": 0,
+      "log": "software-tests.log"
+    },
+    {
+      "name": "evidence-audit",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "scripts/check_evidence.py"
+      ],
+      "exit_code": 1,
+      "log": "evidence-audit.log"
+    },
+    {
+      "name": "model-vectors",
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+        "test/model_vectors.py",
+        "/private/tmp/janes-tempo-vectors.txt"
+      ],
+      "exit_code": 0,
+      "log": "model-vectors.log"
+    }
+  ],
+  "model_vectors_match_committed": true,
+  "model_vectors_sha256": "0266c08e6c62fc63617ecc12261bcb769a2d3e163eeba2a527a6ba2d9ce6ecec",
+  "limitations": [
+    "RTL simulation not reproduced: Icarus Verilog unavailable locally.",
+    "Docker runtime probe did not return usable server information.",
+    "Formal, gate-level and physical builds not reproduced."
+  ],
+  "status": "investigation only; not an accepted challenge baseline"
+}

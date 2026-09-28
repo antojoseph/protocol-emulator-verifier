@@ -1,0 +1,35 @@
+{
+  "mode": "rtl",
+  "tests": 6,
+  "failures": 0,
+  "started_utc": "2026-09-28T05:50:16.599099+00:00",
+  "completed_utc": "2026-09-28T05:50:19.006795+00:00",
+  "python": "3.9.6",
+  "tools": {
+    "iverilog": "Icarus Verilog version 14.0 (devel) (s20260301-488-g850838b55-dirty)",
+    "vvp": "Icarus Verilog runtime version 14.0 (devel) (s20260301-488-g850838b55-dirty)"
+  },
+  "test_cases": [
+    "software",
+    "core_tb",
+    "fifo_tb",
+    "wrapper_tb",
+    "model_tb",
+    "protocols_tb"
+  ],
+  "installation": {
+    "archive": {
+      "release": "2026-09-27",
+      "platform": "darwin-arm64",
+      "archive": "oss-cad-suite-darwin-arm64-20260927.tgz",
+      "sha256": "0df7ff004bb038f5aaef70959da0ba9c23c19472f5887698673d36f4b9528455",
+      "source_url": "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2026-09-27/oss-cad-suite-darwin-arm64-20260927.tgz"
+    },
+    "versions": {
+      "iverilog": "Icarus Verilog version 14.0 (devel) (s20260301-488-g850838b55-dirty)",
+      "vvp": "Icarus Verilog runtime version 14.0 (devel) (s20260301-488-g850838b55-dirty)",
+      "yosys": "Yosys 0.69+154 (git sha1 30d62572e-dirty, Release, Clang /usr/local/osxcross/target/bin/aarch64-apple-darwin25.5-clang++ 21.1.8)"
+    }
+  },
+  "rtl_transcript": "reports/toolchain-tempo-rtl.log"
+}

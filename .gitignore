@@ -1,0 +1,12 @@
+.tools/
+.runs/
+runs/
+__pycache__/
+*.pyc
+score.json
+.DS_Store
+reports/functional-development*/
+reports/functional-container-baseline/
+reports/functional-adversarial-extra/
+reports/gate-integration*/
+reports/branch-hardcoding-diagnostic/

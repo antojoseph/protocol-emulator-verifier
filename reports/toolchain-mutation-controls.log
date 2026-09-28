@@ -1,0 +1,44 @@
+BASELINE seed=20260928
+[synthesis] running
+[synthesis] pass
+[functional] running
+[functional] pass
+NEGATIVE CONTROL uart_inverted_data seed=20260928
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL spi_inverted_mosi seed=20260928
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL i2c_drives_high seed=20260928
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL programmable_inverted_output seed=20260928
+[synthesis] running
+[synthesis] pass
+[functional] running
+BASELINE seed=8675309
+[synthesis] running
+[synthesis] pass
+[functional] running
+[functional] pass
+NEGATIVE CONTROL uart_inverted_data seed=8675309
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL spi_inverted_mosi seed=8675309
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL i2c_drives_high seed=8675309
+[synthesis] running
+[synthesis] pass
+[functional] running
+NEGATIVE CONTROL programmable_inverted_output seed=8675309
+[synthesis] running
+[synthesis] pass
+[functional] running
+PASS: 2 baseline runs and 8 functional mutation rejections
+/Users/fork/Documents/ChatGPT/janeS/.runs/mutation-controls/mutation-results.json

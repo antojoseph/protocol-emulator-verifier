@@ -1,0 +1,15 @@
+test_accepted_snapshot_source_and_license_must_still_match (test_publication.PublicationTests.test_accepted_snapshot_source_and_license_must_still_match) ... ok
+test_archive_budgets_and_truncated_gzip_fail (test_publication.PublicationTests.test_archive_budgets_and_truncated_gzip_fail) ... ok
+test_archive_traversal_links_duplicates_and_special_files_rejected (test_publication.PublicationTests.test_archive_traversal_links_duplicates_and_special_files_rejected) ... ok
+test_deadline_is_calendar_only_without_invented_timezone_or_cutoff (test_publication.PublicationTests.test_deadline_is_calendar_only_without_invented_timezone_or_cutoff) ... ok
+test_download_has_no_ambient_auth_and_enforces_size_budget (test_publication.PublicationTests.test_download_has_no_ambient_auth_and_enforces_size_budget) ... ok
+test_fast_failed_incomplete_or_forged_score_is_rejected_before_network (test_publication.PublicationTests.test_fast_failed_incomplete_or_forged_score_is_rejected_before_network) ... ok
+test_matching_public_archive_and_full_result_pass_without_submission_claim (test_publication.PublicationTests.test_matching_public_archive_and_full_result_pass_without_submission_claim) ... ok
+test_public_missing_or_modified_files_fail_closed (test_publication.PublicationTests.test_public_missing_or_modified_files_fail_closed) ... ok
+test_repository_requires_credential_free_url_and_immutable_revision (test_publication.PublicationTests.test_repository_requires_credential_free_url_and_immutable_revision) ... ok
+test_snapshot_change_during_download_is_rejected (test_publication.PublicationTests.test_snapshot_change_during_download_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.301s
+
+OK
