@@ -96,6 +96,12 @@ schema-v1 execution contract. Platform onboarding/runner registration is a
 separate deployment step; no challenge has been published. See the validated
 [Yukon integration requirements](docs/yukon-integration.md).
 
+An [isolated asynchronous GCP service](docs/isolated-gcp-service.md) can run agent
+submissions through a private operator API, with durable PostgreSQL job status,
+separate fast/full workers, restart recovery, and checksummed GCS evidence.
+See [deployment validation](reports/service-validation.json) for its current
+readiness. It uses this same verifier; Yukon production onboarding remains separate.
+
 ## Test the verifier
 
 ```sh

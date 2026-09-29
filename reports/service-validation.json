@@ -1,0 +1,105 @@
+{
+  "status": "cloud_full_baseline_running",
+  "unit_and_database_tests": {
+    "run": 68,
+    "passed": 65,
+    "skipped": 3,
+    "log": ".runs/service-all-tests.log",
+    "skip_reason": "Existing opt-in verifier Docker boundary tests were not rerun; separate real service worker checks were run."
+  },
+  "real_worker_checks": {
+    "fast_tempo_baseline": "pass",
+    "unsafe_hdl_rejection": "pass",
+    "running_cancellation": "pass",
+    "artifact_sink": "local test only",
+    "log": ".runs/service-worker-smoke.log"
+  },
+  "api_checks": {
+    "health": "pass",
+    "completed_report": "pass",
+    "missing_operator_header": "403"
+  },
+  "verifier_hash": "08aab67da473beeead7577a8ad02bf14c7adf246eab2ad3703a7f9c234866a0d",
+  "verifier_and_baseline_source_unchanged": true,
+  "release_bundle_smoke_sha256": "f2826ae4981cdc3062d62a985178a1a3b108e91aa04e2f40275b90266c1b8c6f",
+  "cloud": {
+    "deployed": true,
+    "account_requested": "anto-admin@eigenlabs.org",
+    "new_project_created": true,
+    "existing_projects_modified": false,
+    "blocker": null,
+    "authentication": "succeeded for anto@eigenlabs.org and anto-admin@eigenlabs.org",
+    "project": "asic-verifier-260928-cc9b3c",
+    "temporary_organization_grants_removed": true,
+    "organization_bindings_restored": true,
+    "region": "us-central1",
+    "zone": "us-central1-a",
+    "instance": "asic-worker-1",
+    "bucket": "asic-verifier-260928-cc9b3c-evidence",
+    "release_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe",
+    "private_iap_api": "pass",
+    "bucket_public_access_prevention": "enforced",
+    "daily_snapshot_policy": "asic-daily",
+    "fast_baseline": {
+      "job": "f7c9ce9e-22ec-46a7-92cd-ab388811b5ea",
+      "status": "pass",
+      "accepted": false,
+      "verifier_elapsed_seconds": 20.723698,
+      "downloaded_evidence_sha256_verified": true
+    },
+    "negative_control": {
+      "job": "72563000-04ea-472a-b2ee-d5d00e892285",
+      "status": "fail",
+      "accepted": false
+    },
+    "running_cancellation": {
+      "job": "2f77c72c-6c83-4fe5-afe5-06c2e9fb93f9",
+      "state": "cancelled",
+      "result": null
+    },
+    "full_baseline": {
+      "job": "1bb5e297-f7f5-4044-b723-7d87d37f5b8f",
+      "state": "running"
+    },
+    "worker_restart": {
+      "job": "1cbf3795-0959-4776-bcd9-de38ab8d1397",
+      "state": "completed",
+      "attempts": 2,
+      "status": "pass",
+      "accepted": false
+    },
+    "api_boundaries": {
+      "idempotency_same_job": true,
+      "missing_header": 403,
+      "changed_request": 400
+    },
+    "api_restart_preserves_jobs": true,
+    "both_disks_retained": true,
+    "vm_attached_only_to_dedicated_network": true
+  },
+  "remaining": [
+    "Complete cloud full baseline and verify its uploaded evidence"
+  ],
+  "additional_cleanup_tests": {
+    "passed": 2,
+    "log": ".runs/service-final-boundary-tests.log"
+  },
+  "cost_estimate_usd": {
+    "region": "us-central1",
+    "vm": "c3-standard-8",
+    "vm_hourly": 0.403216,
+    "hours_per_month": 730,
+    "vm_monthly": 294.35,
+    "data_disk_monthly": 34,
+    "boot_disk_monthly": 3,
+    "ephemeral_ipv4_monthly": 3.65,
+    "additional_storage_and_snapshots": "usage dependent",
+    "estimated_monthly_light_artifact_usage": "340-360, before taxes, discounts, significant egress, or substantial artifact accumulation",
+    "sources": [
+      "https://cloud.google.com/products/compute/pricing/general-purpose",
+      "https://cloud.google.com/compute/disks-image-pricing",
+      "https://cloud.google.com/vpc/network-pricing",
+      "https://cloud.google.com/storage/pricing"
+    ]
+  }
+}

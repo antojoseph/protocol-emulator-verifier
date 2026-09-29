@@ -1,0 +1,2 @@
+psycopg[binary]==3.2.10
+google-cloud-storage==3.4.1

@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-09-28",
+  "commit": "10cec72b96e5030239ad76d17aa8abe0b4ce4731",
+  "production_verifier_changed": false,
+  "baseline_still_valid": true,
+  "baseline_result_sha256": "1696823024b691bed7c649e52c6d170357dbdb55f408b3714ebd444981a8f3ee",
+  "full_baseline": {
+    "total_seconds": 7125.145626,
+    "physical_seconds": 6840.906,
+    "magic_drc_seconds": 1958.36,
+    "official_cmos_drc_seconds": 2418.91,
+    "all_official_prechecks_seconds": 2434.329999999999,
+    "connectivity_setup_log_interval_seconds": 2180,
+    "detailed_routing_seconds": 1453.523,
+    "final_gds_lvs_report_seconds": 312.177,
+    "drc_fraction_of_total": 0.6143411278538827
+  },
+  "fast_profile": {
+    "total_seconds": 28.00266854199996,
+    "functions": [
+      {
+        "file": "verifier/cli.py",
+        "line": 119,
+        "function": "main",
+        "calls": 1,
+        "self_seconds": 2.5542e-05,
+        "cumulative_seconds": 27.973613042
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 26,
+        "function": "evaluate",
+        "calls": 1,
+        "self_seconds": 0.000114913,
+        "cumulative_seconds": 27.972834583
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 41,
+        "function": "stage",
+        "calls": 2,
+        "self_seconds": 2.4419e-05,
+        "cumulative_seconds": 26.350327876
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 77,
+        "function": "<lambda>",
+        "calls": 1,
+        "self_seconds": 0.005599583,
+        "cumulative_seconds": 21.941489917000002
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 251,
+        "function": "run_functional",
+        "calls": 1,
+        "self_seconds": 0.004440332,
+        "cumulative_seconds": 21.935583625000003
+      },
+      {
+        "file": "verifier/isolation.py",
+        "line": 24,
+        "function": "invoke",
+        "calls": 43,
+        "self_seconds": 0.008508527,
+        "cumulative_seconds": 17.508274580000002
+      },
+      {
+        "file": "verifier/containers.py",
+        "line": 16,
+        "function": "run_eda",
+        "calls": 3,
+        "self_seconds": 0.002435623,
+        "cumulative_seconds": 8.534111833
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 75,
+        "function": "<lambda>",
+        "calls": 1,
+        "self_seconds": 1.0874000000000001e-05,
+        "cumulative_seconds": 4.405413625
+      },
+      {
+        "file": "verifier/synthesis.py",
+        "line": 10,
+        "function": "run_synthesis",
+        "calls": 1,
+        "self_seconds": 0.00012854400000000002,
+        "cumulative_seconds": 4.405368417
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 29,
+        "function": "read_json",
+        "calls": 4,
+        "self_seconds": 3.6583000000000005e-05,
+        "cumulative_seconds": 0.10441550000000001
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 35,
+        "function": "validate_adapter",
+        "calls": 43,
+        "self_seconds": 0.034333880000000004,
+        "cumulative_seconds": 0.048882671
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 32,
+        "function": "pairs",
+        "calls": 124772,
+        "self_seconds": 0.043325588000000005,
+        "cumulative_seconds": 0.043325588000000005
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 71,
+        "function": "validate",
+        "calls": 2,
+        "self_seconds": 0.000223371,
+        "cumulative_seconds": 0.03157775
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 1.5415e-05,
+        "cumulative_seconds": 0.028044792000000002
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 155,
+        "function": "_scenario",
+        "calls": 43,
+        "self_seconds": 0.00052508,
+        "cumulative_seconds": 0.018698289
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 16,
+        "function": "verilog_code_for_checks",
+        "calls": 6,
+        "self_seconds": 0.01186351,
+        "cumulative_seconds": 0.018436749000000002
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 141,
+        "function": "_host_task",
+        "calls": 225,
+        "self_seconds": 0.016097523000000002,
+        "cumulative_seconds": 0.017994757
+      },
+      {
+        "file": "verifier/isolation.py",
+        "line": 75,
+        "function": "pairs",
+        "calls": 55660,
+        "self_seconds": 0.016847615,
+        "cumulative_seconds": 0.016847615
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 25,
+        "function": "digest",
+        "calls": 152,
+        "self_seconds": 0.000192096,
+        "cumulative_seconds": 0.013291795
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 132,
+        "function": "snapshot",
+        "calls": 1,
+        "self_seconds": 6.7378e-05,
+        "cumulative_seconds": 0.012471333000000001
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 29,
+        "function": "_integer",
+        "calls": 129688,
+        "self_seconds": 0.011422169000000001,
+        "cumulative_seconds": 0.011422169000000001
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 20,
+        "function": "harness_hashes",
+        "calls": 2,
+        "self_seconds": 8.333000000000001e-06,
+        "cumulative_seconds": 0.0073020410000000004
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 42,
+        "function": "write_json",
+        "calls": 4,
+        "self_seconds": 3.7080000000000004e-05,
+        "cumulative_seconds": 0.006116374000000001
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 50,
+        "function": "within",
+        "calls": 43,
+        "self_seconds": 0.000225631,
+        "cumulative_seconds": 0.005406749000000001
+      },
+      {
+        "file": "verifier/cli.py",
+        "line": 21,
+        "function": "<dictcomp>",
+        "calls": 2,
+        "self_seconds": 9.579e-05,
+        "cumulative_seconds": 0.005195084
+      },
+      {
+        "file": "verifier/synthesis.py",
+        "line": 28,
+        "function": "count",
+        "calls": 7,
+        "self_seconds": 0.004110693,
+        "cumulative_seconds": 0.0050862500000000005
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 129,
+        "function": "<dictcomp>",
+        "calls": 2,
+        "self_seconds": 3.1747e-05,
+        "cumulative_seconds": 0.004937292
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 4.7080000000000005e-06,
+        "cumulative_seconds": 0.002565625
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 8.166000000000001e-06,
+        "cumulative_seconds": 0.002330875
+      },
+      {
+        "file": "verifier/isolation.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 4.666e-06,
+        "cumulative_seconds": 0.001316291
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 374,
+        "function": "<dictcomp>",
+        "calls": 1,
+        "self_seconds": 2.2749000000000002e-05,
+        "cumulative_seconds": 0.00038950000000000003
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 124,
+        "function": "_read_counts",
+        "calls": 43,
+        "self_seconds": 0.000339582,
+        "cumulative_seconds": 0.000343084
+      },
+      {
+        "file": "verifier/isolation.py",
+        "line": 18,
+        "function": "compiler",
+        "calls": 1,
+        "self_seconds": 4.1270000000000005e-06,
+        "cumulative_seconds": 0.00028937500000000003
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 100,
+        "function": "_public_workloads",
+        "calls": 1,
+        "self_seconds": 5.3781000000000006e-05,
+        "cumulative_seconds": 0.000259833
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 285,
+        "function": "<dictcomp>",
+        "calls": 1,
+        "self_seconds": 5.626e-06,
+        "cumulative_seconds": 0.00025666700000000003
+      },
+      {
+        "file": "verifier/synthesis.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 4.706e-06,
+        "cumulative_seconds": 0.00025633300000000003
+      },
+      {
+        "file": "verifier/containers.py",
+        "line": 35,
+        "function": "<genexpr>",
+        "calls": 6,
+        "self_seconds": 4.79e-06,
+        "cumulative_seconds": 0.000226583
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 364,
+        "function": "<setcomp>",
+        "calls": 1,
+        "self_seconds": 0.000167454,
+        "cumulative_seconds": 0.000169208
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 30,
+        "function": "blank",
+        "calls": 30,
+        "self_seconds": 6.3760000000000004e-06,
+        "cumulative_seconds": 0.00015937400000000002
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 31,
+        "function": "<genexpr>",
+        "calls": 1852,
+        "self_seconds": 7.6889e-05,
+        "cumulative_seconds": 7.6889e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 382,
+        "function": "<listcomp>",
+        "calls": 1,
+        "self_seconds": 7.016700000000001e-05,
+        "cumulative_seconds": 7.016700000000001e-05
+      },
+      {
+        "file": "verifier/synthesis.py",
+        "line": 14,
+        "function": "<genexpr>",
+        "calls": 4,
+        "self_seconds": 6.583e-06,
+        "cumulative_seconds": 5.3833000000000004e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 352,
+        "function": "<setcomp>",
+        "calls": 1,
+        "self_seconds": 1.667e-06,
+        "cumulative_seconds": 5.2917e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 299,
+        "function": "<dictcomp>",
+        "calls": 43,
+        "self_seconds": 3.9666e-05,
+        "cumulative_seconds": 3.9666e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 1.4833e-05,
+        "cumulative_seconds": 3.3334e-05
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 81,
+        "function": "<genexpr>",
+        "calls": 166,
+        "self_seconds": 2.2261000000000003e-05,
+        "cumulative_seconds": 3.2889e-05
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 54,
+        "function": "<genexpr>",
+        "calls": 117,
+        "self_seconds": 1.5461e-05,
+        "cumulative_seconds": 2.3379e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 345,
+        "function": "<listcomp>",
+        "calls": 1,
+        "self_seconds": 1.0449000000000001e-05,
+        "cumulative_seconds": 2.1166e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 102,
+        "function": "<lambda>",
+        "calls": 16,
+        "self_seconds": 3.165e-06,
+        "cumulative_seconds": 1.8750000000000002e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 370,
+        "function": "<genexpr>",
+        "calls": 76,
+        "self_seconds": 1.5998e-05,
+        "cumulative_seconds": 1.5998e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 365,
+        "function": "<setcomp>",
+        "calls": 1,
+        "self_seconds": 1.4333000000000002e-05,
+        "cumulative_seconds": 1.4333000000000002e-05
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 145,
+        "function": "check_ports",
+        "calls": 1,
+        "self_seconds": 8.046e-06,
+        "cumulative_seconds": 1.0291e-05
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 346,
+        "function": "<dictcomp>",
+        "calls": 43,
+        "self_seconds": 9.004e-06,
+        "cumulative_seconds": 9.004e-06
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 96,
+        "function": "finite_number",
+        "calls": 1,
+        "self_seconds": 6.083e-06,
+        "cumulative_seconds": 6.750000000000001e-06
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 181,
+        "function": "<listcomp>",
+        "calls": 2,
+        "self_seconds": 1.709e-06,
+        "cumulative_seconds": 6.542e-06
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 191,
+        "function": "<listcomp>",
+        "calls": 2,
+        "self_seconds": 1.3320000000000001e-06,
+        "cumulative_seconds": 5.707000000000001e-06
+      },
+      {
+        "file": "verifier/containers.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 3.542e-06,
+        "cumulative_seconds": 3.875e-06
+      },
+      {
+        "file": "verifier/synthesis.py",
+        "line": 34,
+        "function": "<genexpr>",
+        "calls": 12,
+        "self_seconds": 2.459e-06,
+        "cumulative_seconds": 2.9590000000000004e-06
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 111,
+        "function": "<genexpr>",
+        "calls": 18,
+        "self_seconds": 1.916e-06,
+        "cumulative_seconds": 1.916e-06
+      },
+      {
+        "file": "verifier/candidate.py",
+        "line": 114,
+        "function": "<genexpr>",
+        "calls": 6,
+        "self_seconds": 5.01e-07,
+        "cumulative_seconds": 5.01e-07
+      },
+      {
+        "file": "verifier/functional.py",
+        "line": 25,
+        "function": "ContractError",
+        "calls": 1,
+        "self_seconds": 2.08e-07,
+        "cumulative_seconds": 2.08e-07
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 17,
+        "function": "VerificationError",
+        "calls": 1,
+        "self_seconds": 1.67e-07,
+        "cumulative_seconds": 1.67e-07
+      },
+      {
+        "file": "verifier/__init__.py",
+        "line": 1,
+        "function": "<module>",
+        "calls": 1,
+        "self_seconds": 8.400000000000001e-08,
+        "cumulative_seconds": 8.400000000000001e-08
+      },
+      {
+        "file": "verifier/common.py",
+        "line": 21,
+        "function": "ToolUnavailable",
+        "calls": 1,
+        "self_seconds": 8.3e-08,
+        "cumulative_seconds": 8.3e-08
+      }
+    ]
+  },
+  "parallel_compiler_experiment": {
+    "diagnostic_only": true,
+    "accepted": false,
+    "status": "pass",
+    "workers": 4,
+    "compiler_requests": 43,
+    "parallel_compiler_wall_seconds": 5.2113284580000006,
+    "sum_compiler_wall_seconds": 19.486507039,
+    "adapter_actions_equal_serial": true,
+    "functional_wall_seconds": 4.435697,
+    "functional_metrics": {
+      "clock_hz": 50000000,
+      "case_count": 43,
+      "stage_count": 75,
+      "assertions": 48775,
+      "simulation_cycles": 284543
+    },
+    "verifier_and_source_unchanged": true,
+    "scope": "Scheduling experiment only; production verifier unchanged. Does not validate concurrent failure/timeout cleanup or establish full technical acceptance."
+  },
+  "estimated_fast_pipeline_seconds": 15.705722419999958,
+  "physical_parallelism_estimate": {
+    "basis": "Critical-path model, not an implemented or measured optimized full evaluation. Existing stage wall times assumed unchanged under contention. Final stage-61 artifacts match final accepted files for this baseline.",
+    "all_final_artifacts_match_at_stage_61": {
+      "gds": true,
+      "netlist": true,
+      "odb": true,
+      "def": true,
+      "lef": true
+    },
+    "artifact_ready_seconds_from_run_start": 2128.666635274887,
+    "remaining_classic_flow_seconds": 1988.6496963500977,
+    "idealized_full_seconds": 4562.996635274886,
+    "idealized_saved_seconds": 2562.1489907251143
+  },
+  "integrity_overheads": [
+    {
+      "operation": "output_budget_scan",
+      "seconds": 0.023288833000000002
+    },
+    {
+      "operation": "wheel_integrity",
+      "seconds": 0.447911166
+    },
+    {
+      "operation": "pdk_integrity",
+      "seconds": 0.111013209
+    },
+    {
+      "operation": "support_integrity",
+      "seconds": 0.054346000000000005
+    }
+  ],
+  "evidence": {
+    "accepted_baseline": "reports/baseline-full.json",
+    "physical_runtime_files": ".runs/tempo-full-004/physical/runs/authoritative/*/runtime.txt",
+    "physical_process_stats": ".runs/tempo-full-004/physical/runs/authoritative/*/*.process_stats.json",
+    "precheck_xml": ".runs/tempo-full-004/physical/tt/precheck/reports/results.xml",
+    "fast_profile": ".runs/bottleneck-audit/fast.pstats",
+    "parallel_probe": ".runs/bottleneck-audit/parallel_compiler_probe.py",
+    "parallel_functional_result": ".runs/bottleneck-audit/parallel-functional/functional.json"
+  },
+  "physical_process_stats": {
+    "45-openroad-detailedrouting": [
+      {
+        "file": "openroad-detailedrouting.process_stats.json",
+        "stats": {
+          "time": {
+            "cpu_time_user": "01:33:12.689",
+            "cpu_time_system": "00:00:04.400",
+            "runtime": "00:24:13.357",
+            "cpu_time_iowait": "00:00:00.000"
+          },
+          "peak_resources": {
+            "cpu_percent": 418.3,
+            "memory_rss": "2GiB",
+            "memory_vms": "3GiB",
+            "threads": 8
+          },
+          "avg_resources": {
+            "cpu_percent": 385.1890735476346,
+            "memory_rss": "1GiB",
+            "memory_vms": "3GiB",
+            "threads": 7.995990961440338
+          }
+        }
+      }
+    ],
+    "63-magic-drc": [
+      {
+        "file": "magic-drc.process_stats.json",
+        "stats": {
+          "time": {
+            "cpu_time_user": "00:32:36.579",
+            "cpu_time_system": "00:00:01.040",
+            "runtime": "00:32:38.236",
+            "cpu_time_iowait": "00:00:00.000"
+          },
+          "peak_resources": {
+            "cpu_percent": 117.6,
+            "memory_rss": "1GiB",
+            "memory_vms": "3GiB",
+            "threads": 1
+          },
+          "avg_resources": {
+            "cpu_percent": 99.95722596781529,
+            "memory_rss": "1GiB",
+            "memory_vms": "2GiB",
+            "threads": 0.9999456285341453
+          }
+        }
+      }
+    ]
+  }
+}
