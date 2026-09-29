@@ -23,7 +23,7 @@ def harness_hashes():
             if p.is_file() and '__pycache__' not in p.parts}
 
 
-def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, physical_schedule='parallel'):
+def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, physical_schedule='parallel', compiler_workers=1):
     output = Path(output).resolve()
     candidate = Path(candidate).resolve()
     if output == candidate or output.is_relative_to(candidate):
@@ -32,6 +32,7 @@ def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, 
     result = {'schema_version': 1, 'status': 'running', 'mode': mode,
               'accepted': False, 'score': None, 'provisional_score': None,
               'seed': seed, 'started_utc': datetime.now(timezone.utc).isoformat(),
+              'compiler_workers': compiler_workers,
               'contract': 'js-protocol-emulator-v1', 'checks': [], 'stages': {},
               'harness_sha256': harness_hashes(),
               'scope': 'Technical benchmark validation; publication and official submission are separate.'}
@@ -76,7 +77,7 @@ def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, 
         from .functional import run_functional
         functional = stage('functional', lambda: run_functional(
             source, manifest, output / 'functional', seed=seed,
-            adapter_runner=compiler(source, manifest, output / 'compiler')))
+            adapter_runner=compiler(source, manifest, output / 'compiler', workers=compiler_workers)))
         result['provisional_score'] = finite_number(synth['metrics']['provisional_score'], 'provisional_score', positive=True)
         if mode == 'full':
             from .physical import run_physical
@@ -89,7 +90,7 @@ def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, 
                 raise VerificationError('Physical stage did not supply netlist and PDK models for gate verification')
             gates = stage('gates', lambda: run_functional(
                 source, manifest, output / 'gates', seed=seed,
-                adapter_runner=compiler(source, manifest, output / 'gate-compiler'),
+                adapter_runner=compiler(source, manifest, output / 'gate-compiler', workers=compiler_workers),
                 gate_netlist=gate_netlist, pdk_models=pdk_models))
             area = finite_number(physical['metrics']['stdcell_area_um2'], 'stdcell_area_um2', positive=True)
             result['score'] = 1_000_000 / area
@@ -124,6 +125,8 @@ def main():
     parser.add_argument('--out', type=Path, help='New output directory (must not already exist)')
     parser.add_argument('--score-file', type=Path, help='Atomically replace this score artifact, including on failures')
     parser.add_argument('--physical-timeout', type=int, default=14400)
+    parser.add_argument('--compiler-workers', type=int, choices=(1, 2, 4), default=1,
+                        help='Organizer-controlled compiler concurrency; private tests remain fresh')
     parser.add_argument('--physical-schedule', choices=('parallel', 'serial'), default='parallel',
                         help='Organizer-controlled scheduling; every acceptance check remains mandatory')
     args = parser.parse_args()
@@ -132,7 +135,7 @@ def main():
     if args.score_file:
         write_json(args.score_file, {'status': 'running', 'accepted': False, 'score': None})
     try:
-        result = evaluate(args.candidate, output, mode=args.mode, seed=args.seed, physical_timeout=args.physical_timeout, physical_schedule=args.physical_schedule)
+        result = evaluate(args.candidate, output, mode=args.mode, seed=args.seed, physical_timeout=args.physical_timeout, physical_schedule=args.physical_schedule, compiler_workers=args.compiler_workers)
     except Exception as error:
         result = {'status': 'fail', 'accepted': False, 'score': None, 'error': str(error)}
     if args.score_file:

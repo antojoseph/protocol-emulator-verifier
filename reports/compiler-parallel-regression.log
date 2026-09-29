@@ -1,0 +1,133 @@
+test_comments_do_not_join_tokens_into_new_spellings (test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_identifier_comment_marker_cannot_hide_system_tasks (test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_quote_and_line_comment_marker_cannot_hide_code (test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_special_identifiers_do_not_bypass_restrictions (test_candidate_lexer.CandidateLexerTests) ... ok
+test_real_comments_and_string_contents_are_not_executable (test_candidate_lexer.CandidateLexerTests) ... ok
+test_string_comment_marker_cannot_hide_conditional_simulation_code (test_candidate_lexer.CandidateLexerTests) ... ok
+test_unchanged_baseline_remains_valid (test_candidate_lexer.CandidateLexerTests) ... ok
+test_unterminated_strings_and_comments_fail_closed (test_candidate_lexer.CandidateLexerTests) ... ok
+test_memoization_preserves_recursive_hierarchy_rejection (test_candidate_lexer.SynthesisHierarchyWorkTests) ... ok
+test_shared_hierarchy_dag_counts_instances_with_linear_traversal (test_candidate_lexer.SynthesisHierarchyWorkTests) ... ok
+test_checked_bytes_are_snapshot_bytes (test_cli_contract.AcceptanceBoundaries) ... ok
+test_existing_evidence_is_not_overwritten (test_cli_contract.AcceptanceBoundaries) ... ok
+test_source_is_never_a_run_destination (test_cli_contract.AcceptanceBoundaries) ... ok
+test_failure_and_timeout_remove_all_owned_containers (test_compiler_batch.BatchDockerTests) ... skipped 'Docker integration disabled'
+test_real_batch_matches_serial_adapter_outputs (test_compiler_batch.BatchDockerTests) ... skipped 'Docker integration disabled'
+test_bad_worker_counts_and_reused_batch_directory_are_rejected (test_compiler_batch.CompilerBatchTests) ... ok
+test_cleanup_daemon_failure_or_remaining_container_fails_closed (test_compiler_batch.CompilerBatchTests) ... ok
+test_cleanup_failure_cannot_return_success (test_compiler_batch.CompilerBatchTests) ... ok
+test_cleanup_removes_only_owned_names_and_checks_again (test_compiler_batch.CompilerBatchTests) ... ok
+test_failed_batch_generates_no_private_inputs_or_simulator_job (test_compiler_batch.CompilerBatchTests) ... ok
+test_failure_stops_dispatch_and_drains_before_cleanup (test_compiler_batch.CompilerBatchTests) ... ok
+test_spawned_parallelism_is_bounded_and_results_keep_input_order (test_compiler_batch.CompilerBatchTests) ... ok
+test_worker_crash_still_invokes_owned_container_cleanup (test_compiler_batch.CompilerBatchTests) ... ok
+test_actual_def_rejects_oversized_geometry (test_physical.PhysicalEvidenceTests) ... ok
+test_excessive_logs_or_generated_files_are_rejected (test_physical.PhysicalEvidenceTests) ... ok
+test_functional_model_conversion_records_both_hashes (test_physical.PhysicalEvidenceTests) ... ok
+test_lvs_zero_exit_and_empty_circuit_insufficient (test_physical.PhysicalEvidenceTests) ... ok
+test_missing_corner_and_violations_reject (test_physical.PhysicalEvidenceTests) ... ok
+test_missing_or_nonfinite_area_cannot_score (test_physical.PhysicalEvidenceTests) ... ok
+test_missing_tools_cannot_accept_saved_candidate_reports (test_physical.PhysicalEvidenceTests) ... ok
+test_precheck_packages_must_match_checksum_pinned_wheels (test_physical.PhysicalEvidenceTests) ... ok
+test_precheck_requires_every_completed_check (test_physical.PhysicalEvidenceTests) ... ok
+test_previous_workdir_never_reused (test_physical.PhysicalEvidenceTests) ... ok
+test_setup_and_hold_require_real_paths (test_physical.PhysicalEvidenceTests) ... ok
+test_sta_constraint_audit_rejects_unconstrained_or_missing_paths (test_physical.PhysicalEvidenceTests) ... ok
+test_valid_complete_metrics (test_physical.PhysicalEvidenceTests) ... ok
+test_concurrent_docker_timeout_leaves_no_owned_containers (test_physical_execution.PhysicalDockerCleanupTests) ... skipped 'set RUN_VERIFIER_INTEGRATION=1 for physical Docker cleanup tests'
+test_branches_really_overlap_and_join (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_container_cleanup_only_removes_registered_names_and_confirms (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_either_branch_failure_cancels_and_reaps_the_other (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_log_and_aggregate_limits_fail_closed (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_missing_release_and_invalid_release_fail_closed (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_shared_timeout_rejects_and_reaps (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_changed_final_or_sealed_content_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_copy_race_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_external_and_symlink_artifacts_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_missing_artifact_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_no_release_before_complete_marker (test_physical_execution.SealedArtifactTests) ... ok
+test_default_suite_has_32_programmable_cases_and_75_required_stages (test_programmable_coverage.ProgrammableCoverageTests) ... ok
+test_each_programmable_case_samples_a_new_private_first_branch (test_programmable_coverage.ProgrammableCoverageTests) ... ok
+test_changed_firmware_or_rtl_invalidates_observation_identity (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_changed_snapshot_or_harness_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_complete_feedback_keeps_per_metric_provenance_and_omits_stale_corners (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_concurrent_completed_metric_mutation_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_direct_metrics_are_omitted_even_when_equal (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_source_record_keys_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_stage_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_failed_blocked_or_incomplete_functional_runs_never_produce_feedback (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_marker_without_valid_output_state_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_missing_marker_stops_prefix_even_with_finished_looking_files (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_no_completed_stages_is_pending (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_nonfinite_and_oversized_metrics_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_partial_marker_ignores_its_metrics_and_later_stages (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_previous_acceptance_is_never_reissued (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_read_only_and_never_reads_private_or_netlist_artifacts (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_symlink_stage_and_metric_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_accepted_snapshot_source_and_license_must_still_match (test_publication.PublicationTests) ... ok
+test_archive_budgets_and_truncated_gzip_fail (test_publication.PublicationTests) ... ok
+test_archive_traversal_links_duplicates_and_special_files_rejected (test_publication.PublicationTests) ... ok
+test_deadline_is_calendar_only_without_invented_timezone_or_cutoff (test_publication.PublicationTests) ... ok
+test_download_has_no_ambient_auth_and_enforces_size_budget (test_publication.PublicationTests) ... ok
+test_fast_failed_incomplete_or_forged_score_is_rejected_before_network (test_publication.PublicationTests) ... ok
+test_matching_public_archive_and_full_result_pass_without_submission_claim (test_publication.PublicationTests) ... ok
+test_public_missing_or_modified_files_fail_closed (test_publication.PublicationTests) ... ok
+test_repository_requires_credential_free_url_and_immutable_revision (test_publication.PublicationTests) ... ok
+test_snapshot_change_during_download_is_rejected (test_publication.PublicationTests) ... ok
+test_existing_accepted_baseline_is_recognized (test_service.AcceptanceTests) ... ok
+test_fast_can_never_publish_acceptance (test_service.AcceptanceTests) ... ok
+test_incomplete_or_forged_acceptance_fails_closed (test_service.AcceptanceTests) ... ok
+test_loopback_operator_access_and_browser_rejection (test_service.ApiBoundaryTests) ... ERROR
+test_rejects_expansion_bomb (test_service.ArchiveTests) ... ok
+test_rejects_traversal_hidden_duplicate_and_links (test_service.ArchiveTests) ... /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/zipfile.py:1505: UserWarning: Duplicate name: 'candidate.json'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+ok
+test_roundtrip_baseline (test_service.ArchiveTests) ... ok
+test_inspect_failure_is_not_mistaken_for_successful_cleanup (test_service.CleanupTests) ... ok
+test_only_this_attempts_containers_are_removed (test_service.CleanupTests) ... ok
+test_existing_project_is_rejected_before_any_write (test_service.DeploymentGuardTests) ... + gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-existing --quiet
+ok
+test_failed_discovery_is_not_permission_to_create (test_service.DeploymentGuardTests) ... + gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+ok
+test_resume_requires_project_number_and_ownership_label (test_service.DeploymentGuardTests) ... + gcloud projects describe asic-verifier-new --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+ok
+test_cancellation_race_never_publishes_acceptance (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_concurrent_claim_is_exclusive (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_crash_retries_are_bounded (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_expired_worker_cannot_publish_or_renew_after_reclaim (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_idempotency_and_changed_request_rejection (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_queued_cancel_is_never_claimed (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_separate_lanes (test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_adapter_cannot_supply_expected_results_hdl_or_expressions (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_capture_must_observe_all_result_bits_once (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_nonfinite_and_boolean_scores_rejected (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_apache_label_requires_complete_license_text (test_verifier.CandidateBoundaryTests) ... ok
+test_baseline_validate_and_snapshot_preserve_source_identity (test_verifier.CandidateBoundaryTests) ... ok
+test_changed_manifest_and_source_are_rejected_during_snapshot (test_verifier.CandidateBoundaryTests) ... ok
+test_duplicate_json_keys_cannot_override_manifest_fields (test_verifier.CandidateBoundaryTests) ... ok
+test_manifest_cannot_address_outside_candidate (test_verifier.CandidateBoundaryTests) ... ok
+test_missing_wrong_width_or_extra_tt_ports_rejected (test_verifier.CandidateBoundaryTests) ... ok
+test_simulation_tasks_cannot_forge_verifier_completion (test_verifier.CandidateBoundaryTests) ... ok
+test_symlinked_file_and_directory_cannot_escape_snapshot (test_verifier.CandidateBoundaryTests) ... ok
+test_adapter_cannot_read_host_write_candidate_or_use_network (test_verifier.RealBoundaryIntegrationTests) ... skipped 'set RUN_VERIFIER_INTEGRATION=1 for real synthesis/Docker checks'
+test_nonterminating_adapter_leaves_no_container (test_verifier.RealBoundaryIntegrationTests) ... skipped 'set RUN_VERIFIER_INTEGRATION=1 for real synthesis/Docker checks'
+test_synthesizable_design_missing_enable_port_rejected (test_verifier.RealBoundaryIntegrationTests) ... skipped 'set RUN_VERIFIER_INTEGRATION=1 for real synthesis/Docker checks'
+
+======================================================================
+ERROR: test_loopback_operator_access_and_browser_rejection (test_service.ApiBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/fork/Documents/ChatGPT/janeS/.runs/compiler-parallel-003/tests/test_service.py", line 158, in test_loopback_operator_access_and_browser_rejection
+    server = HTTPServer(('127.0.0.1', 0), Handler)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 138, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [Errno 1] Operation not permitted
+
+----------------------------------------------------------------------
+Ran 109 tests in 6.018s
+
+FAILED (errors=1, skipped=13)

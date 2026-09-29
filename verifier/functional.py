@@ -294,11 +294,29 @@ def run_functional(candidate_dir, manifest, output_dir, seed=20260928,
                        "detail": "functional gate models only; no SDF timing claim; separate STA required"})
     requests = _public_workloads(seed)
     responses = []
-    for index, request in enumerate(requests):
-        public = {"schema_version": 1, "clock_hz": 50000000,
-                  **{key: value for key, value in request.items() if key not in ("nack_index", "address_nack")}}
+    public_requests = [{"schema_version": 1, "clock_hz": 50000000,
+                       **{key: value for key, value in request.items()
+                          if key not in ("nack_index", "address_nack")}}
+                      for request in requests]
+    batch_responses = None
+    batch = getattr(adapter_runner, 'batch', None)
+    if batch is not None:
+        from .compiler_batch import CompilerBatchError
         try:
-            response = adapter_runner(public)
+            batch_responses = batch(public_requests)
+            if not isinstance(batch_responses, list) or len(batch_responses) != len(requests):
+                raise ValueError('Incomplete compiler batch')
+        except Exception as error:
+            index = error.index if isinstance(error, CompilerBatchError) else 0
+            blocked = isinstance(error, ToolUnavailable) or getattr(error, 'blocked', False)
+            result['status'] = 'blocked' if blocked else 'fail'
+            checks.append({'name': f'adapter_case_{index}', 'status': result['status'],
+                           'detail': str(error)[:2000]})
+            return result
+    for index, request in enumerate(requests):
+        public = public_requests[index]
+        try:
+            response = batch_responses[index] if batch_responses is not None else adapter_runner(public)
             response = json.loads(json.dumps(response, allow_nan=False))
             responses.append(validate_adapter(response, _read_counts(request)))
         except ToolUnavailable as error:
