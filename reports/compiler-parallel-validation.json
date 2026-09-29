@@ -1,0 +1,17 @@
+{
+  "accepted": true,
+  "score": 1.9403761225075868,
+  "source_commit": "7612fa9b48b06308877b0e3ca6692b1655fd6078",
+  "compiler_workers": 4,
+  "physical_schedule": "parallel",
+  "elapsed_seconds": 5606.470938,
+  "candidate_matches_original": true,
+  "harness_matches_frozen_source": true,
+  "all_mandatory_checks_passed": true,
+  "physical_metrics_match_baseline": true,
+  "sealed_final_raw_hashes_match": true,
+  "final_artifact_raw_hashes_rechecked": true,
+  "performance_evidence": "reports/compiler-parallel-fast.json",
+  "timing_limitation": "Full validation ran on a contended Mac; its wall time is correctness evidence, not a controlled full speedup.",
+  "promotion_constraint": "Public main uses separately validated parallel-lvs. A fresh full combined validation is required before promoting both together."
+}

@@ -1,11 +1,13 @@
-# Experimental parallel candidate compilation
+# Validated parallel candidate compilation
 
 This isolated branch adds `--compiler-workers {1,2,4}`. The default remains one
 worker. It changes compiler scheduling, not the candidate, public workloads,
 private-peer generation, expected answers, physical flow, tool pins or score.
-It has not yet completed a fresh full physical/gate acceptance evaluation;
-do not replace the accepted production verifier with this branch on the basis
-of fast results alone.
+A fresh full run on the original Tempo candidate passed every mandatory gate
+with accepted score 1.9403761225075868. See the [full result](../reports/compiler-parallel-full.json)
+and [identity audit](../reports/compiler-parallel-validation.json). This acceptance
+uses the two-branch physical schedule; combining it with the separately promoted
+three-branch schedule requires a new full validation.
 
 ```sh
 ./verify candidates/tempo --mode fast --compiler-workers 4
