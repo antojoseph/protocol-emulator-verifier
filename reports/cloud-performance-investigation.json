@@ -1,0 +1,656 @@
+{
+  "scope": "Performance investigation of completed runs plus a separate diagnostic geometry probe. No verifier, candidate, acceptance policy, service, machine type, or deployment configuration changed.",
+  "sources": {
+    "mac_result": ".runs/tempo-full-004/result.json",
+    "cloud_result": ".runs/gcp-deployment/asic-verifier-260928-cc9b3c/full-job.json",
+    "cloud_stage_stats": ".runs/gcp-deployment/asic-verifier-260928-cc9b3c/full-timing-evidence.json",
+    "cloud_archive": ".runs/gcp-deployment/asic-verifier-260928-cc9b3c/full-evidence.tar.gz",
+    "google_c3_cpu_definition": "https://docs.cloud.google.com/compute/docs/general-purpose-machines#c3_series",
+    "docker_cpu_quota": "https://docs.docker.com/engine/containers/resource_constraints/",
+    "docker_rosetta": "https://docs.docker.com/desktop/settings-and-maintenance/settings/",
+    "klayout_regions": "https://www.klayout.org/klayout-pypi/overview/geometry/regions/"
+  },
+  "timing": [
+    {
+      "name": "full_verifier",
+      "mac_seconds": 7125.145626,
+      "cloud_seconds": 8778.04096,
+      "delta_seconds": 1652.8953339999998,
+      "cloud_over_mac_ratio": 1.2319805686452927,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "physical",
+      "mac_seconds": 6840.906,
+      "cloud_seconds": 8305.322,
+      "delta_seconds": 1464.4160000000002,
+      "cloud_over_mac_ratio": 1.2140675518710533,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Magic DRC",
+      "mac_seconds": 1958.36,
+      "cloud_seconds": 2567.234,
+      "delta_seconds": 608.874,
+      "cloud_over_mac_ratio": 1.3109101493086053,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Detailed routing",
+      "mac_seconds": 1453.523,
+      "cloud_seconds": 1747.229,
+      "delta_seconds": 293.70600000000013,
+      "cloud_over_mac_ratio": 1.2020649140054889,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Magic streamout",
+      "mac_seconds": 26.978,
+      "cloud_seconds": 35.701,
+      "delta_seconds": 8.722999999999999,
+      "cloud_over_mac_ratio": 1.323337534287197,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Official KLayout DRC",
+      "mac_seconds": 2418.91,
+      "cloud_seconds": 2989.93,
+      "delta_seconds": 571.02,
+      "cloud_over_mac_ratio": 1.2360650044854915,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "All official prechecks",
+      "mac_seconds": 2434.329999999999,
+      "cloud_seconds": 2996.45,
+      "delta_seconds": 562.1200000000008,
+      "cloud_over_mac_ratio": 1.2309136394819113,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Final GDS LVS",
+      "mac_seconds": 312.177,
+      "cloud_seconds": 295.512,
+      "delta_seconds": -16.66500000000002,
+      "cloud_over_mac_ratio": 0.9466168231484061,
+      "evidence_kind": "recorded elapsed time"
+    },
+    {
+      "name": "Official DRC connectivity-setup interval",
+      "mac_seconds": 2180.0,
+      "cloud_seconds": 2729.0,
+      "delta_seconds": 549.0,
+      "cloud_over_mac_ratio": 1.251834862385321,
+      "evidence_kind": "one-second-resolution official log timestamps"
+    },
+    {
+      "name": "Gate simulation interval proxy",
+      "mac_seconds": 233.741587,
+      "cloud_seconds": 437.463678,
+      "delta_seconds": 203.722091,
+      "cloud_over_mac_ratio": 1.871569726272116,
+      "evidence_kind": "Compiled candidate.vvp file final-write to gate simulation.log final-write; includes small process/container transition overhead, not instrumented vvp CPU time."
+    }
+  ],
+  "explanation_of_delta": {
+    "full_delta_seconds": 1652.8953339999998,
+    "top_three_delta_seconds": 1473.6000000000001,
+    "top_three_share_of_full_delta": 0.8915265048476447,
+    "physical_delta_seconds": 1464.4160000000002,
+    "nonphysical_delta_seconds": 188.47933399999965,
+    "other_physical_net_delta_seconds": -9.183999999999969
+  },
+  "identity": {
+    "candidate_source_sha256_equal": true,
+    "harness_sha256_equal": true,
+    "physical_fixed_config_sha256_equal": true,
+    "physical_flow_provenance_equal": true,
+    "physical_metrics_equal": true,
+    "final_artifact_hashes_equal": {
+      "gds": false,
+      "netlist": true,
+      "odb": true,
+      "def": true,
+      "lef": true
+    },
+    "gds_normalization": {
+      "same_after_ignoring_gds_timestamp_fields": true,
+      "mac_length": 26747466,
+      "cloud_length": 26747466,
+      "mac_timestamp_records": 50,
+      "cloud_timestamp_records": 50,
+      "normalized_mac_sha256": "fd2468ca88990b78eb6f0ca5265c7b9c7eb8905b33bb291cd40d2acb084adf48",
+      "normalized_cloud_sha256": "fd2468ca88990b78eb6f0ca5265c7b9c7eb8905b33bb291cd40d2acb084adf48",
+      "method": "Parse each GDSII record as big-endian 16-bit length, 8-bit record type, 8-bit data type. Preserve every byte except replace payloads of record types 0x01 (BGNLIB) and 0x05 (BGNSTR), which contain creation/modification timestamps, with zero bytes. Compare resulting complete byte arrays. Both GDS files are 26,747,466 bytes and contain exactly 50 timestamp records."
+    },
+    "simulation_workload_comparison": {
+      "functional": {
+        "mac_cycles": 285427,
+        "cloud_cycles": 284127,
+        "mac_assertions": 48803,
+        "cloud_assertions": 48654
+      },
+      "gates": {
+        "mac_cycles": 283353,
+        "cloud_cycles": 285328,
+        "mac_assertions": 48754,
+        "cloud_assertions": 48640
+      }
+    }
+  },
+  "process_stats": [
+    {
+      "stage": "45-openroad-detailedrouting",
+      "mac": {
+        "time": {
+          "cpu_time_user": "01:33:12.689",
+          "cpu_time_system": "00:00:04.400",
+          "runtime": "00:24:13.357",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 418.3,
+          "memory_rss": "2GiB",
+          "memory_vms": "3GiB",
+          "threads": 8
+        },
+        "avg_resources": {
+          "cpu_percent": 385.1890735476346,
+          "memory_rss": "1GiB",
+          "memory_vms": "3GiB",
+          "threads": 7.995990961440338
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "01:51:27.899",
+          "cpu_time_system": "00:00:13.509",
+          "runtime": "00:29:07.114",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 418.3,
+          "memory_rss": "1GiB",
+          "memory_vms": "2GiB",
+          "threads": 8
+        },
+        "avg_resources": {
+          "cpu_percent": 383.49277496549087,
+          "memory_rss": "1GiB",
+          "memory_vms": "1GiB",
+          "threads": 7.997411412793373
+        }
+      }
+    },
+    {
+      "stage": "63-magic-drc",
+      "mac": {
+        "time": {
+          "cpu_time_user": "00:32:36.579",
+          "cpu_time_system": "00:00:01.040",
+          "runtime": "00:32:38.236",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 117.6,
+          "memory_rss": "1GiB",
+          "memory_vms": "3GiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 99.95722596781529,
+          "memory_rss": "1GiB",
+          "memory_vms": "2GiB",
+          "threads": 0.9999456285341453
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "00:42:46.119",
+          "cpu_time_system": "00:00:00.830",
+          "runtime": "00:42:47.130",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 109.8,
+          "memory_rss": "1GiB",
+          "memory_vms": "1GiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 99.98552462026981,
+          "memory_rss": "1GiB",
+          "memory_vms": "1GiB",
+          "threads": 0.9999609512280839
+        }
+      }
+    },
+    {
+      "stage": "06-yosys-synthesis",
+      "mac": {
+        "time": {
+          "cpu_time_user": "00:00:06.129",
+          "cpu_time_system": "00:00:00.250",
+          "runtime": "00:01:52.466",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 155.2,
+          "memory_rss": "174MiB",
+          "memory_vms": "2GiB",
+          "threads": 2
+        },
+        "avg_resources": {
+          "cpu_percent": 5.718399264029441,
+          "memory_rss": "165MiB",
+          "memory_vms": "2GiB",
+          "threads": 1.0
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "00:00:04.740",
+          "cpu_time_system": "00:00:00.130",
+          "runtime": "00:02:00.089",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 159.4,
+          "memory_rss": "114MiB",
+          "memory_vms": "664MiB",
+          "threads": 2
+        },
+        "avg_resources": {
+          "cpu_percent": 4.046371976647207,
+          "memory_rss": "96MiB",
+          "memory_vms": "647MiB",
+          "threads": 1.0
+        }
+      }
+    },
+    {
+      "stage": "58-magic-streamout",
+      "mac": {
+        "time": {
+          "cpu_time_user": "00:00:25.839",
+          "cpu_time_system": "00:00:00.350",
+          "runtime": "00:00:26.861",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 111.6,
+          "memory_rss": "557MiB",
+          "memory_vms": "2GiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 96.66345381526111,
+          "memory_rss": "366MiB",
+          "memory_vms": "1GiB",
+          "threads": 0.9959839357429718
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "00:00:35.210",
+          "cpu_time_system": "00:00:00.300",
+          "runtime": "00:00:35.597",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 109.8,
+          "memory_rss": "549MiB",
+          "memory_vms": "554MiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 99.19551820728306,
+          "memory_rss": "363MiB",
+          "memory_vms": "368MiB",
+          "threads": 0.9971988795518207
+        }
+      }
+    },
+    {
+      "stage": "65-magic-spiceextraction",
+      "mac": {
+        "time": {
+          "cpu_time_user": "00:00:21.629",
+          "cpu_time_system": "00:00:00.890",
+          "runtime": "00:00:23.979",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 110.8,
+          "memory_rss": "598MiB",
+          "memory_vms": "2GiB",
+          "threads": 2
+        },
+        "avg_resources": {
+          "cpu_percent": 92.95,
+          "memory_rss": "266MiB",
+          "memory_vms": "1GiB",
+          "threads": 1.508849557522124
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "00:00:25.030",
+          "cpu_time_system": "00:00:00.560",
+          "runtime": "00:00:25.779",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 109.7,
+          "memory_rss": "589MiB",
+          "memory_vms": "602MiB",
+          "threads": 2
+        },
+        "avg_resources": {
+          "cpu_percent": 98.49845559845589,
+          "memory_rss": "262MiB",
+          "memory_vms": "272MiB",
+          "threads": 1.5521235521235515
+        }
+      }
+    },
+    {
+      "stage": "67-netgen-lvs",
+      "mac": {
+        "time": {
+          "cpu_time_user": "00:00:04.349",
+          "cpu_time_system": "00:00:00.110",
+          "runtime": "00:00:04.560",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 108.7,
+          "memory_rss": "413MiB",
+          "memory_vms": "2GiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 93.27500000000003,
+          "memory_rss": "341MiB",
+          "memory_vms": "1GiB",
+          "threads": 0.9772727272727273
+        }
+      },
+      "cloud": {
+        "time": {
+          "cpu_time_user": "00:00:04.719",
+          "cpu_time_system": "00:00:00.190",
+          "runtime": "00:00:05.013",
+          "cpu_time_iowait": "00:00:00.000"
+        },
+        "peak_resources": {
+          "cpu_percent": 109.8,
+          "memory_rss": "407MiB",
+          "memory_vms": "410MiB",
+          "threads": 1
+        },
+        "avg_resources": {
+          "cpu_percent": 94.17115384615384,
+          "memory_rss": "342MiB",
+          "memory_vms": "344MiB",
+          "threads": 0.9807692307692307
+        }
+      }
+    }
+  ],
+  "log_file_timestamps": {
+    "note": "Files last-write times; approximation only, not individual-stage benchmark clocks.",
+    "mac": {
+      "result.json": "2026-09-28T08:43:50.570976+00:00",
+      "synthesis/synthesis.log": "2026-09-28T06:45:10.510715+00:00",
+      "functional/compile.log": "2026-09-28T06:45:30.328870+00:00",
+      "functional/simulation.log": "2026-09-28T06:45:34.779026+00:00",
+      "physical/physical-result.json": "2026-09-28T08:39:35.784504+00:00",
+      "physical/logs/gds_lvs.log": "2026-09-28T08:39:35.566787+00:00",
+      "gates/compile.log": "2026-09-28T08:39:53.884454+00:00",
+      "gates/simulation.log": "2026-09-28T08:43:50.406179+00:00",
+      "gates/candidate.vvp": "2026-09-28T08:39:56.664592+00:00",
+      "functional/candidate.vvp": "2026-09-28T06:45:31.083730+00:00"
+    },
+    "cloud": {
+      "functional/compile.log": "2026-09-29T00:29:53.319871+00:00",
+      "functional/simulation.log": "2026-09-29T00:29:56.947868+00:00",
+      "gates/compile.log": "2026-09-29T02:48:34.809744+00:00",
+      "gates/simulation.log": "2026-09-29T02:55:54.379420+00:00",
+      "physical/logs/gds_lvs.log": "2026-09-29T02:48:21.993753+00:00",
+      "physical/physical-result.json": "2026-09-29T02:48:22.396963+00:00",
+      "result.json": "2026-09-29T02:55:54.487075+00:00",
+      "synthesis/synthesis.log": "2026-09-29T00:29:40.635195+00:00",
+      "functional/candidate.vvp": "2026-09-29T00:29:53.828870+00:00",
+      "gates/candidate.vvp": "2026-09-29T02:48:36.915742+00:00"
+    }
+  },
+  "observations": [
+    "Both runs accepted with identical physical score and geometry; all final non-GDS artifact hashes match and GDS differs only by timestamp fields.",
+    "Magic DRC is single-threaded: both runs average ~100% CPU, one thread, user CPU approximately equals wall time, reported I/O wait zero. Its cloud user CPU time is longer by ~31%.",
+    "Detailed routing averages ~3.8 CPUs on both hosts and reports zero I/O wait; cloud user CPU time and wall time are both ~20% larger. Eight observed OS threads are not eight continuously busy cores.",
+    "Official precheck invokes deep:true tiled:false threads:4 on both hosts. Later logged 14/8 thread capability refers to tiled mode, which is disabled.",
+    "Official DRC connectivity setup grows from 36m20s to 45m29s, accounting for 549s of 571s added DRC runtime.",
+    "Final GDS LVS is ~17s faster on cloud, so hardware difference is workload-specific.",
+    "The total comparison is a single run on each host; seeds differ for digital tests, and historical host-load conditions were not controlled."
+  ],
+  "inferences": [
+    "The dominant physical slowdown is CPU execution throughput for the same workload, not different physical designs or reported storage wait. CPU microarchitecture, clock speed, scheduling/SMT, and translation behavior require host data or matched probes to separate.",
+    "Extra memory and advertised vCPU count do not automatically accelerate the single-threaded dominant checks.",
+    "File-mtime proxy from last compiled candidate.vvp write to last simulation.log write is 233.742s versus 437.464s; ~204s additional gate-simulation interval, including small process/container transitions. Do not claim exact vvp CPU time without instrumentation."
+  ],
+  "investigated_utc": "2026-09-29",
+  "hardware": {
+    "mac": {
+      "cpu": "Apple M3 Max",
+      "physical_cores": 16,
+      "performance_cores": 12,
+      "efficiency_cores": 4,
+      "hardware_threads": 16,
+      "memory_bytes": 137438953472,
+      "docker_vcpus": 14,
+      "docker_memory_bytes": 100531380224,
+      "docker_architecture": "aarch64",
+      "docker_version": "29.8.0",
+      "apple_virtualization_framework_enabled": true,
+      "rosetta_enabled": true
+    },
+    "cloud": {
+      "machine_type": "c3-standard-8",
+      "cpu": "Intel Xeon Platinum 8481C @ 2.70GHz",
+      "physical_cores_reported": 4,
+      "hardware_threads": 8,
+      "threads_per_core": 2,
+      "memory_gib": 32,
+      "docker_architecture": "x86_64",
+      "docker_version": "29.1.3",
+      "worker_systemd_cpu_quota": "infinity",
+      "swap_bytes": 0,
+      "idle_vmstat_iowait_percent": 0,
+      "idle_vmstat_steal_percent": 0
+    },
+    "note": "Hardware/settings inspected after completed full runs. The CPU model nominal frequency is not a measured sustained clock. Idle vmstat is not historical full-run telemetry."
+  },
+  "execution_limits": {
+    "physical_container_cpu_quota": 4,
+    "physical_container_memory_gib": 16,
+    "openroad_jobs": 4,
+    "functional_container_cpu_quota": 2,
+    "compiler_container_cpu_quota": 1,
+    "note": "CPU quotas are time budgets across logical CPUs, not dedicated physical-core reservations."
+  },
+  "matched_geometry_probe": {
+    "script": "scripts/benchmark_eda_geometry.py",
+    "script_sha256": "4be7d4fddf222ca33667a1e1e325eca785c9d059930e8c7d39ac4a9a108b9a4b",
+    "image": "ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a",
+    "trials_per_host": 4,
+    "data": "Two deterministic regions of 40,000 rectangles each; 3 repeated XOR, merge, size and subtraction passes per trial. Regions constructed before timed interval. No timed disk or network access.",
+    "median_wall_seconds": {
+      "mac": 6.48923171149363,
+      "cloud": 9.18523216199992
+    },
+    "cloud_over_mac_ratio": 1.4154575719235258,
+    "zero_quota_throttle_all_trials": true,
+    "results": {
+      "mac": {
+        "klayout_version": "0.30.9",
+        "cpu_max": "400000 100000",
+        "rosetta_in_maps": true,
+        "max_rss_kib": 473388,
+        "trials": [
+          {
+            "trial": 0,
+            "wall_seconds": 6.506182502998854,
+            "process_cpu_seconds": 6.504969766,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 6505997,
+              "user_usec": 6458954,
+              "system_usec": 47043,
+              "nice_usec": 0,
+              "nr_periods": 66,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 1,
+            "wall_seconds": 6.418510003000847,
+            "process_cpu_seconds": 6.418212684999999,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 6418637,
+              "user_usec": 6412624,
+              "system_usec": 6012,
+              "nice_usec": 0,
+              "nr_periods": 64,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 2,
+            "wall_seconds": 6.518749502007267,
+            "process_cpu_seconds": 6.518133975,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 6517216,
+              "user_usec": 6509213,
+              "system_usec": 8002,
+              "nice_usec": 0,
+              "nr_periods": 65,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 3,
+            "wall_seconds": 6.472280919988407,
+            "process_cpu_seconds": 6.469001890999998,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 6468693,
+              "user_usec": 6460699,
+              "system_usec": 7995,
+              "nice_usec": 0,
+              "nr_periods": 65,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          }
+        ]
+      },
+      "cloud": {
+        "klayout_version": "0.30.9",
+        "cpu_max": "400000 100000",
+        "rosetta_in_maps": false,
+        "max_rss_kib": 411328,
+        "trials": [
+          {
+            "trial": 0,
+            "wall_seconds": 9.278408276999471,
+            "process_cpu_seconds": 9.277144523,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 9276734,
+              "user_usec": 8955681,
+              "system_usec": 321053,
+              "nice_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nr_periods": 93,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 1,
+            "wall_seconds": 9.152616669000054,
+            "process_cpu_seconds": 9.151256947,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 9150922,
+              "user_usec": 8964960,
+              "system_usec": 185962,
+              "nice_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nr_periods": 91,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 2,
+            "wall_seconds": 9.188067263999983,
+            "process_cpu_seconds": 9.186920017000002,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 9186365,
+              "user_usec": 8951406,
+              "system_usec": 234960,
+              "nice_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nr_periods": 92,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          },
+          {
+            "trial": 3,
+            "wall_seconds": 9.182397059999857,
+            "process_cpu_seconds": 9.180958140000001,
+            "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+            "cgroup_delta": {
+              "usage_usec": 9180885,
+              "user_usec": 8953938,
+              "system_usec": 226947,
+              "nice_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nr_periods": 92,
+              "nr_throttled": 0,
+              "throttled_usec": 0,
+              "nr_bursts": 0,
+              "burst_usec": 0
+            }
+          }
+        ]
+      }
+    },
+    "limitations": "In-memory geometry diagnostic using the pinned image KLayout 0.30.9. Not a replay of the full official deck or a new accepted verifier result. Does not separate microarchitecture, cache, clock, memory latency or translation effects.",
+    "summary_checksums_match": true,
+    "checksum_scope": "SHA256 of polygon counts and areas for intermediate/final regions, not a serialization of all polygon coordinates."
+  }
+}

@@ -133,6 +133,11 @@ describes the potential emulation cost for compute-heavy workloads.
 
 ## Native cloud measurement
 
+The follow-up [cloud performance investigation](cloud-performance-investigation.md)
+identifies the actual CPU topology, verifies identical physical artifacts, and
+adds a matched in-memory geometry probe that corroborates slower per-thread
+execution on the selected VM.
+
 The unchanged Tempo candidate and verifier completed a full accepted run on a
 `c3-standard-8` VM (8 vCPU, 32 GB RAM) in `us-central1`. The physical tool container
 retained its four-CPU limit. The accepted area and score exactly match the original
