@@ -1,0 +1,129 @@
+{
+  "recorded_utc": "2026-09-29T05:09:40.794004+00:00",
+  "scope": "Dedicated high-clock cloud benchmark; standalone verifier, existing projects and service disks untouched",
+  "full_validation_status": "running",
+  "machine": {
+    "name": "asic-parallel-east-20260929",
+    "id": "1821620109997177281",
+    "cpuPlatform": "Intel Granite Rapids",
+    "machineType": "https://www.googleapis.com/compute/v1/projects/asic-verifier-260928-cc9b3c/zones/us-east4-a/machineTypes/c4-standard-16-lssd",
+    "zone": "https://www.googleapis.com/compute/v1/projects/asic-verifier-260928-cc9b3c/zones/us-east4-a"
+  },
+  "resources": {
+    "vcpu": 16,
+    "physical_cores": 8,
+    "memory_gib": 60,
+    "physical_container_cpu_limit_each": 4,
+    "physical_container_memory_gib_each": 16,
+    "maximum_parallel_physical_containers": 2
+  },
+  "source_release": {
+    "sha256": "570fb100cd20d7b335eae7003aad26d7f74829e4488d33d81209ed1d1c5445e5",
+    "object": "parallel-benchmark-20260929/release-570fb100cd20d7b335eae7003aad26d7f74829e4488d33d81209ed1d1c5445e5.tar.gz"
+  },
+  "probe": {
+    "klayout_version": "0.30.9",
+    "cpu_max": "400000 100000",
+    "rosetta_in_maps": false,
+    "max_rss_kib": 402680,
+    "trials": [
+      {
+        "trial": 0,
+        "wall_seconds": 6.359064481999994,
+        "process_cpu_seconds": 6.358378863,
+        "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+        "cgroup_delta": {
+          "usage_usec": 6358316,
+          "user_usec": 6116298,
+          "system_usec": 242018,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 64,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "trial": 1,
+        "wall_seconds": 6.272231302999998,
+        "process_cpu_seconds": 6.271771048999999,
+        "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+        "cgroup_delta": {
+          "usage_usec": 6270918,
+          "user_usec": 6109947,
+          "system_usec": 160971,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 62,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "trial": 2,
+        "wall_seconds": 6.334421778999996,
+        "process_cpu_seconds": 6.333770338999999,
+        "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+        "cgroup_delta": {
+          "usage_usec": 6333347,
+          "user_usec": 6142367,
+          "system_usec": 190981,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 64,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      {
+        "trial": 3,
+        "wall_seconds": 6.316318412000001,
+        "process_cpu_seconds": 6.315685546000001,
+        "checksum": "f7a7de73ee6494139aa02bd88c2dc98b5ebf054daec1a8bf8761fc522c688898",
+        "cgroup_delta": {
+          "usage_usec": 6314856,
+          "user_usec": 6129890,
+          "system_usec": 184966,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 63,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    ]
+  },
+  "probe_script_sha256": "4be7d4fddf222ca33667a1e1e325eca785c9d059930e8c7d39ac4a9a108b9a4b",
+  "probe_image": "ghcr.io/librelane/librelane:3.1.0.dev3@sha256:d109140b8f17fc54f4fca998beb8124f4949404ec52e339eebd2250854a18b5a",
+  "probe_comparison": {
+    "median_seconds": {
+      "c4_granite_rapids": 6.3253700954999985,
+      "c3_sapphire_rapids": 9.18523216199992,
+      "mac_m3_max": 6.48923171149363
+    },
+    "seconds_reduction_vs_c3_percent": 31.135435839405478,
+    "seconds_reduction_vs_mac_percent": 2.525131221673016,
+    "checksums_identical": true,
+    "zero_throttling": true,
+    "limitation": "Four short in-memory geometry trials; not a complete official DRC or accepted full result. Older comparisons ran at different times."
+  },
+  "plan": {
+    "order": [
+      "parallel",
+      "serial"
+    ],
+    "public_seed": 20260928,
+    "fresh_private_stimuli_each_run": true,
+    "shutdown_guard_hours": 7,
+    "shutdown_after_completion": true
+  },
+  "cpu_spec_source": "https://docs.cloud.google.com/compute/docs/cpu-platforms"
+}

@@ -138,3 +138,37 @@ finding without making these runs a controlled whole-system benchmark.
 
 No existing GCP project was changed. The only remote diagnostic execution was
 an isolated temporary container on the dedicated verifier VM.
+
+## Follow-up: Granite Rapids and parallel scheduling
+
+A new standalone benchmark VM was provisioned in the isolated project on
+September 29: `c4-standard-16-lssd` in `us-east4-a`, with 8 physical Intel Granite
+Rapids cores / 16 hardware threads and 60 GiB RAM. Google reports the CPU
+platform as Granite Rapids; the guest identifies Xeon 6985P-C. The service API
+and queue remain offline, and the original retained disks were not attached.
+The benchmark has an automatic shutdown guard.
+
+Google lists a 4.2 GHz single-core maximum and 3.9 GHz all-core turbo for this
+CPU, while documenting that its virtual performance counters present a 2.3 GHz
+base value. These specifications are not a measurement of sustained frequency.
+See [Google's CPU platforms](https://docs.cloud.google.com/compute/docs/cpu-platforms).
+Smaller C4 local-SSD variants use Granite Rapids, whereas the corresponding
+ordinary small C4 shapes use Emerald Rapids; see
+[the C4 machine-series documentation](https://docs.cloud.google.com/compute/docs/general-purpose-machines#c4_series).
+
+| Same geometry probe, four trials per host | Median |
+|---|---:|
+| New C4, Granite Rapids | 6.325 s |
+| Earlier C3, Sapphire Rapids | 9.185 s |
+| Earlier Mac M3 Max | 6.489 s |
+
+The new C4 took 31.1% less time than C3 and 2.5% less than the earlier Mac probe.
+All output checksums match, and no C4 trial was CPU-quota throttled. The probe
+script and pinned image are identical. These are short geometry diagnostics,
+not complete official DRC measurements or accepted verification results.
+
+The full benchmark runs parallel and serial scheduling sequentially on this VM
+with the same candidate and public seed. Private stimuli remain freshly generated
+for each evaluation. Both schedules retain all acceptance checks and container
+limits. Full results are pending; current evidence is in
+[high-clock-cloud-benchmark.json](../reports/high-clock-cloud-benchmark.json).

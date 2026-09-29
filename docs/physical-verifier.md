@@ -11,8 +11,8 @@ issuing an accepted score.
 
 Requirements: Git, host Python 3.9 or newer, and a running Docker engine with Linux amd64 support, adequate disk space, and network
 access during setup. Docker Desktop on Apple Silicon runs the pinned amd64 image
-through emulation; physical runs can be substantially slower than a native Linux
-runner. The verification containers have no network access.
+through emulation. Measure the actual workload when choosing hosts: the current
+Mac baseline outperformed the tested GCP C3 host despite emulation. The verification containers have no network access.
 
 ```sh
 ./setup.sh --physical
@@ -41,6 +41,51 @@ logs, source hashes, configuration hash, GDS/netlist hashes, and measured result
 in `physical-result.json`. Missing tools produce `blocked`; absent reports,
 nonfinite metrics, missing checks, timeouts, or violations produce failure.
 Neither outcome can be scored or promoted.
+
+## Parallel scheduling
+
+Full mode defaults to `--physical-schedule parallel`. The original pinned Classic
+flow runs unmodified. When `Magic.WriteLEF` completes, the controller copies its
+GDS, netlist, ODB, DEF and LEF into a sealed directory. The pinned step runner
+writes `runtime.txt` only after validating and closing `state_out.json`; a
+complete runtime marker is the release barrier, not merely file existence.
+Every source/copy hash is checked while sealing. No checkpoint is resumed.
+
+```mermaid
+flowchart LR
+    A[Fresh RTL synthesis and physical build] --> B[Completed layout: seal five artifacts]
+    B --> C[Original flow: Magic DRC, extraction, Netgen LVS, final reports]
+    B --> D[All nine official prechecks, geometry, final GDS LVS]
+    C --> E[Join: require both passes and identical final artifact hashes]
+    D --> E
+    E --> F[All gate-level functional tests]
+    F --> G[Accepted score]
+```
+
+There are at most two physical containers simultaneously. Each keeps its
+existing limits of 4 CPUs and 16 GiB RAM; their aggregate ceilings are 8 CPUs,
+32 GiB RAM and 4,096 processes. Reserve additional memory for the host/controller
+and any API/database or fast workers. A 64 GiB host is a practical choice; a
+32 GiB host cannot guarantee both maximum memory allocations plus overhead.
+`--physical-schedule serial` retains the same checks with one active physical
+container. Resource exhaustion fails verification; it never waives a check.
+
+Both branches share one absolute physical deadline and the existing aggregate
+16 GiB output limit. Every command has its own log, return code and elapsed time.
+The side branch only mounts its own scratch writable, sealed inputs and pinned
+dependencies read-only. The original flow sees the side branch read-only. The
+controller joins both branches, requires all five sealed files to remain unchanged
+and equal the final delivered bytes, and only then proceeds to gate simulation.
+A failed, missing, cancelled or timed-out branch prevents acceptance. Cleanup
+removes only explicitly registered containers and confirms none remain before
+returning a successful result. Gate/compiler execution begins after the scheduler
+thread ends; the compiler's subprocess resource setup is not run from a thread.
+
+Official precheck reports now live under `physical/checks/tt/precheck/reports/`,
+with GDS LVS artifacts under `physical/checks/gds_lvs/`. Command logs remain under
+`physical/logs/`. The result records scheduling, limits, release-state paths and
+sealed/final hashes. See [the scheduling validation](parallel-verification.md)
+for measurements and limitations.
 
 ## Immutable physical contract
 

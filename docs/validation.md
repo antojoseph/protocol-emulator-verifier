@@ -1,4 +1,23 @@
-# Accepted Tempo baseline
+# Accepted Tempo baselines
+
+## Current parallel verifier — September 29, 2026
+
+The parallel verifier passed a fresh full run in **1h40m47s** with `accepted: true`
+and unchanged score **1.9403761225075868**. All 19 verifier files remained
+unchanged, all 75 RTL and 75 gate stages passed (48,732 / 48,827 assertions),
+and every physical check passed. Candidate bytes, physical metrics and delivered
+netlist/ODB/DEF/LEF bytes match the original baseline. GDS matches except for
+creation/modification timestamps. No acceptance check was removed.
+
+See the [complete result](../reports/parallel-full.json),
+[compact comparison](../reports/parallel-validation.json), and
+[scheduling controls and performance limitations](parallel-verification.md).
+Original evidence is retained at `.runs/tempo-full-parallel-001/`.
+The command is `./verify candidates/tempo --mode full --physical-schedule parallel`.
+This is the current harness's accepted evidence; the records below preserve the
+original serial implementation's historical validation.
+
+## Original serial verifier — September 28, 2026
 
 The complete frozen verifier passed on September 28, 2026. The command exited
 with code 0, `status: "pass"`, `accepted: true`, and score

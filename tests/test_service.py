@@ -58,6 +58,11 @@ class AcceptanceTests(unittest.TestCase):
         self.result = json.loads((ROOT / 'reports/baseline-full.json').read_text())
         self.hashes = self.result['candidate']['source_sha256']
         self.seed = self.result['seed']
+        # Exercise historical evidence against its historical verifier identity.
+        # Production still requires the current deployed harness exactly.
+        identity = patch('verifier.cli.harness_hashes', return_value=copy.deepcopy(self.result['harness_sha256']))
+        identity.start()
+        self.addCleanup(identity.stop)
 
     def test_existing_accepted_baseline_is_recognized(self):
         self.assertEqual(classify(self.result, 'full', 0, self.hashes, self.seed), 'completed')

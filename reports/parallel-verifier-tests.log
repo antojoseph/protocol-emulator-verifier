@@ -1,0 +1,59 @@
+Parallel verifier regression tests
+
+unit
+..........................s..........................127.0.0.1 - - [28/Sep/2026 23:39:52] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [28/Sep/2026 23:39:52] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [28/Sep/2026 23:39:52] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [28/Sep/2026 23:39:52] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [28/Sep/2026 23:39:52] "GET /health HTTP/1.1" 403 -
+../Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/zipfile.py:1505: UserWarning: Duplicate name: 'candidate.json'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+....+ gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-existing --quiet
+.+ gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+.+ gcloud projects describe asic-verifier-new --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+.sssssss...........sss
+----------------------------------------------------------------------
+Ran 83 tests in 2.434s
+
+OK (skipped=11)
+
+docker_boundaries
+test_adapter_cannot_supply_expected_results_hdl_or_expressions (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_capture_must_observe_all_result_bits_once (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_nonfinite_and_boolean_scores_rejected (test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_apache_label_requires_complete_license_text (test_verifier.CandidateBoundaryTests) ... ok
+test_baseline_validate_and_snapshot_preserve_source_identity (test_verifier.CandidateBoundaryTests) ... ok
+test_changed_manifest_and_source_are_rejected_during_snapshot (test_verifier.CandidateBoundaryTests) ... ok
+test_duplicate_json_keys_cannot_override_manifest_fields (test_verifier.CandidateBoundaryTests) ... ok
+test_manifest_cannot_address_outside_candidate (test_verifier.CandidateBoundaryTests) ... ok
+test_missing_wrong_width_or_extra_tt_ports_rejected (test_verifier.CandidateBoundaryTests) ... ok
+test_simulation_tasks_cannot_forge_verifier_completion (test_verifier.CandidateBoundaryTests) ... ok
+test_symlinked_file_and_directory_cannot_escape_snapshot (test_verifier.CandidateBoundaryTests) ... ok
+test_adapter_cannot_read_host_write_candidate_or_use_network (test_verifier.RealBoundaryIntegrationTests) ... ok
+test_nonterminating_adapter_leaves_no_container (test_verifier.RealBoundaryIntegrationTests) ... ok
+test_synthesizable_design_missing_enable_port_rejected (test_verifier.RealBoundaryIntegrationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 20.693s
+
+OK
+
+docker_scheduler
+test_concurrent_docker_timeout_leaves_no_owned_containers (test_physical_execution.PhysicalDockerCleanupTests) ... ok
+test_branches_really_overlap_and_join (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_container_cleanup_only_removes_registered_names_and_confirms (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_either_branch_failure_cancels_and_reaps_the_other (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_log_and_aggregate_limits_fail_closed (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_missing_release_and_invalid_release_fail_closed (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_shared_timeout_rejects_and_reaps (test_physical_execution.PhysicalSchedulingTests) ... ok
+test_changed_final_or_sealed_content_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_copy_race_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_external_and_symlink_artifacts_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_missing_artifact_rejected (test_physical_execution.SealedArtifactTests) ... ok
+test_no_release_before_complete_marker (test_physical_execution.SealedArtifactTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 4.554s
+
+OK
+

@@ -1,5 +1,24 @@
 # Isolated asynchronous verifier service
 
+**Current status (September 29, 2026):** the experimental `asic-worker-1` VM was
+removed at the user's request. Its API and workers are offline. Only that VM in
+`asic-verifier-260928-cc9b3c` was deleted; the two disks, private evidence bucket
+and checksummed database/configuration backups were retained. Existing projects
+were untouched. Retained storage still bills. The deployment measurements below
+are historical, and their tunnel commands require restoring a worker first.
+
+New parallel full runs permit two 16 GiB containers concurrently. Provision
+64 GiB RAM, including service/OS headroom, using the deployment's `--machine`
+option; the original 32 GiB test configuration cannot guarantee both memory
+ceilings plus services. A separate, temporary `c4-standard-16-lssd` benchmark VM,
+`asic-parallel-east-20260929` in `us-east4-a`, was subsequently provisioned in the
+same isolated project. It has 60 GiB RAM and runs standalone verification only;
+it does not restore the API, queue or service workers. Its CPU platform is
+confirmed as Intel Granite Rapids. The benchmark runs parallel then serial
+verification with the same candidate/public seed and unchanged checks. It has
+a seven-hour shutdown guard and shuts down when its benchmark script completes.
+The original service disks are not attached. Results are pending.
+
 This is an operator-only service wrapping the existing verifier. It does not modify
 the candidate, scoring policy, or physical checks, and does not configure any Yukon
 production project. A full accepted cloud baseline must be obtained before treating

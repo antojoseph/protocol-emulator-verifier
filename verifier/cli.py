@@ -23,7 +23,7 @@ def harness_hashes():
             if p.is_file() and '__pycache__' not in p.parts}
 
 
-def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400):
+def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400, physical_schedule='parallel'):
     output = Path(output).resolve()
     candidate = Path(candidate).resolve()
     if output == candidate or output.is_relative_to(candidate):
@@ -81,7 +81,7 @@ def evaluate(candidate, output, *, mode='fast', seed=1, physical_timeout=14400):
         if mode == 'full':
             from .physical import run_physical
             physical = stage('physical', lambda: run_physical(
-                source, output / 'physical', timeout=physical_timeout))
+                source, output / 'physical', timeout=physical_timeout, config={'schedule': physical_schedule}))
             # Gate-level checking is mandatory and uses this candidate's fresh mapped netlist.
             gate_netlist = physical.get('gate_netlist') or physical.get('artifacts', {}).get('gate_netlist')
             pdk_models = physical.get('pdk_models') or physical.get('artifacts', {}).get('pdk_models')
@@ -124,13 +124,15 @@ def main():
     parser.add_argument('--out', type=Path, help='New output directory (must not already exist)')
     parser.add_argument('--score-file', type=Path, help='Atomically replace this score artifact, including on failures')
     parser.add_argument('--physical-timeout', type=int, default=14400)
+    parser.add_argument('--physical-schedule', choices=('parallel', 'serial'), default='parallel',
+                        help='Organizer-controlled scheduling; every acceptance check remains mandatory')
     args = parser.parse_args()
     output = args.out or ROOT / '.runs' / (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S') + '-' + secrets.token_hex(4))
     # Invalidate stale score before setup or validation can fail.
     if args.score_file:
         write_json(args.score_file, {'status': 'running', 'accepted': False, 'score': None})
     try:
-        result = evaluate(args.candidate, output, mode=args.mode, seed=args.seed, physical_timeout=args.physical_timeout)
+        result = evaluate(args.candidate, output, mode=args.mode, seed=args.seed, physical_timeout=args.physical_timeout, physical_schedule=args.physical_schedule)
     except Exception as error:
         result = {'status': 'fail', 'accepted': False, 'score': None, 'error': str(error)}
     if args.score_file:

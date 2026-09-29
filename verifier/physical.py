@@ -13,7 +13,6 @@ import math
 import os
 from pathlib import Path
 import re
-import signal
 import shutil
 import subprocess
 import sys
@@ -21,6 +20,9 @@ import time
 import uuid
 import zipfile
 import xml.etree.ElementTree as ET
+
+from .physical_execution import (ExecutionError, PhysicalRunner, overlap_checks,
+    seal_completed_artifacts, verify_sealed_artifacts)
 
 ROOT = Path(__file__).resolve().parents[1]
 SUPPORT = Path(__file__).resolve().parent / "physical_support"
@@ -297,19 +299,23 @@ def prepare_functional_models(model_paths, output_dir):
 def run_physical(candidate_path, workdir, config=None, timeout=14400):
     """Return structured pass/fail/blocked, measured metrics, and fresh artifacts.
 
-    Organizer-only config keys: tools_root, jobs, top_module, rtl_files. No
+    Organizer-only config keys: tools_root, jobs, top_module, rtl_files, schedule. No
     physical constraints or candidate flow settings may be overridden.
     """
     started = time.monotonic()
     config = dict(config or {})
     result = {"status": "fail", "checks": [], "metrics": {}, "artifacts": {},
               "provenance": {"flow": LOCK}, "gate_netlist": None, "pdk_models": []}
+    runner = None
     def check(name, detail):
         result["checks"].append({"name": name, "status": "pass", "detail": detail})
     try:
-        invalid_keys = set(config) - {"tools_root", "jobs", "top_module", "rtl_files"}
+        invalid_keys = set(config) - {"tools_root", "jobs", "top_module", "rtl_files", "schedule"}
         if invalid_keys:
             raise PhysicalError(f"unrecognized physical configuration keys: {sorted(invalid_keys)}")
+        schedule = config.get("schedule", "parallel")
+        if schedule not in ("serial", "parallel"):
+            raise PhysicalError("physical schedule must be serial or parallel")
         candidate = Path(candidate_path).resolve()
         work = Path(workdir).resolve()
         if any(c in str(work) for c in "{}\n\r\0"):
@@ -364,71 +370,45 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
         jobs = config.get("jobs", 4)
         if isinstance(jobs, bool) or not isinstance(jobs, int) or not 1 <= jobs <= 64:
             raise PhysicalError("jobs must be an integer in 1..64")
-        commands = []
-        container_names = []
-        def run(command, label, cwd=None, env=None):
-            remaining = timeout - (time.monotonic() - started)
-            if remaining <= 0:
-                raise PhysicalError("physical pipeline timed out")
-            log = work / "logs" / (label + ".log")
-            commands.append({"stage": label, "command": [str(c) for c in command], "log": str(log)})
-            with log.open("w") as stream:
-                process = subprocess.Popen([str(c) for c in command], cwd=cwd or work,
-                    env=env, stdout=stream, stderr=subprocess.STDOUT, start_new_session=True)
-                deadline = time.monotonic() + remaining
-                last_disk_check = 0.0
-                violation = None
-                while process.poll() is None:
-                    now = time.monotonic()
-                    if now >= deadline:
-                        violation = f"{label} timed out"
-                    elif os.fstat(stream.fileno()).st_size > MAX_LOG_BYTES:
-                        violation = f"{label} exceeded the 256 MiB stage-log limit"
-                    elif now-last_disk_check > 5:
-                        violation = output_budget_error(work, log)
-                        last_disk_check = now
-                    if violation:
-                        try:
-                            os.killpg(process.pid, signal.SIGKILL)
-                        except ProcessLookupError:
-                            pass
-                        process.wait(timeout=20)
-                        # Includes the nested Docker calls made by the official
-                        # precheck wrapper, not only top-level hardening.
-                        for name in container_names:
-                            subprocess.run(["docker", "rm", "-f", name],
-                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=20)
-                        raise PhysicalError(f"{violation}; see {log}")
-                    time.sleep(0.25)
-                completed = process
-                violation = output_budget_error(work, log)
-                if violation:
-                    raise PhysicalError(f"{label} {violation}; see {log}")
-            commands[-1]["returncode"] = completed.returncode
-            if completed.returncode:
-                raise PhysicalError(f"{label} exited {completed.returncode}; see {log}")
-            return log
-        def container(*args, precheck=False):
+        runner = PhysicalRunner(work, started + timeout, output_budget_error, MAX_LOG_BYTES)
+        run = runner.run
+        branch = work / "checks"
+        sealed_dir = work / "sealed"
+        sealed_dir.mkdir()
+        (branch / "trusted").mkdir(parents=True)
+        _copy_tracked(tt, branch / "tt")
+        (branch / "tt/precheck/reports").mkdir(exist_ok=True)
+        def container(*args, precheck=False, side=False):
             name = "janes-physical-" + uuid.uuid4().hex[:16]
-            container_names.append(name)
+            runner.register_container(name)
+            scratch = branch if side else work
             command = ["docker", "run", "--rm", "--name", name,
                     "--platform=linux/amd64", "--network=none", "--cap-drop=ALL",
                     "--security-opt=no-new-privileges", "--pids-limit=2048", "--memory=16g", "--cpus=4", "--read-only",
                     "--tmpfs", "/tmp:rw,exec,size=4g", "--user", f"{os.getuid()}:{os.getgid()}",
-                    "--volume", f"{work}:{work}", "--volume", f"{work / 'src'}:{work / 'src'}:ro",
-                    "--volume", f"{work / 'trusted'}:{work / 'trusted'}:ro",
-                    "--volume", f"{work / 'tt'}:{work / 'tt'}:ro",
-                    "--volume", f"{work / 'tt/precheck/reports'}:{work / 'tt/precheck/reports'}:rw",
-                    "--volume", f"{pdk}:{pdk}:ro", "--workdir", str(work),
+                    "--volume", f"{scratch}:{scratch}",
+                    "--volume", f"{scratch / 'trusted'}:{scratch / 'trusted'}:ro",
+                    "--volume", f"{scratch / 'tt'}:{scratch / 'tt'}:ro",
+                    "--volume", f"{scratch / 'tt/precheck/reports'}:{scratch / 'tt/precheck/reports'}:rw",
+                    "--volume", f"{sealed_dir}:{sealed_dir}:ro",
+                    "--volume", f"{pdk}:{pdk}:ro", "--workdir", str(scratch),
                     "--env", f"PDK_ROOT={pdk}", "--env", f"PDK={LOCK['pdk']['name']}",
-                    "--env", "PYTHONDONTWRITEBYTECODE=1", "--env", f"HOME={work}"]
-            # The dependency probe runs before the verifier creates metadata.
-            if (work / "info.yaml").exists():
-                command += ["--volume", f"{work / 'info.yaml'}:{work / 'info.yaml'}:ro"]
+                    "--env", "PYTHONDONTWRITEBYTECODE=1", "--env", f"HOME={scratch}"]
+            if not side:
+                # The flow cannot mutate the check branch or sealed inputs.
+                command += ["--volume", f"{branch}:{branch}:ro",
+                            "--volume", f"{work / 'src'}:{work / 'src'}:ro"]
+                if (work / "info.yaml").exists():
+                    command += ["--volume", f"{work / 'info.yaml'}:{work / 'info.yaml'}:ro"]
             if precheck:
                 command += ["--volume", f"{packages}:{packages}:ro", "--env", f"PYTHONPATH={packages}", "--env", f"LD_LIBRARY_PATH={WHEEL_LOCK['container_library_path']}"]
             return command + [LOCK["container"], *map(str,args)]
-        result["provenance"]["commands"] = commands
+        result["provenance"]["commands"] = runner.commands
+        result["provenance"]["execution"] = {
+            "schedule": schedule, "max_concurrent_containers": 2 if schedule == "parallel" else 1,
+            "per_container_cpus": 4, "per_container_memory_gib": 16,
+            "shared_deadline_seconds": timeout, "release_barrier": "Magic.WriteLEF runtime.txt",
+        }
         dependency_probe = "import sys,json,importlib.metadata,gdstk,klayout.db,klayout.rdb,yaml; assert sys.version_info[:2]==(3,13); versions={name: importlib.metadata.version(name) for name in " + repr(list(PYTHON_PACKAGES)) + "}; assert versions==" + repr(PYTHON_PACKAGES) + "; print(json.dumps(versions))"
         run(container("python3", "-c", dependency_probe, precheck=True), "precheck_dependencies")
         check("precheck_dependencies", "checksum-verified Python 3.13 Linux wheels loaded inside pinned image")
@@ -456,10 +436,55 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
         check("tiny_tapeout_ports", "exact direction and width for all eight Tiny Tapeout ports")
         run_dir = work / "runs/authoritative"
         run_dir.mkdir(parents=True)
-        run(container("librelane", "--pdk-root", pdk, "--pdk", LOCK["pdk"]["name"],
+        def check_inputs(sealed):
+            artifacts = {key: Path(value["path"]) for key, value in sealed.items()}
+            checks = []
+            def branch_check(name, detail):
+                checks.append({"name": name, "status": "pass", "detail": detail})
+            verify_sealed_artifacts(sealed, artifacts)
+            precheck_command = container("python3", branch / "tt/precheck/precheck.py",
+                "--gds", artifacts["gds"], "--tech", LOCK["pdk"]["name"], precheck=True, side=True)
+            precheck_command[precheck_command.index("--workdir") + 1] = str(branch / "tt/precheck")
+            run(precheck_command, "official_precheck")
+            branch_check("official_precheck", check_precheck_xml(branch / "tt/precheck/reports/results.xml"))
+            geometry_script = branch / "trusted/gds_geometry.py"
+            geometry_script.write_text("import gdstk,json,sys\nlib=gdstk.read_gds(sys.argv[1])\ntops=lib.top_level()\nassert len(tops)==1\nb=tops[0].bounding_box()\njson.dump({'bbox':[v for xy in b for v in xy]},open(sys.argv[2],'w'))\n")
+            run(container("python3", geometry_script, artifacts["gds"], branch / "gds_geometry.json", precheck=True, side=True), "gds_geometry")
+            bbox = json.loads((branch / "gds_geometry.json").read_text())["bbox"]
+            if len(bbox) != 4 or any(not math.isfinite(a) or abs(a-b) > .001 for a,b in zip(bbox, LOCK["die_um"])):
+                raise PhysicalError(f"actual GDS extent differs from fixed 6x4 geometry: {bbox}")
+            branch_check("actual_gds_and_def_geometry", bbox)
+            # Supplement flow Netgen LVS with extraction from final delivered GDS.
+            pdk_dir = pdk / LOCK["pdk"]["name"]
+            master = pdk_dir / "libs.ref/sg13cmos5l_stdcell/cdl/sg13cmos5l_stdcell.cdl"
+            lvs_runner = pdk_dir / "libs.tech/klayout/tech/lvs/run_lvs.py"
+            lvs_dir = branch / "gds_lvs"
+            lvs_dir.mkdir()
+            cdl = lvs_dir / "routed.cdl"
+            tcl = branch / "trusted/export_cdl.tcl"
+            tcl.write_text(f"read_db {{{artifacts['odb']}}}\nwrite_cdl -masters {{{master}}} -include_fillers {{{cdl}}}\n")
+            run(container("openroad", "-exit", "-no_splash", tcl, side=True), "export_cdl")
+            cdl.write_text(f'.include "{master}"\n' + cdl.read_text())
+            lvs_log = run(container("python3", lvs_runner, "--layout", artifacts["gds"], "--netlist", cdl,
+                     "--run_dir", lvs_dir / "check", "--run_mode", "deep", "--disable_tap_extraction", side=True), "gds_lvs")
+            logs = lvs_log.read_text(errors="replace") + "\n" + "\n".join(p.read_text(errors="replace") for p in (lvs_dir / "check").glob("*.log"))
+            branch_check("final_gds_transistor_lvs", check_lvs_log(logs))
+            verify_sealed_artifacts(sealed, artifacts)
+            return checks
+
+        harden_command = container("librelane", "--pdk-root", pdk, "--pdk", LOCK["pdk"]["name"],
                 "--manual-pdk", "--run-tag", "authoritative", "--force-run-dir", run_dir,
                 "--jobs", jobs, "--override-config", f"OPENROAD_THREADS={jobs}",
-                "--condensed", work / "src/config_merged.json"), "harden")
+                "--condensed", work / "src/config_merged.json")
+        release = lambda: seal_completed_artifacts(run_dir, sealed_dir, work / "info.yaml")
+        if schedule == "parallel":
+            sealed, branch_checks = overlap_checks(runner, harden_command, release, check_inputs)
+        else:
+            run(harden_command, "harden")
+            sealed = release()
+            if sealed is None:
+                raise PhysicalError("fresh flow never released completed artifacts")
+            branch_checks = check_inputs(sealed)
         states = sorted(run_dir.glob("[0-9]*-*/state_out.json"), key=lambda p: int(p.parent.name.split("-",1)[0]))
         if not states or not states[-1].parent.name.endswith("-misc-reportmanufacturability"):
             raise PhysicalError("clean physical flow did not reach final manufacturability stage")
@@ -477,33 +502,11 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
             "def": "final/def/*.def", "lef": "final/lef/*.lef"}.items()}
         check_def(artifacts["def"])
         result["artifacts"] = {key: {"path": str(path), "sha256": sha256(path)} for key,path in artifacts.items()}
-        precheck_command = container("python3", work / "tt/precheck/precheck.py",
-            "--gds", artifacts["gds"], "--tech", LOCK["pdk"]["name"], precheck=True)
-        precheck_command[precheck_command.index("--workdir") + 1] = str(work / "tt/precheck")
-        run(precheck_command, "official_precheck")
-        check("official_precheck", check_precheck_xml(work / "tt/precheck/reports/results.xml"))
-        geometry_script = work / "trusted/gds_geometry.py"
-        geometry_script.write_text("import gdstk,json,sys\nlib=gdstk.read_gds(sys.argv[1])\ntops=lib.top_level()\nassert len(tops)==1\nb=tops[0].bounding_box()\njson.dump({'bbox':[v for xy in b for v in xy]},open(sys.argv[2],'w'))\n")
-        run(container("python3", geometry_script, artifacts["gds"], work / "gds_geometry.json", precheck=True), "gds_geometry")
-        bbox = json.loads((work / "gds_geometry.json").read_text())["bbox"]
-        if len(bbox) != 4 or any(not math.isfinite(a) or abs(a-b) > .001 for a,b in zip(bbox, LOCK["die_um"])):
-            raise PhysicalError(f"actual GDS extent differs from fixed 6x4 geometry: {bbox}")
-        check("actual_gds_and_def_geometry", bbox)
-        # Supplement flow Netgen LVS with extraction from final delivered GDS.
+        verify_sealed_artifacts(sealed, artifacts)
+        result["checks"].extend(branch_checks)
+        result["provenance"]["sealed_artifacts"] = sealed
+        check("checked_artifacts_match_final", "all five sealed artifact hashes equal final delivered files")
         pdk_dir = pdk / LOCK["pdk"]["name"]
-        master = pdk_dir / "libs.ref/sg13cmos5l_stdcell/cdl/sg13cmos5l_stdcell.cdl"
-        lvs_runner = pdk_dir / "libs.tech/klayout/tech/lvs/run_lvs.py"
-        lvs_dir = work / "gds_lvs"
-        lvs_dir.mkdir()
-        cdl = lvs_dir / "routed.cdl"
-        tcl = work / "trusted/export_cdl.tcl"
-        tcl.write_text(f"read_db {{{artifacts['odb']}}}\nwrite_cdl -masters {{{master}}} -include_fillers {{{cdl}}}\n")
-        run(container("openroad", "-exit", "-no_splash", tcl), "export_cdl")
-        cdl.write_text(f'.include "{master}"\n' + cdl.read_text())
-        lvs_log = run(container("python3", lvs_runner, "--layout", artifacts["gds"], "--netlist", cdl,
-                 "--run_dir", lvs_dir / "check", "--run_mode", "deep", "--disable_tap_extraction"), "gds_lvs")
-        logs = lvs_log.read_text(errors="replace") + "\n" + "\n".join(p.read_text(errors="replace") for p in (lvs_dir / "check").glob("*.log"))
-        check("final_gds_transistor_lvs", check_lvs_log(logs))
         for name,artifact in result["artifacts"].items():
             if sha256(artifact["path"]) != artifact["sha256"]:
                 raise PhysicalError(f"generated {name} changed during verification")
@@ -521,8 +524,15 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
     except ToolsUnavailable as error:
         result["status"] = "blocked"
         result["checks"].append({"name": "physical_tooling", "status": "blocked", "detail": str(error)})
-    except (PhysicalError, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError, ET.ParseError) as error:
+    except (PhysicalError, ExecutionError, OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError, ET.ParseError) as error:
         result["checks"].append({"name": "physical_acceptance", "status": "fail", "detail": str(error)})
+    finally:
+        if runner is not None:
+            try:
+                runner.close()
+            except (ExecutionError, OSError, subprocess.SubprocessError) as error:
+                result["status"] = "fail"
+                result["checks"].append({"name": "physical_cleanup", "status": "fail", "detail": str(error)})
     result["elapsed_seconds"] = round(time.monotonic() - started, 3)
     # No score is produced here. The parent must require a fresh functional gate
     # run against gate_netlist before any physical result can be promoted.
