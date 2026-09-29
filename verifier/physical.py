@@ -21,7 +21,7 @@ import uuid
 import zipfile
 import xml.etree.ElementTree as ET
 
-from .physical_execution import (ExecutionError, PhysicalRunner, overlap_checks,
+from .physical_execution import (ExecutionError, PhysicalRunner, independent_checks, overlap_checks,
     seal_completed_artifacts, verify_sealed_artifacts)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -314,8 +314,8 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
         if invalid_keys:
             raise PhysicalError(f"unrecognized physical configuration keys: {sorted(invalid_keys)}")
         schedule = config.get("schedule", "parallel")
-        if schedule not in ("serial", "parallel"):
-            raise PhysicalError("physical schedule must be serial or parallel")
+        if schedule not in ("serial", "parallel", "parallel-lvs"):
+            raise PhysicalError("physical schedule must be serial, parallel, or parallel-lvs")
         candidate = Path(candidate_path).resolve()
         work = Path(workdir).resolve()
         if any(c in str(work) for c in "{}\n\r\0"):
@@ -378,25 +378,29 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
         (branch / "trusted").mkdir(parents=True)
         _copy_tracked(tt, branch / "tt")
         (branch / "tt/precheck/reports").mkdir(exist_ok=True)
-        def container(*args, precheck=False, side=False):
+        lvs_branch = work / "lvs_checks"
+        (lvs_branch / "trusted").mkdir(parents=True)
+        def container(*args, precheck=False, side=False, lvs=False):
             name = "janes-physical-" + uuid.uuid4().hex[:16]
             runner.register_container(name)
-            scratch = branch if side else work
+            scratch = lvs_branch if lvs else branch if side else work
             command = ["docker", "run", "--rm", "--name", name,
                     "--platform=linux/amd64", "--network=none", "--cap-drop=ALL",
                     "--security-opt=no-new-privileges", "--pids-limit=2048", "--memory=16g", "--cpus=4", "--read-only",
                     "--tmpfs", "/tmp:rw,exec,size=4g", "--user", f"{os.getuid()}:{os.getgid()}",
                     "--volume", f"{scratch}:{scratch}",
                     "--volume", f"{scratch / 'trusted'}:{scratch / 'trusted'}:ro",
-                    "--volume", f"{scratch / 'tt'}:{scratch / 'tt'}:ro",
-                    "--volume", f"{scratch / 'tt/precheck/reports'}:{scratch / 'tt/precheck/reports'}:rw",
                     "--volume", f"{sealed_dir}:{sealed_dir}:ro",
                     "--volume", f"{pdk}:{pdk}:ro", "--workdir", str(scratch),
                     "--env", f"PDK_ROOT={pdk}", "--env", f"PDK={LOCK['pdk']['name']}",
                     "--env", "PYTHONDONTWRITEBYTECODE=1", "--env", f"HOME={scratch}"]
-            if not side:
+            if not lvs:
+                command += ["--volume", f"{scratch / 'tt'}:{scratch / 'tt'}:ro",
+                            "--volume", f"{scratch / 'tt/precheck/reports'}:{scratch / 'tt/precheck/reports'}:rw"]
+            if not side and not lvs:
                 # The flow cannot mutate the check branch or sealed inputs.
                 command += ["--volume", f"{branch}:{branch}:ro",
+                            "--volume", f"{lvs_branch}:{lvs_branch}:ro",
                             "--volume", f"{work / 'src'}:{work / 'src'}:ro"]
                 if (work / "info.yaml").exists():
                     command += ["--volume", f"{work / 'info.yaml'}:{work / 'info.yaml'}:ro"]
@@ -405,7 +409,7 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
             return command + [LOCK["container"], *map(str,args)]
         result["provenance"]["commands"] = runner.commands
         result["provenance"]["execution"] = {
-            "schedule": schedule, "max_concurrent_containers": 2 if schedule == "parallel" else 1,
+            "schedule": schedule, "max_concurrent_containers": {"serial": 1, "parallel": 2, "parallel-lvs": 3}[schedule],
             "per_container_cpus": 4, "per_container_memory_gib": 16,
             "shared_deadline_seconds": timeout, "release_barrier": "Magic.WriteLEF runtime.txt",
         }
@@ -436,7 +440,7 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
         check("tiny_tapeout_ports", "exact direction and width for all eight Tiny Tapeout ports")
         run_dir = work / "runs/authoritative"
         run_dir.mkdir(parents=True)
-        def check_inputs(sealed):
+        def check_precheck_inputs(sealed):
             artifacts = {key: Path(value["path"]) for key, value in sealed.items()}
             checks = []
             def branch_check(name, detail):
@@ -454,30 +458,48 @@ def run_physical(candidate_path, workdir, config=None, timeout=14400):
             if len(bbox) != 4 or any(not math.isfinite(a) or abs(a-b) > .001 for a,b in zip(bbox, LOCK["die_um"])):
                 raise PhysicalError(f"actual GDS extent differs from fixed 6x4 geometry: {bbox}")
             branch_check("actual_gds_and_def_geometry", bbox)
+            verify_sealed_artifacts(sealed, artifacts)
+            return checks
+
+        def check_lvs_inputs(sealed):
+            artifacts = {key: Path(value["path"]) for key, value in sealed.items()}
+            verify_sealed_artifacts(sealed, artifacts)
             # Supplement flow Netgen LVS with extraction from final delivered GDS.
             pdk_dir = pdk / LOCK["pdk"]["name"]
             master = pdk_dir / "libs.ref/sg13cmos5l_stdcell/cdl/sg13cmos5l_stdcell.cdl"
             lvs_runner = pdk_dir / "libs.tech/klayout/tech/lvs/run_lvs.py"
-            lvs_dir = branch / "gds_lvs"
+            lvs_dir = lvs_branch / "gds_lvs"
             lvs_dir.mkdir()
             cdl = lvs_dir / "routed.cdl"
-            tcl = branch / "trusted/export_cdl.tcl"
+            tcl = lvs_branch / "trusted/export_cdl.tcl"
             tcl.write_text(f"read_db {{{artifacts['odb']}}}\nwrite_cdl -masters {{{master}}} -include_fillers {{{cdl}}}\n")
-            run(container("openroad", "-exit", "-no_splash", tcl, side=True), "export_cdl")
-            cdl.write_text(f'.include "{master}"\n' + cdl.read_text())
-            lvs_log = run(container("python3", lvs_runner, "--layout", artifacts["gds"], "--netlist", cdl,
-                     "--run_dir", lvs_dir / "check", "--run_mode", "deep", "--disable_tap_extraction", side=True), "gds_lvs")
+            run(container("openroad", "-exit", "-no_splash", tcl, lvs=True), "export_cdl")
+            checked_cdl = lvs_branch / "trusted/routed.cdl"
+            checked_cdl.write_text(f'.include "{master}"\n' + cdl.read_text())
+            checked_cdl.chmod(0o444)
+            cdl_hash = sha256(checked_cdl)
+            lvs_log = run(container("python3", lvs_runner, "--layout", artifacts["gds"], "--netlist", checked_cdl,
+                     "--run_dir", lvs_dir / "check", "--run_mode", "deep", "--disable_tap_extraction", lvs=True), "gds_lvs")
             logs = lvs_log.read_text(errors="replace") + "\n" + "\n".join(p.read_text(errors="replace") for p in (lvs_dir / "check").glob("*.log"))
-            branch_check("final_gds_transistor_lvs", check_lvs_log(logs))
+            detail = check_lvs_log(logs)
+            if sha256(checked_cdl) != cdl_hash:
+                raise PhysicalError("CDL changed during final GDS LVS")
             verify_sealed_artifacts(sealed, artifacts)
-            return checks
+            return [{"name": "final_gds_transistor_lvs", "status": "pass", "detail": detail}]
+
+        def check_inputs(sealed):
+            if schedule == "parallel-lvs":
+                results = independent_checks(runner, [lambda: check_precheck_inputs(sealed),
+                                                      lambda: check_lvs_inputs(sealed)])
+                return [check for branch_checks in results for check in branch_checks]
+            return check_precheck_inputs(sealed) + check_lvs_inputs(sealed)
 
         harden_command = container("librelane", "--pdk-root", pdk, "--pdk", LOCK["pdk"]["name"],
                 "--manual-pdk", "--run-tag", "authoritative", "--force-run-dir", run_dir,
                 "--jobs", jobs, "--override-config", f"OPENROAD_THREADS={jobs}",
                 "--condensed", work / "src/config_merged.json")
         release = lambda: seal_completed_artifacts(run_dir, sealed_dir, work / "info.yaml")
-        if schedule == "parallel":
+        if schedule != "serial":
             sealed, branch_checks = overlap_checks(runner, harden_command, release, check_inputs)
         else:
             run(harden_command, "harden")

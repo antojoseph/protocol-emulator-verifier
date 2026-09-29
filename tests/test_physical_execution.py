@@ -8,7 +8,7 @@ import time
 import unittest
 from unittest.mock import patch
 
-from verifier.physical_execution import (ARTIFACT_KEYS, ExecutionError, PhysicalRunner,
+from verifier.physical_execution import (ARTIFACT_KEYS, ExecutionError, PhysicalRunner, independent_checks,
     overlap_checks, seal_completed_artifacts, verify_sealed_artifacts)
 
 
@@ -87,6 +87,116 @@ class PhysicalSchedulingTests(unittest.TestCase):
                 'verifier.physical_execution.subprocess.check_output', side_effect=subprocess.TimeoutExpired('docker', 20)):
             with self.assertRaises(subprocess.TimeoutExpired):
                 self.runner.close()
+
+
+class ThreeBranchSchedulingTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve()
+        (self.root / 'logs').mkdir()
+        self.runner = PhysicalRunner(self.root, time.monotonic()+8, lambda *args: None, 4096)
+        self.addCleanup(self.runner.cancel)
+
+    def command(self, name, tail):
+        ready = [str(self.root / (branch + '.ready')) for branch in ('harden', 'precheck', 'lvs')]
+        code = (f"from pathlib import Path; import time; Path({str(self.root / (name+'.ready'))!r}).touch()\n"
+                f"while not all(Path(p).exists() for p in {ready!r}): time.sleep(.01)\n" + tail)
+        return [sys.executable, '-c', code]
+
+    def schedule(self, tails, *, report_failure=None):
+        def check(name):
+            self.runner.run(self.command(name, tails[name]), name)
+            if name == report_failure:
+                raise ValueError('mandatory report failed: ' + name)
+            return name
+        return overlap_checks(self.runner, self.command('harden', tails['harden']), lambda: {},
+            lambda _: independent_checks(self.runner, [lambda: check('precheck'), lambda: check('lvs')]))
+
+    def test_all_three_overlap_and_join_with_stable_result_order(self):
+        # All three children must reach the rendezvous before any can exit.
+        # Precheck additionally waits for LVS to finish; result order remains fixed.
+        finished = self.root / 'lvs.finished'
+        tails = {'harden': 'pass', 'lvs': f'Path({str(finished)!r}).touch()',
+                 'precheck': f'while not Path({str(finished)!r}).exists(): time.sleep(.01)'}
+        _, results = self.schedule(tails)
+        self.assertEqual(results, ['precheck', 'lvs'])
+        self.assertEqual(len(self.runner.commands), 3)
+        self.assertTrue(all(c['returncode'] == 0 for c in self.runner.commands))
+        self.assertFalse(self.runner._processes)
+        import threading
+        self.assertFalse(any(t.name.startswith('physical-') for t in threading.enumerate()))
+
+    def test_failure_in_each_branch_cancels_and_reaps_all(self):
+        for fail in ('harden', 'precheck', 'lvs'):
+            with self.subTest(fail=fail):
+                for ready in self.root.glob('*.ready'):
+                    ready.unlink()
+                self.runner = PhysicalRunner(self.root, time.monotonic()+8, lambda *args: None, 4096)
+                self.addCleanup(self.runner.cancel)
+                tails = {name: 'raise SystemExit(7)' if name == fail else 'time.sleep(30)'
+                         for name in ('harden', 'precheck', 'lvs')}
+                with self.assertRaises(ExecutionError):
+                    self.schedule(tails)
+                self.assertEqual(len(self.runner.commands), 3)
+                self.assertTrue(all(c['returncode'] != 0 for c in self.runner.commands))
+                self.assertFalse(self.runner._processes)
+
+    def test_report_failure_cancels_other_branches(self):
+        for fail in ('precheck', 'lvs'):
+            with self.subTest(fail=fail):
+                for ready in self.root.glob('*.ready'):
+                    ready.unlink()
+                self.runner = PhysicalRunner(self.root, time.monotonic()+8, lambda *args: None, 4096)
+                self.addCleanup(self.runner.cancel)
+                tails = {name: 'pass' if name == fail else 'time.sleep(30)'
+                         for name in ('harden', 'precheck', 'lvs')}
+                with self.assertRaises((ExecutionError, ValueError)):
+                    self.schedule(tails, report_failure=fail)
+                self.assertEqual(len(self.runner.commands), 3)
+                self.assertFalse(self.runner._processes)
+                self.assertTrue(all(c['returncode'] != 0 for c in self.runner.commands if c['stage'] != fail))
+
+    def test_shared_deadline_cancels_three_branches(self):
+        self.runner.deadline = time.monotonic()+1
+        with self.assertRaisesRegex(ExecutionError, 'timed out|cancelled'):
+            self.schedule({name: 'time.sleep(30)' for name in ('harden', 'precheck', 'lvs')})
+        self.assertEqual(len(self.runner.commands), 3)
+        self.assertFalse(self.runner._processes)
+
+    def test_report_failure_after_main_exit_cancels_lvs(self):
+        import threading
+        main_exited = threading.Event()
+        real_run = self.runner.run
+        def run(command, label, **kwargs):
+            result = real_run(command, label, **kwargs)
+            if label == 'harden':
+                main_exited.set()
+            return result
+        def precheck():
+            self.runner.run(self.command('precheck', 'pass'), 'precheck')
+            self.assertTrue(main_exited.wait(3))
+            raise ValueError('report rejected after flow completed')
+        def lvs():
+            self.runner.run(self.command('lvs', 'time.sleep(30)'), 'lvs')
+        with patch.object(self.runner, 'run', side_effect=run):
+            with self.assertRaisesRegex(ValueError, 'report rejected'):
+                overlap_checks(self.runner, self.command('harden', 'pass'), lambda: {},
+                    lambda _: independent_checks(self.runner, [precheck, lvs]))
+        self.assertEqual({c['stage']: c['returncode'] for c in self.runner.commands}['harden'], 0)
+        self.assertFalse(self.runner._processes)
+
+    def test_aggregate_budget_covers_all_scratch_and_cancels(self):
+        from verifier.physical import output_budget_error
+        self.runner.budget_error = output_budget_error
+        # Every branch writes below the same root. Each file is below the total
+        # cap, but their combined size is not. Check at process completion.
+        tails = {name: f"Path({str(self.root/name)!r}).write_bytes(b'x'*1024)"
+                 for name in ('harden', 'precheck', 'lvs')}
+        with patch('verifier.physical.MAX_GENERATED_BYTES', 1500):
+            with self.assertRaisesRegex(ExecutionError, 'generated-output|cancelled'):
+                self.schedule(tails)
+        self.assertFalse(self.runner._processes)
 
 
 class SealedArtifactTests(unittest.TestCase):
@@ -178,6 +288,33 @@ class SealedArtifactTests(unittest.TestCase):
 @unittest.skipUnless(__import__('os').environ.get('RUN_VERIFIER_INTEGRATION') == '1',
                      'set RUN_VERIFIER_INTEGRATION=1 for physical Docker cleanup tests')
 class PhysicalDockerCleanupTests(unittest.TestCase):
+    def test_three_container_timeout_cleans_up_every_owned_container(self):
+        import uuid
+        from verifier.physical import LOCK
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            (root/'logs').mkdir()
+            runner = PhysicalRunner(root, time.monotonic()+5, lambda *args: None, 4096)
+            names = ['janes-scheduler-test-' + uuid.uuid4().hex[:16] for _ in range(3)]
+            def command(index):
+                runner.register_container(names[index])
+                return ['docker','run','--rm','--name',names[index],'--platform=linux/amd64',
+                        '--network=none','--cap-drop=ALL','--security-opt=no-new-privileges',
+                        '--read-only','--memory=256m','--cpus=1',LOCK['container'],
+                        'python3','-c','import time; time.sleep(60)']
+            try:
+                with self.assertRaises(ExecutionError):
+                    overlap_checks(runner, command(0), lambda: {},
+                        lambda _: independent_checks(runner,
+                            [lambda: runner.run(command(1), 'precheck'),
+                             lambda: runner.run(command(2), 'lvs')]))
+            finally:
+                runner.close()
+            self.assertEqual(len(runner.commands), 3)
+            self.assertFalse(runner._processes)
+            remaining = subprocess.check_output(['docker','ps','-a','--format','{{.Names}}'], text=True)
+            self.assertTrue(all(name not in remaining.splitlines() for name in names))
+
     def test_concurrent_docker_timeout_leaves_no_owned_containers(self):
         import uuid
         from verifier.physical import LOCK

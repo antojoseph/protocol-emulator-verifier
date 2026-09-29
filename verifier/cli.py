@@ -124,7 +124,7 @@ def main():
     parser.add_argument('--out', type=Path, help='New output directory (must not already exist)')
     parser.add_argument('--score-file', type=Path, help='Atomically replace this score artifact, including on failures')
     parser.add_argument('--physical-timeout', type=int, default=14400)
-    parser.add_argument('--physical-schedule', choices=('parallel', 'serial'), default='parallel',
+    parser.add_argument('--physical-schedule', choices=('parallel', 'serial', 'parallel-lvs'), default='parallel',
                         help='Organizer-controlled scheduling; every acceptance check remains mandatory')
     args = parser.parse_args()
     output = args.out or ROOT / '.runs' / (datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S') + '-' + secrets.token_hex(4))
