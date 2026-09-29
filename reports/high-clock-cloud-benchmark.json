@@ -1,7 +1,7 @@
 {
   "recorded_utc": "2026-09-29T06:30:12.641929+00:00",
   "scope": "Dedicated high-clock cloud benchmark; standalone verifier, existing projects and service disks untouched",
-  "full_validation_status": "parallel accepted; serial running; parallel-lvs pending separate correctness validation",
+  "full_validation_status": "parallel and parallel-lvs fully accepted; serial deliberately cancelled",
   "machine": {
     "name": "asic-parallel-east-20260929",
     "id": "1821620109997177281",
@@ -151,7 +151,7 @@
       "def": true,
       "lef": true
     },
-    "gds_cross_run_note": "Raw GDS bytes differ; cross-run normalized comparison is pending retrieval after serial completes. No normalization is used in acceptance.",
+    "gds_cross_run_note": "Cloud cross-run raw GDS hashes differ. Timestamp-only equivalence is not asserted without downloading artifacts; normalization is never used for acceptance. Full artifacts retained on benchmark boot disk.",
     "command_seconds": {
       "precheck_dependencies": 0.708339,
       "ports": 0.404618,
@@ -163,6 +163,8 @@
     },
     "flow_precheck_overlap_seconds": 2078.167417,
     "lvs_tail_after_harden_seconds": 19.369169682000575,
-    "comparison_limit": "Serial is still running. This is one accepted C4 parallel run, not yet a controlled schedule speedup result. The approximately 19-second LVS tail suggests limited three-way benefit on this run; contention may change it."
-  }
+    "comparison_limit": "One pair is not a repeatable speedup estimate. Most gain is faster main-flow execution, not the19.37-second removable LVS tail. No serial speed comparison and no contended-Mac speed claim."
+  },
+  "schedule_comparison": "reports/c4-schedule-comparison.json",
+  "compute_status": "TERMINATED"
 }

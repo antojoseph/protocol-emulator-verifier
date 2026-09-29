@@ -9,7 +9,9 @@ CMOS5L physical envelope. Tempo is the included starting candidate.
 **Validated baseline:** Tempo passed the complete full run, including all nine
 official prechecks and 75 gate-level functional stages. Routed standard-cell
 area is **515,364 µm²**, with accepted score **1.9403761225075868**.
-The current parallel full run passed in **100m47s** on the Mac.
+The default three-branch full run passed in **70m49s** on a dedicated C4,
+versus **74m09s** for two branches in one sequential comparison. See the
+[current promotion and limits](docs/c4-schedule-promotion.md).
 See the [validation results and evidence](docs/validation.md) and
 [parallel scheduling measurements](docs/parallel-verification.md).
 
@@ -35,8 +37,9 @@ candidate snapshot, source/harness hashes, generated workloads, and tool logs.
 Use `--out PATH` for a new named evidence directory, `--seed N` to vary public
 workloads, and `--physical-timeout SECONDS` for slow machines. Full mode overlaps
 independent physical checks by default; `--physical-schedule serial` runs the same
-checks sequentially on smaller hosts. Allow 32 GiB for the two container limits
-plus host overhead (64 GiB RAM recommended). Existing evidence
+checks sequentially on smaller hosts. `--physical-schedule parallel` retains
+the previous two-branch schedule. The default allows three containers totaling
+12 CPU / 48 GiB limits plus host overhead (64 GiB RAM recommended). Existing evidence
 directories are never overwritten. Private peer inputs are freshly randomized
 after candidate compilation; public seed alone does not predict them.
 

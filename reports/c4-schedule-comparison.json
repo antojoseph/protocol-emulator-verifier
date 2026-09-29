@@ -1,0 +1,153 @@
+{
+  "recorded_utc": "2026-09-29T08:41:24.808476+00:00",
+  "comparison": "One sequential pair on the same otherwise idle C4; serial cancelled and incomplete, never counted as acceptance",
+  "parallel": {
+    "wall_seconds": 4448.535194,
+    "physical_seconds": 4002.889,
+    "commands": {
+      "precheck_dependencies": {
+        "elapsed_seconds": 0.708339,
+        "started_monotonic": 142.152154975,
+        "returncode": 0
+      },
+      "ports": {
+        "elapsed_seconds": 0.404618,
+        "started_monotonic": 142.860992425,
+        "returncode": 0
+      },
+      "harden": {
+        "elapsed_seconds": 3980.079007,
+        "started_monotonic": 143.27908509,
+        "returncode": 0
+      },
+      "official_precheck": {
+        "elapsed_seconds": 2078.167417,
+        "started_monotonic": 1830.653122664,
+        "returncode": 0
+      },
+      "gds_geometry": {
+        "elapsed_seconds": 0.811854,
+        "started_monotonic": 3908.825186226,
+        "returncode": 0
+      },
+      "export_cdl": {
+        "elapsed_seconds": 0.511771,
+        "started_monotonic": 3909.637294904,
+        "returncode": 0
+      },
+      "gds_lvs": {
+        "elapsed_seconds": 232.571496,
+        "started_monotonic": 3910.155765772,
+        "returncode": 0
+      }
+    }
+  },
+  "parallel_lvs": {
+    "wall_seconds": 4249.487894,
+    "physical_seconds": 3816.433,
+    "commands": {
+      "precheck_dependencies": {
+        "elapsed_seconds": 0.608126,
+        "started_monotonic": 8376.912533813,
+        "returncode": 0
+      },
+      "ports": {
+        "elapsed_seconds": 0.404284,
+        "started_monotonic": 8377.521106456,
+        "returncode": 0
+      },
+      "harden": {
+        "elapsed_seconds": 3813.95209,
+        "started_monotonic": 8377.937944464,
+        "returncode": 0
+      },
+      "official_precheck": {
+        "elapsed_seconds": 2063.155253,
+        "started_monotonic": 10019.360843155,
+        "returncode": 0
+      },
+      "export_cdl": {
+        "elapsed_seconds": 0.712251,
+        "started_monotonic": 10019.361408744,
+        "returncode": 0
+      },
+      "gds_lvs": {
+        "elapsed_seconds": 239.733048,
+        "started_monotonic": 10020.082920331,
+        "returncode": 0
+      },
+      "gds_geometry": {
+        "elapsed_seconds": 0.812505,
+        "started_monotonic": 12082.516418378,
+        "returncode": 0
+      }
+    }
+  },
+  "wall_seconds_saved": 199.04730000000018,
+  "percent_less_wall_time": 4.474445886557601,
+  "accepted": true,
+  "score": 1.9403761225075868,
+  "all_mandatory_checks_passed": true,
+  "candidate_identical": true,
+  "harness_matches_local_validated_source": true,
+  "validated_source_commit": "8c3a68b27df28a624dba997aa3ddd9beba681853",
+  "physical_metrics_identical": true,
+  "pinned_flow_and_config_identical": true,
+  "sealed_final_raw_hashes_identical": true,
+  "cross_run_raw_hashes_identical": {
+    "gds": false,
+    "netlist": true,
+    "odb": true,
+    "def": true,
+    "lef": true
+  },
+  "gds_comparison": "Cloud cross-run raw GDS hashes differ. Timestamp-only equivalence is not asserted without downloading artifacts; normalization is never used for acceptance. Full artifacts retained on benchmark boot disk.",
+  "cleanup": {
+    "runner_exit": 0,
+    "verifier_exit": 0,
+    "physical_runner_close_passed": true,
+    "vm_status": "TERMINATED",
+    "instance_id": "1821620109997177281",
+    "observed_utc": "2026-09-29T08:39:16Z",
+    "independent_post_run_container_inventory": false,
+    "note": "Full result requires successful owned-container cleanup; VM was already stopped when observed.",
+    "vm_evidence": {
+      "id": "1821620109997177281",
+      "labels": {
+        "asic-isolation": "5514427b44c3f1504057ebe9",
+        "asic-purpose": "parallel-benchmark"
+      },
+      "lastStopTimestamp": "2026-09-29T01:38:02.374-07:00",
+      "name": "asic-parallel-east-20260929",
+      "status": "TERMINATED"
+    }
+  },
+  "limitation": "One pair is not a repeatable speedup estimate. Most gain is faster main-flow execution, not the19.37-second removable LVS tail. No serial speed comparison and no contended-Mac speed claim.",
+  "promotion": {
+    "entrypoint_default": "parallel-lvs",
+    "configuration": "verify prepends --physical-schedule parallel-lvs; explicit caller options override it; validated verifier bytes remain unchanged",
+    "rollback_commit": "15c19ffa692c5cde362d10817aa6e4bac9a41b99",
+    "compiler_workers": "existing serial compiler; no combination with pending compiler experiment",
+    "validation": {
+      "regression_passed": 97,
+      "optional_skipped": 12,
+      "sandbox_loopback_retry_passed": true,
+      "targeted_schedule_and_entrypoint_passed": 20,
+      "targeted_docker_skipped": 2,
+      "note": "Targeted tests overlap regression; counts are not additive. Earlier frozen-source Docker negative controls are in parallel-lvs validation evidence."
+    }
+  },
+  "serial_cancellation": {
+    "status": "cancelled",
+    "instance_id": "1821620109997177281",
+    "cancelled_utc": "2026-09-29T07:25:36.572443+00:00",
+    "reason": "User requested running the validated parallel-lvs schedule now; preserve serial as incomplete and compare against the accepted parallel baseline.",
+    "partial_result_sha256": "93faa54932248bc00ad3b0dda56a2f8fa2deb3509a7200158788ec42d5d1762d",
+    "owned_container_ids": [
+      "69df01cc628a858236e8a3080dd286610aa7ab3105fe1110fe6a0e183473e514"
+    ],
+    "owned_containers_remaining": [],
+    "accepted": false,
+    "score": null
+  }
+}

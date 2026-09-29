@@ -1,5 +1,9 @@
 # Parallel physical verification
 
+The current default is the fully accepted three-branch schedule. See
+[the C4 comparison and promotion](c4-schedule-promotion.md). The two-branch
+implementation and historical evidence below remain available for rollback.
+
 The first implementation overlaps the unchanged LibreLane Classic flow with
 all official prechecks, geometry and delivered-GDS LVS after the fresh layout
 artifacts are complete. Candidate RTL, flow settings, tool pins, official decks,
@@ -68,8 +72,8 @@ audited for their separate scratch and read-only sealed mounts, each with the
 original 4 CPU / 16 GiB limits. The new Magic DRC and official precheck took
 52.3 and 56.9 minutes, versus 32.6 and 40.3 historically. The Mac had substantial
 background indexing/logging activity. These observations show real overlap,
-but do not isolate the cause of each stage's changed duration. A dedicated GCP
-Granite Rapids VM is running a sequential pair of parallel/serial evaluations.
+but do not isolate the cause of each stage's changed duration. The dedicated GCP comparison has completed; its results and limitations are
+recorded in the promotion linked above.
 
 Validation ran 83 regression tests (72 passed, 11 optional tests skipped), then
 14 boundary tests and 12 scheduler tests with Docker integration enabled; all
@@ -91,13 +95,12 @@ The normal service admission checks accepted the downloaded result and exit code
 See the [complete C4 result](../reports/c4-parallel-full.json) and
 [cloud benchmark record](../reports/high-clock-cloud-benchmark.json).
 
-The same VM is now running the serial schedule, so a controlled scheduling
-comparison is not yet available. On this parallel run, final-GDS LVS extended
-only **19.37 seconds** beyond the end of the main flow, despite taking 232.57
-seconds itself. Most of it already overlapped the main flow. Moving LVS into a
-third branch therefore has much less remaining critical-path time to remove
-on this host than the earlier Mac estimate suggested. The separate three-way
-benchmark will measure whether this benefit exceeds added contention.
+The serial comparison was deliberately cancelled at the user's request before
+completion and was not restarted or counted as acceptance. The same VM then
+completed the three-branch run in **70m49s**, 199 seconds less wall time in this
+pair. Both were fully accepted. The two-branch LVS tail was only **19.37s**;
+most of the difference came from the main flow, so this single pair does not
+establish a repeatable scheduling gain. The VM is now stopped.
 
 ## Further opportunities
 

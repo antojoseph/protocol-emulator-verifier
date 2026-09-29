@@ -1,3 +1,9 @@
 #!/usr/bin/env python3
+import sys
 from verifier.cli import main
-raise SystemExit(main())
+
+if __name__ == '__main__':
+    # Select the fully validated schedule through invocation configuration.
+    # Later explicit options retain argparse's usual override behavior.
+    sys.argv[1:1] = ['--physical-schedule', 'parallel-lvs']
+    raise SystemExit(main())

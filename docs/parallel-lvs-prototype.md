@@ -1,3 +1,7 @@
+> Promoted to the public `./verify` default after full C4 acceptance and the
+> completed [schedule comparison](c4-schedule-promotion.md). Historical prototype
+> notes below describe the original experiment; the compiler remains serial.
+
 # Opt-in independent final-GDS LVS
 
 This branch adds the opt-in `parallel-lvs` schedule. A fresh full EDA verification

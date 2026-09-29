@@ -1,0 +1,24 @@
+.............................ss................................................E./Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/zipfile.py:1505: UserWarning: Duplicate name: 'candidate.json'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+....+ gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-existing --quiet
+.+ gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+.+ gcloud projects describe asic-verifier-new --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+.sssssss...........sss
+======================================================================
+ERROR: test_loopback_operator_access_and_browser_rejection (test_service.ApiBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/fork/Documents/ChatGPT/janeS/tests/test_service.py", line 158, in test_loopback_operator_access_and_browser_rejection
+    server = HTTPServer(('127.0.0.1', 0), Handler)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 138, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [Errno 1] Operation not permitted
+
+----------------------------------------------------------------------
+Ran 109 tests in 7.058s
+
+FAILED (errors=1, skipped=12)
