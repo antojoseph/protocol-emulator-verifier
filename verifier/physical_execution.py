@@ -1,7 +1,7 @@
 """Bounded scheduling and sealed inputs for the trusted physical pipeline."""
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
 import os
@@ -198,6 +198,31 @@ def verify_sealed_artifacts(sealed, final):
             raise ExecutionError('sealed artifact changed: ' + name)
         if digest(final[name]) != artifact['sha256']:
             raise ExecutionError('final artifact differs from checked artifact: ' + name)
+
+
+def independent_checks(runner, checks):
+    """Run two independent trusted checks; fail closed and join before returning.
+
+    Check functions may launch only PhysicalRunner-owned subprocesses without
+    preexec_fn. In particular candidate compilation must remain outside this
+    thread scope. Return order follows the input order, not completion order.
+    """
+    if len(checks) != 2:
+        raise ExecutionError('independent physical checks require exactly two branches')
+    pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix='physical-independent')
+    try:
+        futures = {pool.submit(check): index for index, check in enumerate(checks)}
+        results = [None] * len(checks)
+        for future in as_completed(futures):
+            results[futures[future]] = future.result()
+        return results
+    except BaseException:
+        # Includes report parsing and artifact failures after a command exits,
+        # which do not pass through PhysicalRunner.run's cancellation handler.
+        runner.cancel()
+        raise
+    finally:
+        pool.shutdown(wait=True, cancel_futures=True)
 
 
 def overlap_checks(runner, harden_command, release_inputs, check_inputs):
