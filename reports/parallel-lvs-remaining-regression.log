@@ -1,0 +1,73 @@
+test_comments_do_not_join_tokens_into_new_spellings (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_identifier_comment_marker_cannot_hide_system_tasks (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_quote_and_line_comment_marker_cannot_hide_code (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_escaped_special_identifiers_do_not_bypass_restrictions (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_real_comments_and_string_contents_are_not_executable (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_string_comment_marker_cannot_hide_conditional_simulation_code (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_unchanged_baseline_remains_valid (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_unterminated_strings_and_comments_fail_closed (tests.test_candidate_lexer.CandidateLexerTests) ... ok
+test_memoization_preserves_recursive_hierarchy_rejection (tests.test_candidate_lexer.SynthesisHierarchyWorkTests) ... ok
+test_shared_hierarchy_dag_counts_instances_with_linear_traversal (tests.test_candidate_lexer.SynthesisHierarchyWorkTests) ... ok
+test_checked_bytes_are_snapshot_bytes (tests.test_cli_contract.AcceptanceBoundaries) ... ok
+test_existing_evidence_is_not_overwritten (tests.test_cli_contract.AcceptanceBoundaries) ... ok
+test_source_is_never_a_run_destination (tests.test_cli_contract.AcceptanceBoundaries) ... ok
+test_default_suite_has_32_programmable_cases_and_75_required_stages (tests.test_programmable_coverage.ProgrammableCoverageTests) ... ok
+test_each_programmable_case_samples_a_new_private_first_branch (tests.test_programmable_coverage.ProgrammableCoverageTests) ... ok
+test_accepted_snapshot_source_and_license_must_still_match (tests.test_publication.PublicationTests) ... ok
+test_archive_budgets_and_truncated_gzip_fail (tests.test_publication.PublicationTests) ... ok
+test_archive_traversal_links_duplicates_and_special_files_rejected (tests.test_publication.PublicationTests) ... ok
+test_deadline_is_calendar_only_without_invented_timezone_or_cutoff (tests.test_publication.PublicationTests) ... ok
+test_download_has_no_ambient_auth_and_enforces_size_budget (tests.test_publication.PublicationTests) ... ok
+test_fast_failed_incomplete_or_forged_score_is_rejected_before_network (tests.test_publication.PublicationTests) ... ok
+test_matching_public_archive_and_full_result_pass_without_submission_claim (tests.test_publication.PublicationTests) ... ok
+test_public_missing_or_modified_files_fail_closed (tests.test_publication.PublicationTests) ... ok
+test_repository_requires_credential_free_url_and_immutable_revision (tests.test_publication.PublicationTests) ... ok
+test_snapshot_change_during_download_is_rejected (tests.test_publication.PublicationTests) ... ok
+test_existing_accepted_baseline_is_recognized (tests.test_service.AcceptanceTests) ... ok
+test_fast_can_never_publish_acceptance (tests.test_service.AcceptanceTests) ... ok
+test_incomplete_or_forged_acceptance_fails_closed (tests.test_service.AcceptanceTests) ... ok
+test_loopback_operator_access_and_browser_rejection (tests.test_service.ApiBoundaryTests) ... 127.0.0.1 - - [29/Sep/2026 01:42:06] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 01:42:06] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 01:42:06] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 01:42:06] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 01:42:06] "GET /health HTTP/1.1" 403 -
+ok
+test_rejects_expansion_bomb (tests.test_service.ArchiveTests) ... ok
+test_rejects_traversal_hidden_duplicate_and_links (tests.test_service.ArchiveTests) ... /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/zipfile.py:1505: UserWarning: Duplicate name: 'candidate.json'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+ok
+test_roundtrip_baseline (tests.test_service.ArchiveTests) ... ok
+test_inspect_failure_is_not_mistaken_for_successful_cleanup (tests.test_service.CleanupTests) ... ok
+test_only_this_attempts_containers_are_removed (tests.test_service.CleanupTests) ... ok
+test_existing_project_is_rejected_before_any_write (tests.test_service.DeploymentGuardTests) ... + gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-existing --quiet
+ok
+test_failed_discovery_is_not_permission_to_create (tests.test_service.DeploymentGuardTests) ... + gcloud projects list --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+ok
+test_resume_requires_project_number_and_ownership_label (tests.test_service.DeploymentGuardTests) ... + gcloud projects describe asic-verifier-new --format=json --account=operator@example.com --project=asic-verifier-new --quiet
+ok
+test_cancellation_race_never_publishes_acceptance (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_concurrent_claim_is_exclusive (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_crash_retries_are_bounded (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_expired_worker_cannot_publish_or_renew_after_reclaim (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_idempotency_and_changed_request_rejection (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_queued_cancel_is_never_claimed (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_separate_lanes (tests.test_service.QueueTests) ... skipped 'isolated PostgreSQL required'
+test_adapter_cannot_supply_expected_results_hdl_or_expressions (tests.test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_capture_must_observe_all_result_bits_once (tests.test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_nonfinite_and_boolean_scores_rejected (tests.test_verifier.AdapterAndMetricBoundaryTests) ... ok
+test_apache_label_requires_complete_license_text (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_baseline_validate_and_snapshot_preserve_source_identity (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_changed_manifest_and_source_are_rejected_during_snapshot (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_duplicate_json_keys_cannot_override_manifest_fields (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_manifest_cannot_address_outside_candidate (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_missing_wrong_width_or_extra_tt_ports_rejected (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_simulation_tasks_cannot_forge_verifier_completion (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_symlinked_file_and_directory_cannot_escape_snapshot (tests.test_verifier.CandidateBoundaryTests) ... ok
+test_adapter_cannot_read_host_write_candidate_or_use_network (tests.test_verifier.RealBoundaryIntegrationTests) ... ok
+test_nonterminating_adapter_leaves_no_container (tests.test_verifier.RealBoundaryIntegrationTests) ... ok
+test_synthesizable_design_missing_enable_port_rejected (tests.test_verifier.RealBoundaryIntegrationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 58 tests in 21.319s
+
+OK (skipped=7)

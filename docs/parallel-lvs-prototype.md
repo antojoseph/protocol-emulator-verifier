@@ -1,9 +1,11 @@
-# Experimental independent final-GDS LVS
+# Opt-in independent final-GDS LVS
 
-This branch adds the opt-in `parallel-lvs` schedule. It has passed bounded
-scheduler and negative-control tests, including real Docker cleanup tests, but
-**has not completed a full EDA verification run**. It is not an accepted
-replacement harness. The default remains `parallel`.
+This branch adds the opt-in `parallel-lvs` schedule. A fresh full EDA verification
+of the original Tempo candidate completed with **`accepted: true` and unchanged
+score `1.9403761225075868`** on September 29, 2026. All four mandatory stages
+passed. The evaluated harness is commit
+`8c3a68b27df28a624dba997aa3ddd9beba681853`; the default remains `parallel`.
+**A performance improvement has not been established.**
 
 The fully accepted starting point is commit
 `9a3329419eb4859fc5ae230c21824c3bbd8e6f72`. Its measurement is in
@@ -18,6 +20,14 @@ precheck. Holding other durations fixed, this could remove about **5.1 minutes**
 (5% of that full run), taking roughly 100.8 minutes to 95.7 minutes. This is a
 critical-path estimate, not a measured speedup. Extra CPU and memory contention
 can offset it, especially on a busy Mac or an undersized VM.
+
+This opportunity depends on the machine's critical path. A subsequent accepted
+run of the existing `parallel` schedule on the dedicated C4, reported by the
+parent task, finished hardening at monotonic time 4,123.358 s and final-GDS LVS
+at 4,142.727 s. Only **19.37 seconds** of LVS extended beyond hardening there.
+That substantially smaller removable tail can be outweighed by the new branch's
+contention. The five-minute estimate must not be applied to that C4 run. A
+controlled comparison on the same machine is still needed.
 
 ## Execution and acceptance
 
@@ -58,7 +68,7 @@ overhead beyond those limits; 64 GiB is a reasonable test-host minimum. The
 existing `parallel` and `serial` schedules retain two- and one-container bounds.
 They still perform the same checks, with the two side groups sequential.
 
-## Evidence and remaining validation
+## Validation evidence and performance limits
 
 [`parallel-lvs-prototype-tests.log`](../reports/parallel-lvs-prototype-tests.log)
 records **34 passing targeted tests**, including:
@@ -76,8 +86,33 @@ records **34 passing targeted tests**, including:
 
 Synthetic reports are deliberately incomplete and cannot produce acceptance.
 These tests demonstrate scheduling and failure controls, not EDA correctness or
-performance. A new full run of this exact harness must still return
-`accepted: true` and a finite score. The planned run, when the host is available:
+performance. The remaining regression modules ran separately: **51 passed and
+7 skipped** because isolated PostgreSQL was not configured; service database
+code is unchanged. Together, **85 applicable tests passed**. See the
+[remaining regression log](../reports/parallel-lvs-remaining-regression.log).
+
+The fresh full run started at **05:42:36.642125 UTC** and completed at
+**07:04:21.068452 UTC**, taking **4,904.426327 seconds (81m44s)**. The Mac also
+ran a solver's full evaluation and unrelated existing workloads, so this is
+correctness validation, not a controlled timing comparison. The complete
+[accepted result](../reports/parallel-lvs-full.json) and
+[validation summary](../reports/parallel-lvs-validation.json) retain the evidence.
+
+- Candidate source hashes match original Tempo from commit `9a33294` exactly;
+  candidate and harness hashes remained unchanged during the run.
+- All physical metrics match the accepted original, including area
+  **515,364 µm²** and all three corners' setup/hold slacks.
+- Netlist, ODB, DEF and LEF are byte-identical to the accepted original. GDS is
+  identical after ignoring only its 50 timestamp records for historical
+  comparison. Acceptance itself compared all five sealed/final artifacts using
+  their exact, unmodified bytes.
+- The actual three running containers passed the read-only mount, separate
+  scratch, networking and resource-cap audit at **06:16:59 UTC**. Final-GDS LVS
+  overlapped both hardening and official precheck for its full **312.558315 s**.
+- Mandatory gate simulation passed before acceptance. An independent container
+  inventory afterward confirmed all seven owned physical containers absent.
+
+The completed command was:
 
 ```sh
 JANES_PHYSICAL_TOOLS=/Users/fork/Documents/ChatGPT/janeS/.tools/physical \
@@ -85,13 +120,14 @@ JANES_PHYSICAL_TOOLS=/Users/fork/Documents/ChatGPT/janeS/.tools/physical \
   --out .runs/tempo-full-parallel-lvs-001
 ```
 
-Compare it with the unchanged accepted candidate under the existing `parallel`
-schedule on the same otherwise idle machine. Retain all command timings,
-artifact comparisons, actual container mount/limit evidence, and fresh acceptance
-results. A slowdown, timeout, missing report, hash mismatch, or incomplete stage
-must not be treated as success. No heavy full run was started during this
-prototype task, to avoid contention with the solver's active Mac run and the
-controlled GCP benchmark.
+Before selecting this schedule for speed, compare it with the unchanged accepted
+candidate under the existing `parallel` schedule on the same otherwise idle
+machine. Retain command timings, artifact comparisons, actual container
+mount/limit evidence, and fresh acceptance results. A timeout, missing report,
+hash mismatch, or incomplete stage cannot qualify as acceptance. Correctness
+acceptance does not establish a performance win; a slower schedule may still be
+technically valid. This branch was not deployed to GCP or merged into the main
+checkout during validation.
 
 Gate simulation overlap ranks second: it could hide several more minutes but
 needs spawned-process isolation and a larger acceptance/cancellation change.
