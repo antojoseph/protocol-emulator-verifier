@@ -1,13 +1,13 @@
 # Validated parallel candidate compilation
 
-This isolated branch adds `--compiler-workers {1,2,4}`. The default remains one
-worker. It changes compiler scheduling, not the candidate, public workloads,
+The public entrypoint uses four workers by default; `--compiler-workers {1,2,4}`
+selects an explicit limit. The Python library default remains one worker. It changes compiler scheduling, not the candidate, public workloads,
 private-peer generation, expected answers, physical flow, tool pins or score.
 A fresh full run on the original Tempo candidate passed every mandatory gate
 with accepted score 1.9403761225075868. See the [full result](../reports/compiler-parallel-full.json)
 and [identity audit](../reports/compiler-parallel-validation.json). This acceptance
-uses the two-branch physical schedule; combining it with the separately promoted
-three-branch schedule requires a new full validation.
+uses the two-branch physical schedule. A subsequent [combined full validation](combined-verifier.md)
+also passed with the three-branch schedule and the intended public defaults.
 
 ```sh
 ./verify candidates/tempo --mode fast --compiler-workers 4

@@ -1,0 +1,52 @@
+{
+  "recorded_utc": "2026-09-29T10:55:34.092452+00:00",
+  "accepted": true,
+  "score": 1.9403761225075868,
+  "full_elapsed_seconds": 4627.299202,
+  "physical_seconds": 4381.067,
+  "configuration": {
+    "physical_schedule": "parallel-lvs",
+    "compiler_workers": 4,
+    "seed": 20260928
+  },
+  "frozen_source_commit": "21feb90bc1d245280973560eca6a6d0a6372019e",
+  "harness_matches_frozen_source": true,
+  "entrypoint_matches_frozen_source": true,
+  "entrypoint_sha256": "e5f72a863b83a5e0bda7f0704d377230e523a447a9bc5776de27275853133ee1",
+  "candidate_matches_original": true,
+  "all_mandatory_checks_passed": true,
+  "service_admission": "completed",
+  "physical_metrics_unchanged": true,
+  "pins_and_fixed_physical_config_unchanged": true,
+  "raw_sealed_and_final_files_independently_rehashed": true,
+  "cross_run_raw_hash_equality": {
+    "gds": false,
+    "netlist": true,
+    "odb": true,
+    "def": true,
+    "lef": true
+  },
+  "gds_note": "Each run requires raw sealed/final equality. Cross-run GDS hash difference is not normalized for acceptance.",
+  "cleanup": {
+    "owned_physical_containers": [
+      "janes-physical-401c8a23a05d460f",
+      "janes-physical-324e377ec96140d9",
+      "janes-physical-8afb8745c9ae4b37",
+      "janes-physical-b6a5fa5d2c594db6",
+      "janes-physical-f851443584b54e5e",
+      "janes-physical-bbae755e0d4d40e6",
+      "janes-physical-8f7e482de3864ca5"
+    ],
+    "remaining_owned_physical_containers": [],
+    "compiler_containers_remaining": [],
+    "scope": "Read-only docker name inventory; unrelated containers untouched"
+  },
+  "timing_scope": "This Mac full run establishes combined correctness, not a controlled full speedup versus C4 or earlier contended Mac runs. Fast improvement comes from the separately measured compiler ABBA experiment.",
+  "rollback_commit": "ad60484",
+  "tests": {
+    "regression_passed_after_loopback_retry": 106,
+    "optional_skips": 14,
+    "targeted_including_docker_passed": 34,
+    "counts_overlap": true
+  }
+}

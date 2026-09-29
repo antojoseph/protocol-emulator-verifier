@@ -1,12 +1,16 @@
 # Default verifier promotion: three physical branches
 
-`./verify candidates/tempo --mode full` now selects the fully validated
+This records the earlier physical-scheduler promotion. The subsequent
+[combined verifier promotion](combined-verifier.md) also enables four compiler
+workers after a fresh full combined acceptance.
+
+At this promotion, `./verify candidates/tempo --mode full` selected the fully validated
 `parallel-lvs` configuration. This also applies to `benchmark.sh` and the service
 worker, which invoke `verify`. The `verifier/` bytes are identical to the accepted
 source commit `8c3a68b27df28a624dba997aa3ddd9beba681853`; the entrypoint supplies
 the already-tested option. Direct Python library defaults remain unchanged.
 Explicit `--physical-schedule parallel` or `serial` overrides the entrypoint.
-No candidate or compiler-concurrency change is combined into this acceptance.
+No candidate or compiler-concurrency change was combined into this historical acceptance.
 
 | Same C4, original Tempo, seed 20260928 | Two branches | Three branches |
 | --- | ---: | ---: |
