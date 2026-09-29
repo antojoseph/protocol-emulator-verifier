@@ -1,0 +1,34 @@
+{
+  "candidate_matches_original": true,
+  "compiler_implementation_matches_accepted_7612fa9": true,
+  "physical_implementation_matches_accepted_ad60484": true,
+  "combined_full_acceptance": "pending",
+  "default_configuration": {
+    "physical_schedule": "parallel-lvs",
+    "compiler_workers": 4
+  },
+  "harness_sha256": {
+    "verifier/__init__.py": "48310f844b8bdfd6086f9965e39504d46025c41d37a020d89ceec74b1ed51537",
+    "verifier/candidate.py": "33f9e16375c6450726fbc70e085ad0e65a3a1adcb70fd3fe8178ba803a85323d",
+    "verifier/cli.py": "c4c9332852c421902226a03d081628dbdec768deb810f9c8046f9952e2f71cb7",
+    "verifier/common.py": "88b4acb28113012e873133dc7e2ae01b619604d41434f19e2a9d24efc0865464",
+    "verifier/compiler_batch.py": "ac5a65e027fb8ecdd790841bd7e416ffeae3cb042ffcad3bb3b70f26c63c30d5",
+    "verifier/containers.py": "7aa5f90b09bcca7d7f3e33bb06b6470a932a80438e748904c8d39e347848d6f7",
+    "verifier/functional.py": "7406cdb596d3652e6c0b827daf9f25d961b8d738183bfaa8a83dded8f44f8c88",
+    "verifier/isolation.py": "8d9a47cae6e01ab6fca9b053e8c6e21e2dad4366cfedec91c64656e3e7833c7a",
+    "verifier/physical.py": "64976c07cb221b3504f0217be84b785e5ae4f8d44b4f97e959a775730077ae24",
+    "verifier/physical_execution.py": "b9488f240a8b1bf1b17f57303762240936d9176c21c75fffb2808a35ff53d2ab",
+    "verifier/physical_support/LICENSE.tempo": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "verifier/physical_support/NOTICE.tempo": "2b61a38d1cc06ca94a4543ce4864040bc3031f41e708cee048004c54aed0ec00",
+    "verifier/physical_support/config.json": "f64af1e40d7a5674137de31b11730ff0b365a54880e27293d801518e316b56d7",
+    "verifier/physical_support/flow-lock.json": "baf6c272c172886a2dc1b7b7ae9737a8ff4c7a68171324c3d3e0f99461ea15ca",
+    "verifier/physical_support/functional_models.py": "17c0b3add14dfac075bbe076bb965c5290b4135e8523f9236a3f42eb690590a3",
+    "verifier/physical_support/python-wheels.json": "70d1828c754ca9492722414c8a2f879a7e566f66aafe66e13d16f6b4148f838a",
+    "verifier/policy/Apache-2.0.txt": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "verifier/protocols/README.md": "66a29ea01079fb97744491c91d32d80951ec04071ca9b2fe66b48ca385a15d87",
+    "verifier/protocols/harness.sv": "58388566da6fa983e5722af8aa741dfd405640a69168d68534c50068a17a1d4a",
+    "verifier/synthesis.py": "b3a5c1b2e5801b5c2be188b5b4da14ebb748d38d9e6378a2fb663673dc62e9de"
+  },
+  "entrypoint_sha256": "e5f72a863b83a5e0bda7f0704d377230e523a447a9bc5776de27275853133ee1",
+  "required_next_step": "One full run on this frozen combined source before promotion"
+}
