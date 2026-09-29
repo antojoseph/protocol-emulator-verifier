@@ -80,6 +80,25 @@ of those passed. See the [test log](../reports/parallel-verifier-tests.log),
 Finite tests and pinned digital signoff checks do not prove all possible future
 protocols or guarantee competition judging, tapeout or silicon behavior.
 
+### First dedicated C4 result
+
+The C4 Granite Rapids parallel run passed full verification in **74m09s**
+(4,448.535 seconds). Candidate and harness hashes, score and all physical metrics
+match the accepted Mac baseline. Netlist, ODB, DEF and LEF hashes also match;
+raw GDS hashes differ and cross-run geometry comparison is still pending.
+All five sealed artifacts matched their final delivered bytes within the run.
+The normal service admission checks accepted the downloaded result and exit code.
+See the [complete C4 result](../reports/c4-parallel-full.json) and
+[cloud benchmark record](../reports/high-clock-cloud-benchmark.json).
+
+The same VM is now running the serial schedule, so a controlled scheduling
+comparison is not yet available. On this parallel run, final-GDS LVS extended
+only **19.37 seconds** beyond the end of the main flow, despite taking 232.57
+seconds itself. Most of it already overlapped the main flow. Moving LVS into a
+third branch therefore has much less remaining critical-path time to remove
+on this host than the earlier Mac estimate suggested. The separate three-way
+benchmark will measure whether this benefit exceeds added contention.
+
 ## Further opportunities
 
 The pinned official precheck calls the main CMOS5L deck in deep mode. The deck's
@@ -99,3 +118,29 @@ The earlier compiler-request experiment reduced 43 isolated invocations from
 for fast agent iteration; production integration still needs process ownership,
 ordered results, aggregate bounds, cancellation and failure tests. It is separate
 from the physical scheduler implemented here.
+
+### Connectivity source trace
+
+A version-only container confirmed that the pinned KLayout binary reports
+**0.30.9**. The matching upstream source clarifies a nuance in the thread-count
+log: although the Ruby documentation describes tiling, deep geometry operations
+also assign the configured thread count to `DeepShapeStore`.
+`LayoutToNetlist` shares that store and its thread accessors. There is no missing
+thread-setting handoff to fix. See the
+[deep-operation assignment](https://github.com/KLayout/klayout/blob/v0.30.9/src/drc/drc/built-in-macros/_drc_engine.rb#L2743-L2750) and
+[netter thread accessors](https://github.com/KLayout/klayout/blob/v0.30.9/src/db/db/dbLayoutToNetlist.cc#L118-L126).
+
+However, `NetlistExtractor::extract_nets` invokes the hierarchical connectivity
+builder without a thread parameter. That builder traverses local cells and
+hierarchical connections synchronously; its global-net joining also uses
+sequential loops. See the
+[extraction call](https://github.com/KLayout/klayout/blob/v0.30.9/src/db/db/dbNetlistExtractor.cc#L213-L227) and
+[connectivity builder](https://github.com/KLayout/klayout/blob/v0.30.9/src/db/db/dbHierNetworkProcessor.cc#L2846-L2951).
+Raising the configured thread count therefore does not parallelize this path.
+
+The deck's `nwell_drw.nets` first triggers extraction using the accumulated
+connections, then materializes shapes for the requested layer. The measured
+connectivity interval can include both; existing log timestamps do not isolate
+which sub-operation dominates. Existing high-verbosity timers are a suitable
+later diagnostic before considering engine changes. No deck, execution mode,
+PDK, tool pin or acceptance requirement was changed by this source investigation.

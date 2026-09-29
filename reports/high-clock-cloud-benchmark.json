@@ -1,7 +1,7 @@
 {
-  "recorded_utc": "2026-09-29T05:09:40.794004+00:00",
+  "recorded_utc": "2026-09-29T06:30:12.641929+00:00",
   "scope": "Dedicated high-clock cloud benchmark; standalone verifier, existing projects and service disks untouched",
-  "full_validation_status": "running",
+  "full_validation_status": "parallel accepted; serial running; parallel-lvs pending separate correctness validation",
   "machine": {
     "name": "asic-parallel-east-20260929",
     "id": "1821620109997177281",
@@ -125,5 +125,44 @@
     "shutdown_guard_hours": 7,
     "shutdown_after_completion": true
   },
-  "cpu_spec_source": "https://docs.cloud.google.com/compute/docs/cpu-platforms"
+  "cpu_spec_source": "https://docs.cloud.google.com/compute/docs/cpu-platforms",
+  "isolation_audit": {
+    "only_one_benchmark_vm": true,
+    "original_service_disks_unattached": true,
+    "failed_capacity_requests_left_no_disks": true
+  },
+  "parallel_result": {
+    "status": "pass",
+    "accepted": true,
+    "score": 1.9403761225075868,
+    "elapsed_seconds": 4448.535194,
+    "physical_seconds": 4002.889,
+    "full_report": "reports/c4-parallel-full.json",
+    "full_report_sha256": "fc2c68f690099c1171257bebc1f386ad4a004e126a83ca0a74528422c4ebdaae",
+    "service_admission": "completed",
+    "candidate_matches_accepted_baseline": true,
+    "harness_matches_accepted_baseline": true,
+    "physical_metrics_match_accepted_baseline": true,
+    "sealed_artifacts_match_final": true,
+    "artifact_raw_hashes_match_mac": {
+      "gds": false,
+      "netlist": true,
+      "odb": true,
+      "def": true,
+      "lef": true
+    },
+    "gds_cross_run_note": "Raw GDS bytes differ; cross-run normalized comparison is pending retrieval after serial completes. No normalization is used in acceptance.",
+    "command_seconds": {
+      "precheck_dependencies": 0.708339,
+      "ports": 0.404618,
+      "harden": 3980.079007,
+      "official_precheck": 2078.167417,
+      "gds_geometry": 0.811854,
+      "export_cdl": 0.511771,
+      "gds_lvs": 232.571496
+    },
+    "flow_precheck_overlap_seconds": 2078.167417,
+    "lvs_tail_after_harden_seconds": 19.369169682000575,
+    "comparison_limit": "Serial is still running. This is one accepted C4 parallel run, not yet a controlled schedule speedup result. The approximately 19-second LVS tail suggests limited three-way benefit on this run; contention may change it."
+  }
 }
