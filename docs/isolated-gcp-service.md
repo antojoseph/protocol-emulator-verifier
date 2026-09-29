@@ -61,6 +61,9 @@ The pinned tool image and PDK are downloaded once and reused.
 
 ## Access and run candidates
 
+The client needs Python 3.9+ and an authenticated `gcloud` tunnel. It does not
+need local Docker, PostgreSQL, or EDA tools; those run on the worker.
+
 Open a tunnel (replace PROJECT and ZONE with receipt values):
 
 ```sh
@@ -85,6 +88,10 @@ The service is an **operator trust boundary**, not a multi-tenant public API. On
 trusted operators should have IAP/OS Login access. A future Yukon integration must
 authenticate users, bind jobs to submissions, enforce quotas, and consume authenticated
 worker results; simply exposing this API publicly is not that integration.
+
+Requests must use a `127.0.0.1` or `localhost` Host, include `X-ASIC-Client: 1`,
+and omit browser `Origin` headers. The Host restriction also prevents a rebound
+external hostname from reaching the operator API through the local tunnel.
 
 The API returns queued/running/terminal state, attempt count, candidate and verifier
 hashes, result and artifact identity. Seeds and private runtime test files are not
@@ -148,6 +155,8 @@ gcloud compute ssh asic-worker-1 --account=anto-admin@eigenlabs.org \
 python3 -m service.client --url http://127.0.0.1:18124 health
 python3 -m service.client --url http://127.0.0.1:18124 \
   submit candidates/tempo --mode fast --key MY_UNIQUE_REQUEST_KEY
+python3 -m service.client --url http://127.0.0.1:18124 status JOB_UUID
+python3 -m service.client --url http://127.0.0.1:18124 cancel JOB_UUID
 ```
 
 Use `--mode full` for an acceptance run. Save the returned job UUID and poll it

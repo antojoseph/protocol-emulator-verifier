@@ -2,6 +2,7 @@
 import base64
 import json
 import os
+import re
 import zipfile
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlsplit
@@ -25,7 +26,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def dispatch(self):
         try:
-            # Prevent browser-origin requests to an operator's localhost tunnel.
+            # The SSH tunnel keeps the client's local port in Host. Accept only
+            # literal loopback names, so DNS rebinding cannot bypass this boundary.
+            host = self.headers.get('Host', '').lower()
+            if (not re.fullmatch(r'(?:127\.0\.0\.1|localhost)(?::[0-9]{1,5})?', host)
+                    or self.headers.get('Origin') is not None):
+                return self.respond(403, {'error': 'Loopback operator clients only'})
             if self.headers.get('X-ASIC-Client') != '1':
                 return self.respond(403, {'error': 'Operator client header required'})
             path = urlsplit(self.path).path.strip('/').split('/')

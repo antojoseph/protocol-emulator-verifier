@@ -6,11 +6,15 @@ import os
 from pathlib import Path
 import stat
 import tempfile
+import threading
 import unittest
+import urllib.error
+import urllib.request
 import uuid
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import Mock, patch
+from unittest.mock import MagicMock
 import subprocess
 
 from service.client import pack
@@ -140,6 +144,33 @@ class CleanupTests(unittest.TestCase):
              patch('service.worker.subprocess.run', return_value=subprocess.CompletedProcess([], 1, '', 'daemon error')):
             with self.assertRaisesRegex(RuntimeError, 'still-present'):
                 cleanup_containers(Path('/tmp/asic-attempt'))
+
+
+class ApiBoundaryTests(unittest.TestCase):
+    def test_loopback_operator_access_and_browser_rejection(self):
+        from http.server import HTTPServer
+        from service.api import Handler
+        server = HTTPServer(('127.0.0.1', 0), Handler)
+        server.store = MagicMock()
+        thread = threading.Thread(target=server.serve_forever,
+                                  kwargs={'poll_interval': 0.01}, daemon=True)
+        thread.start()
+        url = 'http://127.0.0.1:' + str(server.server_port) + '/health'
+        try:
+            request = urllib.request.Request(url, headers={'X-ASIC-Client': '1'})
+            with urllib.request.urlopen(request, timeout=3) as response:
+                self.assertEqual(json.load(response), {'status': 'ok'})
+            for headers in ({},
+                    {'X-ASIC-Client': '1', 'Host': 'rebound.example:18124'},
+                    {'X-ASIC-Client': '1', 'Origin': 'http://attacker.example'},
+                    {'X-ASIC-Client': '1', 'Host': 'localhost.attacker.example'}):
+                with self.subTest(headers=headers), self.assertRaises(urllib.error.HTTPError) as failure:
+                    urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=3)
+                self.assertEqual(failure.exception.code, 403)
+        finally:
+            server.shutdown()
+            thread.join(timeout=3)
+            server.server_close()
 
 
 @unittest.skipUnless(os.environ.get('ASIC_TEST_DATABASE_URL'), 'isolated PostgreSQL required')

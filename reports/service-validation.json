@@ -36,7 +36,7 @@
     "zone": "us-central1-a",
     "instance": "asic-worker-1",
     "bucket": "asic-verifier-260928-cc9b3c-evidence",
-    "release_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe",
+    "release_sha256": "a9f6c2a4e3181030d79d151a00eb3f1de23d5462c142dd1d8e6421d5fbaef66b",
     "private_iap_api": "pass",
     "bucket_public_access_prevention": "enforced",
     "daily_snapshot_policy": "asic-daily",
@@ -59,7 +59,8 @@
     },
     "full_baseline": {
       "job": "1bb5e297-f7f5-4044-b723-7d87d37f5b8f",
-      "state": "running"
+      "state": "running",
+      "worker_release_at_start_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe"
     },
     "worker_restart": {
       "job": "1cbf3795-0959-4776-bcd9-de38ab8d1397",
@@ -75,7 +76,15 @@
     },
     "api_restart_preserves_jobs": true,
     "both_disks_retained": true,
-    "vm_attached_only_to_dedicated_network": true
+    "vm_attached_only_to_dedicated_network": true,
+    "previous_release_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe",
+    "api_browser_boundary": {
+      "loopback_operator_health": "pass",
+      "rebound_host": 403,
+      "browser_origin": 403,
+      "missing_header": 403,
+      "full_worker_uninterrupted": true
+    }
   },
   "remaining": [
     "Complete cloud full baseline and verify its uploaded evidence"
@@ -101,5 +110,12 @@
       "https://cloud.google.com/vpc/network-pricing",
       "https://cloud.google.com/storage/pricing"
     ]
+  },
+  "additional_api_boundary_tests": {
+    "run": 19,
+    "passed": 12,
+    "skipped": 7,
+    "skip_reason": "Database logic unchanged; PostgreSQL tests passed in the earlier isolated-database run.",
+    "log": ".runs/service-api-boundary-tests.log"
   }
 }
