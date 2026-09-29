@@ -69,7 +69,7 @@ Open a tunnel (replace PROJECT and ZONE with receipt values):
 ```sh
 gcloud compute ssh asic-worker-1 --account=anto@eigenlabs.org \
   --project=PROJECT --zone=ZONE --tunnel-through-iap \
-  -- -N -L 127.0.0.1:8123:127.0.0.1:8123
+  -- -N -L 127.0.0.1:8123:127.0.0.1:8123 -o ExitOnForwardFailure=yes
 ```
 
 In another terminal, from the verifier repository:
@@ -144,12 +144,36 @@ finite suite proves all protocols or guarantees Jane Street competition acceptan
 
 The isolated deployment is `asic-verifier-260928-cc9b3c` in `us-central1-a`, with
 instance `asic-worker-1` and bucket `asic-verifier-260928-cc9b3c-evidence`.
-Use the admin account authenticated during deployment:
+
+The cloud Tempo baseline is **accepted**, with the same candidate/verifier hashes,
+**515,364 µm²** routed standard-cell area, and score **1.9403761225075868** as the
+original accepted baseline. All 75 RTL stages, 75 gate-level stages, nine official
+prechecks, timing checks, and both LVS checks passed. The downloaded evidence's
+SHA-256 and embedded result match the stored job record.
+
+| Measurement | Observed result |
+|---|---:|
+| Fast verification | 20.7 seconds, provisional |
+| Full verification | 146.3 minutes, accepted |
+| Full job through durable result publication | 146.6 minutes |
+| Unsafe HDL control | Rejected |
+| Running cancellation | Cancelled; no accepted result |
+| Worker restart | Recovered and passed on attempt 2 |
+| API restart and request boundaries | Passed |
+
+This VM's full run was slower than the earlier 118.8-minute Mac baseline. The
+service provides durable asynchronous execution; further full-run latency work
+is described in the [performance audit](performance-audit.md). These are individual
+runs, not a controlled hardware comparison. No verification checks were reduced.
+
+Use the admin account authenticated during deployment. If the local tunnel is
+already open, use the client commands directly; otherwise start it below:
 
 ```sh
 gcloud compute ssh asic-worker-1 --account=anto-admin@eigenlabs.org \
   --project=asic-verifier-260928-cc9b3c --zone=us-central1-a \
-  --tunnel-through-iap -- -N -L 127.0.0.1:18124:127.0.0.1:8123
+  --tunnel-through-iap -- -N -L 127.0.0.1:18124:127.0.0.1:8123 \
+  -o ExitOnForwardFailure=yes
 
 # In another terminal:
 python3 -m service.client --url http://127.0.0.1:18124 health

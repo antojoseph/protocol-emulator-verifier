@@ -1,5 +1,5 @@
 {
-  "status": "cloud_full_baseline_running",
+  "status": "cloud_validated",
   "unit_and_database_tests": {
     "run": 68,
     "passed": 65,
@@ -59,8 +59,37 @@
     },
     "full_baseline": {
       "job": "1bb5e297-f7f5-4044-b723-7d87d37f5b8f",
-      "state": "running",
-      "worker_release_at_start_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe"
+      "state": "completed",
+      "status": "pass",
+      "accepted": true,
+      "score": 1.9403761225075868,
+      "verifier_elapsed_seconds": 8778.04096,
+      "job_elapsed_seconds": 8797.964015,
+      "stdcell_area_um2": 515364,
+      "stages": {
+        "gates": "pass",
+        "physical": "pass",
+        "synthesis": "pass",
+        "functional": "pass"
+      },
+      "functional_stage_count": 75,
+      "gate_stage_count": 75,
+      "artifact": {
+        "uri": "gs://asic-verifier-260928-cc9b3c-evidence/jobs/1bb5e297-f7f5-4044-b723-7d87d37f5b8f/8bef8adb-f496-4a21-956d-61baf41bbd6a/evidence.tar.gz",
+        "bytes": 357259465,
+        "sha256": "8ff73f7cf4eeebe38de645c70d567c0342492d20000452b8b3961e543b7b9a0d",
+        "generation": "1790650573278219"
+      },
+      "downloaded_evidence_sha256_verified": true,
+      "artifact_result_matches_database": true,
+      "worker_release_at_start_sha256": "df21e39ba1cbf0800890e73678b8cdd0be939a04352a5d38d287270cd5160fbe",
+      "api_release_during_run_sha256": "a9f6c2a4e3181030d79d151a00eb3f1de23d5462c142dd1d8e6421d5fbaef66b",
+      "official_precheck_count": 9,
+      "matches_original_candidate_and_harness": true,
+      "functional_assertions": 48654,
+      "gate_assertions": 48640,
+      "started_utc": "2026-09-29T00:29:36.444879+00:00",
+      "completed_utc": "2026-09-29T02:55:54.485839+00:00"
     },
     "worker_restart": {
       "job": "1cbf3795-0959-4776-bcd9-de38ab8d1397",
@@ -84,11 +113,23 @@
       "browser_origin": 403,
       "missing_header": 403,
       "full_worker_uninterrupted": true
+    },
+    "release_metadata_matches_receipt": true,
+    "cli_defaults_unchanged": true,
+    "post_validation_health": {
+      "services_active": [
+        "asic-db",
+        "asic-api",
+        "asic-worker@fast",
+        "asic-worker@full"
+      ],
+      "active_candidate_containers": 0,
+      "completed_jobs": 4,
+      "cancelled_jobs": 1,
+      "queued_or_running_jobs": 0
     }
   },
-  "remaining": [
-    "Complete cloud full baseline and verify its uploaded evidence"
-  ],
+  "remaining": [],
   "additional_cleanup_tests": {
     "passed": 2,
     "log": ".runs/service-final-boundary-tests.log"

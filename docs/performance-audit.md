@@ -125,11 +125,39 @@ tiling non-local operations. Changing modes or disabling connectivity checks
 is not an established equivalent speedup. Keep the official deck unchanged.
 See [KLayout's DRC documentation](https://www.klayout.de/doc-qt5/manual/drc_runsets.html).
 
-Running the same pinned image natively on Linux x86-64 avoids the current
-architecture emulation. The size of that benefit is unmeasured; benchmark the
-unchanged baseline there before promising a multiplier or target runtime.
+Running the same pinned image natively on Linux x86-64 avoids architecture
+emulation. The subsequent cloud measurement below did not improve full-run latency;
+native execution alone is not a demonstrated speedup on this VM.
 [Docker's documentation](https://docs.docker.com/build/building/multi-platform/)
 describes the potential emulation cost for compute-heavy workloads.
+
+## Native cloud measurement
+
+The unchanged Tempo candidate and verifier completed a full accepted run on a
+`c3-standard-8` VM (8 vCPU, 32 GB RAM) in `us-central1`. The physical tool container
+retained its four-CPU limit. The accepted area and score exactly match the original
+baseline. See [service validation](../reports/service-validation.json) for the job,
+release identities, artifact generation, and independently checked archive digest.
+
+| Work | Earlier Mac run | Native cloud run |
+|---|---:|---:|
+| Fast verification | 28.0 s | 20.7 s |
+| Full verification | 118.8 min | 146.3 min |
+| Detailed routing | 24.2 min | 29.1 min |
+| Magic DRC | 32.6 min | 42.8 min |
+| Official CMOS5L KLayout DRC | 40.3 min | 49.8 min |
+
+The cloud full run was **23.2% slower** in these observations. Both DRC checks
+still consumed **63.3%** of its total time. Durable job publication, including
+queue pickup and evidence packaging/upload, added about 20 seconds beyond the
+verifier's runtime. The API-only admission update during the run changed no worker,
+candidate, tool, or verifier files, and did not restart the full worker.
+
+These are individual measurements with different runtime test inputs and early
+overlapping diagnostic work, not a controlled CPU benchmark. The cloud service
+establishes durable remote execution and measured fast-loop latency. Full-run
+acceleration still requires the scheduling work described above; it has not been
+implemented, and no acceptance obligation was removed.
 
 ## Work that is already inexpensive
 
@@ -152,8 +180,9 @@ candidate verdicts or synthesis area for fresh full acceptance.
 2. Overlap checks on immutable artifacts, initially after Classic flow, then
    evaluate the earlier artifact-release schedule. Run the complete baseline
    and inject failures into every branch before deploying the new scheduler.
-3. Measure the unchanged pinned tools on native Linux x86-64 and benchmark
-   routing CPU allocations while retaining the official verification decks.
+3. Use the measured cloud baseline for routing CPU-allocation comparisons,
+   retaining the official verification decks and obtaining a fresh full pass
+   for each organizer-controlled execution change.
 
 Finite testing cannot certify every future program or make a verifier
 infallible. The preservation target is every existing acceptance obligation,
