@@ -1,9 +1,10 @@
 # Programmable protocol emulator verifier
 
-**Experimental compiler-concurrency branch:** `--compiler-workers 4` has passed
-fresh fast evaluations and scheduler/Docker tests. Full acceptance of this
-modified harness is pending; the historical accepted results below belong to
-their recorded verifier identities. See [measurements and limits](docs/compiler-parallelism.md).
+**Validated compiler-concurrency branch:** four compiler workers passed a fresh
+full evaluation on the original candidate with the two-branch physical schedule.
+The faster fast-path measurements and full acceptance are recorded in
+[compiler validation](docs/compiler-parallelism.md). A combined three-branch
+configuration is being validated separately before default promotion.
 
 A local agent hill-climbing harness for Jane Street's [protocol-emulator ASIC
 competition](https://blog.janestreet.com/protocol-emulator-asic-competition/).
