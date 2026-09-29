@@ -15,7 +15,9 @@ import tempfile
 from .common import ROOT, ToolUnavailable, VerificationError
 
 
-def compiler(candidate, manifest, workdir):
+def compiler(candidate, manifest, workdir, *, workers=1, _container_name=None):
+    if type(workers) is not int or workers not in (1, 2, 4):
+        raise ValueError('compiler workers must be 1, 2, or 4')
     candidate = Path(candidate).resolve()
     workdir = Path(workdir).resolve()
     workdir.mkdir(parents=True, exist_ok=True)
@@ -30,7 +32,7 @@ def compiler(candidate, manifest, workdir):
         if not docker:
             raise ToolUnavailable('Docker is required for isolated candidate compilation; start Docker and run ./setup.sh')
         lock = json.loads((ROOT / 'verifier/physical_support/flow-lock.json').read_text())
-        container_name = 'protocol-compiler-' + secrets.token_hex(12)
+        container_name = _container_name or 'protocol-compiler-' + secrets.token_hex(12)
         command = [docker, 'run', '-i', '--rm', '--name', container_name, '--pull=never', '--platform=linux/amd64',
                    '--network=none', '--read-only', '--cap-drop=ALL',
                    '--security-opt=no-new-privileges', '--pids-limit=64',
@@ -86,4 +88,8 @@ def compiler(candidate, manifest, workdir):
         if not isinstance(result, dict):
             raise VerificationError('Candidate compiler must return a JSON object')
         return result
+    if workers > 1:
+        from functools import partial
+        from .compiler_batch import compile_batch
+        invoke.batch = partial(compile_batch, candidate, manifest, workdir, workers=workers)
     return invoke

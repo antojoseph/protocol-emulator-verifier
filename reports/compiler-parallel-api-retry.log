@@ -1,0 +1,11 @@
+test_loopback_operator_access_and_browser_rejection (test_service.ApiBoundaryTests) ... 127.0.0.1 - - [29/Sep/2026 03:34:43] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 03:34:43] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 03:34:43] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 03:34:43] "GET /health HTTP/1.1" 403 -
+127.0.0.1 - - [29/Sep/2026 03:34:43] "GET /health HTTP/1.1" 403 -
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.038s
+
+OK

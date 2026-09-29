@@ -26,3 +26,15 @@ class DefaultScheduleTests(unittest.TestCase):
                 self.assertEqual(exited.exception.code, 0)
                 self.assertEqual(evaluate.call_args.kwargs['physical_schedule'], expected)
                 self.assertEqual(evaluate.call_args.kwargs['mode'], 'full')
+                self.assertEqual(evaluate.call_args.kwargs['compiler_workers'], 4)
+
+    def test_compiler_override(self):
+        entrypoint = Path(__file__).resolve().parents[1] / 'verify'
+        with patch.object(sys, 'argv', [str(entrypoint), '--compiler-workers=1']), \
+                patch.object(verifier.cli, 'evaluate', return_value={
+                    'status': 'pass', 'accepted': False, 'score': None}) as evaluate, \
+                contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                runpy.run_path(str(entrypoint), run_name='__main__')
+            self.assertEqual(evaluate.call_args.kwargs['compiler_workers'], 1)
+            self.assertEqual(evaluate.call_args.kwargs['physical_schedule'], 'parallel-lvs')
