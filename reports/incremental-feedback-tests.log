@@ -1,0 +1,21 @@
+test_changed_firmware_or_rtl_invalidates_observation_identity (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_changed_snapshot_or_harness_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_complete_feedback_keeps_per_metric_provenance_and_omits_stale_corners (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_concurrent_completed_metric_mutation_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_direct_metrics_are_omitted_even_when_equal (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_source_record_keys_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_duplicate_stage_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_failed_blocked_or_incomplete_functional_runs_never_produce_feedback (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_marker_without_valid_output_state_is_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_missing_marker_stops_prefix_even_with_finished_looking_files (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_no_completed_stages_is_pending (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_nonfinite_and_oversized_metrics_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_partial_marker_ignores_its_metrics_and_later_stages (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_previous_acceptance_is_never_reissued (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_read_only_and_never_reads_private_or_netlist_artifacts (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+test_symlink_stage_and_metric_are_rejected (test_provisional_feedback.ProvisionalFeedbackTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.837s
+
+OK

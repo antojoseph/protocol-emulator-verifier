@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "investigation_date": "2026-09-29",
+  "base_commit": "9a3329419eb4859fc5ae230c21824c3bbd8e6f72",
+  "branch": "codex/incremental-verifier-001",
+  "accepted": false,
+  "score": null,
+  "production_verifier_modified": false,
+  "candidate_modified": false,
+  "eda_jobs_executed": 0,
+  "cloud_actions": 0,
+  "private_runtime_artifacts_read": false,
+  "conclusion": "Budgeted provisional feedback in 15\u201320 minutes is plausible; full signoff is neither completed nor guaranteed within that budget.",
+  "timing_basis": {
+    "report": "reports/parallel-validation.json",
+    "sha256": "0c60194c73fae75d65c0278e53ad44c7557c2b681e7739f13d8e64db9ef05f05",
+    "cumulative_tool_seconds_by_step": {
+      "6": 93.88,
+      "12": 118.636,
+      "28": 134.888,
+      "38": 294.839,
+      "39": 300.473,
+      "44": 373.221,
+      "45": 1793.491,
+      "56": 1861.382,
+      "61": 1991.646
+    },
+    "detailed_routing_seconds": 1420.27,
+    "full_seconds": 6047.400821,
+    "limitation": "One accepted baseline, cumulative tool time excludes setup/controller/queue/functional overhead; changed candidates and contention can exceed the target.",
+    "parent_reported_changed_candidate_global_route_seconds": 1171,
+    "parent_reported_scope": "Reported by parent; this investigation did not inspect the active run."
+  },
+  "prototype": {
+    "command": "python3 -B scripts/provisional_feedback.py --evaluation /ABSOLUTE/PATH/TO/EVALUATION --candidate candidates/tempo",
+    "observation_wall_seconds": 0.085514,
+    "example": "reports/incremental-feedback-example.json",
+    "early_stages_observed": 44,
+    "direct_stdcell_area_um2": 515005,
+    "area_stage": "41-openroad-repairdesignpostgrt",
+    "direct_timing_corners": [
+      "nom_typ_1p20V_25C"
+    ],
+    "remaining_scope": "Read-only observer; no scheduling, cancellation, early-stop flow, cache, acceptance or deployment."
+  },
+  "tests": {
+    "command": "python3 -B -m unittest discover -s tests -p test_provisional_feedback.py -v",
+    "passed": 16,
+    "failed": 0,
+    "elapsed_seconds": 1.837,
+    "evidence": "reports/incremental-feedback-tests.log"
+  },
+  "cache_conclusion": {
+    "reusable_now": "Pinned immutable dependency downloads with integrity revalidation.",
+    "possible_future_provisional": "Exact dependency-addressed deterministic artifacts, organizer-owned immutable objects and complete manifests; no fresh verdict reuse.",
+    "accepted_result_reuse": "Forbidden for changed packages or partial/cached runs under current source/harness admission and fresh full provenance."
+  }
+}
